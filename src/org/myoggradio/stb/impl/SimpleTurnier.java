@@ -2,6 +2,9 @@ package org.myoggradio.stb.impl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.swing.JOptionPane;
+
 import org.myoggradio.stb.*;
 public class SimpleTurnier implements Turnier,Serializable
 {
@@ -19,6 +22,8 @@ public class SimpleTurnier implements Turnier,Serializable
 	{
 		runden[aktiveRunde] = runde;
 		aktiveRunde++;
+		TurnierAutoSaver tas = Factory.getTurnierAutoSaver();
+		tas.save(this);
 	}
 	@Override
 	public int getMaxrunden() 
@@ -90,5 +95,38 @@ public class SimpleTurnier implements Turnier,Serializable
 	public ArrayList<Spieler> getSpieler() 
 	{
 		return spieler;
+	}
+	@Override
+	public boolean storniereAktiveRunde()
+	{
+		boolean erg = false;
+		if (aktiveRunde > 1)
+		{
+			Runde runde = runden[aktiveRunde-1];
+			boolean ok = true;
+			for (int i=0;i<runde.getMaxPartien();i++)
+			{
+				Partie partie = runde.getPartie(i);
+				int ergebnis = partie.getErgebnis();
+				if (ergebnis != 0)
+				{
+					ok = false;
+				}
+			}
+			if (ok)
+			{
+				aktiveRunde--;
+				erg = true;
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null,"Es darf nur eine Runde ohne Ergebnisse storniert werden","Fehler",JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Die erste Runde darf nicht storniert werden","Fehler",JOptionPane.INFORMATION_MESSAGE);
+		}
+		return erg;
 	}
 }

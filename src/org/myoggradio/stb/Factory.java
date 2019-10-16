@@ -74,4 +74,8 @@ public class Factory
 	{
 		return new FileTurnierLoader();
 	}
+	public static TurnierAutoSaver getTurnierAutoSaver()
+	{
+		return new FileTurnierAutoSaver();
+	}
 }

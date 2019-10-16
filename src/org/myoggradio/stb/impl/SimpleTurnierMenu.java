@@ -16,7 +16,9 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m12 = new JMenuItem("Auswertung");
 	private JMenuItem m13 = new JMenuItem("speichern");
 	private JMenuItem m14 = new JMenuItem("laden");
+	private JMenuItem m15 = new JMenuItem("aktive Runde stornieren");
 	private JMenuItem m21 = new JMenuItem("anzeigen");
+	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JPanel cpan = new JPanel();
 	private JPanel rpan = new JPanel();
@@ -38,7 +40,9 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m1.add(m12);
 		m1.add(m13);
 		m1.add(m14);
+		m1.add(m15);
 		m2.add(m21);
+		m2.add(m22);
 		m3.add(m31);
 		menu.add(m1);
 		menu.add(m2);
@@ -48,7 +52,9 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m12.addActionListener(this);
 		m13.addActionListener(this);
 		m14.addActionListener(this);
+		m15.addActionListener(this);
 		m21.addActionListener(this);
+		m22.addActionListener(this);
 		m31.addActionListener(this);
 		butt1.addActionListener(this);
 		butt2.addActionListener(this);
@@ -180,11 +186,34 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 				dispose();
 			}
 		}
+		if (source == m15) // dargestellte Runde stornieren
+		{
+			int ok = JOptionPane.showConfirmDialog(null, "aktive Runde wirklich stornieren?");
+			if (ok == JOptionPane.YES_OPTION)
+			{
+				boolean storniert = Parameter.turnier.storniereAktiveRunde();
+				if (storniert)
+				{
+					TurnierMenu tm = Factory.getTurnierMenu();
+					tm.anzeigen();
+					dispose();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null,"Runde wurde nicht storniert","Fehler",JOptionPane.INFORMATION_MESSAGE);	
+				}
+			}
+		}
 		if (source == m21) // Spieler anzeigen
 		{
 			SpielerAnzeigenDialog nsm = Factory.getSpielerAnzeigenDialog();
 			nsm.setSpieler(Parameter.turnier.getSpieler());
 			nsm.anzeigen();
+		}
+		if (source == m22) // speichern Spieler
+		{
+			SpielerSaver saver = Factory.getSpielerSaver();
+			saver.save(Parameter.spieler);
 		}
 		if (source == m31) // Version anzeigen
 		{
