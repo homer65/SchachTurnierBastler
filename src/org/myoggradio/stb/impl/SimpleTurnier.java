@@ -20,6 +20,8 @@ public class SimpleTurnier implements Turnier,Serializable
 	@Override
 	public void setNextRunde(Runde runde) 
 	{
+		RundenSortierer rs = Factory.getRundenSortierer();
+		rs.sortierePartien(runde);
 		runden[aktiveRunde] = runde;
 		aktiveRunde++;
 		TurnierAutoSaver tas = Factory.getTurnierAutoSaver();

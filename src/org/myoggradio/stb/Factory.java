@@ -78,4 +78,8 @@ public class Factory
 	{
 		return new FileTurnierAutoSaver();
 	}
+	public static RundenSortierer getRundenSortierer()
+	{
+		return new SimpleRundenSortierer();
+	}
 }

@@ -36,6 +36,7 @@ public class SimpleTurnierManager implements TurnierManager
 				}
 			}
 			erg = minrunde;
+			
 			Protokol.write("SimpleTurnierManager:Bewertung Minimum: " + minimum);
 		}
 		else
