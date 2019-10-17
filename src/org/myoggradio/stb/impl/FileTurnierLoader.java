@@ -26,6 +26,7 @@ public class FileTurnierLoader implements TurnierLoader
 					if (obj instanceof Turnier)
 					{
 						erg = (Turnier) obj;
+						Parameter.spieler = erg.getSpieler();
 					}
 					else
 					{
