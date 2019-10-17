@@ -1,1 +1,8 @@
 /bin/
+/dll/
+/lib/
+.classpath
+.project
+mannschft5
+/SchachTurnierBastler-Turnier-Runde-0-AutoSave.stb
+/SchachTurnierBastler-Turnier-Runde-1-AutoSave.stb
