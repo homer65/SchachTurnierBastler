@@ -13,7 +13,11 @@ public class SimpleRundenSortierer implements RundenSortierer
 			Partie partie = runde.getPartie(i);
 			partien.add(partie);
 		}
-		Collections.sort(partien,new PartieComparator());
+		int nummerAktiveRunde = Parameter.turnier.getNummerAktiveRunde();
+		if (nummerAktiveRunde >= 0)
+		{
+			Collections.sort(partien,new PartieComparator());
+		}
 		for (int i=0;i<partien.size();i++)
 		{
 			runde.setPartie(partien.get(i),i);

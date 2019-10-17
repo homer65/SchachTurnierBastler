@@ -6,6 +6,7 @@ public class Parameter
 	public static int anzahlRunden = 7;
 	public static ArrayList<Spieler> spieler = new ArrayList<Spieler>();
 	public static Turnier turnier = Factory.getTurnier();
+	public static ArrayList<Auswertung> auswertungen = new ArrayList<Auswertung>();
 	public static int maxiter = 1000000;
 	public static int itermsg = 100000;
 	public static int malusGleichePartie = 10000;

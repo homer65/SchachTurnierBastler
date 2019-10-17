@@ -10,14 +10,30 @@ public class PartieComparator implements Comparator<Partie>
 		Spieler spieler1s = o1.getSchwarz();
 		Spieler spieler2w = o2.getWeiss();
 		Spieler spieler2s = o2.getSchwarz();
-		int dwz1w = spieler1w.getDWZ();
-		int dwz1s = spieler1s.getDWZ();
-		int dwz2w = spieler2w.getDWZ();
-		int dwz2s = spieler2s.getDWZ();
-		int dwz1 = dwz1s + dwz1w;
-		int dwz2 = dwz2s + dwz2w;
-		if (dwz1 > dwz2) erg = -1;
-		if (dwz2 > dwz1) erg = 1;
+		int pos1w = 0;
+		int pos1s = 0;
+		int pos2w = 0;
+		int pos2s = 0;
+		int n = Parameter.auswertungen.size();
+		for (int i=0;i<n;i++)
+		{
+			Auswertung auswertung = Parameter.auswertungen.get(i);
+			Spieler spieler = auswertung.getSpieler();
+			if (spieler == spieler1w) pos1w = i;
+			if (spieler == spieler1s) pos1s = i;
+			if (spieler == spieler2w) pos2w = i;
+			if (spieler == spieler2s) pos2s = i;
+		}
+		int pos1 = pos1s + pos1w;
+		int pos2 = pos2s + pos2w;
+		if (pos1 > pos2) erg = 1;
+		else if (pos2 > pos1) erg = -1;
+		else
+		{
+			erg = 0;
+		}
+		Protokol.write(spieler1w.getName() + "-" + spieler1s.getName() + " " + pos1);
+		Protokol.write(spieler2w.getName() + "-" + spieler2s.getName() + " " + pos2);
 		return erg;
 	}
 
