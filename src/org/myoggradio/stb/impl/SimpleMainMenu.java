@@ -21,7 +21,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	public SimpleMainMenu()
 	{
 		this.setName("SchachTurnierBastler");
-		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		m1.add(m11);
 		m1.add(m12);
 		m2.add(m21);
