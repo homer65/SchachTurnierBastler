@@ -1,8 +1,0 @@
-Spieler=Andreas=Stauche=1778=
-Spieler=Pierre=Grone=1426=
-Spieler=Heinrich=Reese=1504=
-Spieler=Peter=van den Brink=1424=
-Spieler=Ralf=Scheithauer=1313=
-Spieler=Christian=Ehm=1282=
-Spieler=Thorsten=Preuﬂ=1183=
-Spieler=Wolfgang=Meiler=1098=
