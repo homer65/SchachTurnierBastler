@@ -1,8 +1,18 @@
-Spieler=Andreas=Stauche=1778=
-Spieler=Pierre=Grone=1426=
-Spieler=Heinrich=Reese=1504=
-Spieler=Peter=van den Brink=1424=
-Spieler=Ralf=Scheithauer=1313=
-Spieler=Christian=Ehm=1282=
-Spieler=Thorsten=Preuß=1183=
-Spieler=Wolfgang=Meiler=1098=
+Spieler=Albert=Einstein=1778=
+Spieler=Niels=Bohr=1426=
+Spieler=Arnold=Sommerfeld=1504=
+Spieler=Wolfgang=Pauli=1424=
+Spieler=Stephen=Hawking=1313=
+Spieler=Steven=Weinberg=1282=
+Spieler=Julian=Schwinger=1183=
+Spieler=Richard=Feynman=1098=
+Spieler=Lew=Landau=2054=
+Spieler=Hans=Bethe=2156=
+Spieler=Pascual=Jordan=1723=
+Spieler=Paul=Dirac=1433=
+Spieler=Enrico=Fermi=2459=
+Spieler=Werner=Heisenberg=1109=
+Spieler=Erwin=Schrödinger=1688=
+Spieler=Peter=Debye=2300=
+Spieler=Max=Born=1322=
+Spieler=Emmy=Noether=2087=

@@ -32,8 +32,8 @@ public class PartieComparator implements Comparator<Partie>
 		{
 			erg = 0;
 		}
-		Protokol.write(spieler1w.getName() + "-" + spieler1s.getName() + " " + pos1);
-		Protokol.write(spieler2w.getName() + "-" + spieler2s.getName() + " " + pos2);
+		//Protokol.write(spieler1w.getName() + "-" + spieler1s.getName() + " " + pos1);
+		//Protokol.write(spieler2w.getName() + "-" + spieler2s.getName() + " " + pos2);
 		return erg;
 	}
 
