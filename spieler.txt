@@ -16,3 +16,4 @@ Spieler=Erwin=Schrödinger=1688=
 Spieler=Peter=Debye=2300=
 Spieler=Max=Born=1322=
 Spieler=Emmy=Noether=2087=
+Spieler=Christian=Ehm=1282=
