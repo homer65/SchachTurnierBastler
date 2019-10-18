@@ -197,15 +197,20 @@ public class SimpleTurnierManager implements TurnierManager
 		int erg = 0;
 		if (Parameter.turnier.getUngerade() == 1)
 		{
-			Spieler freilos = runde.getFreilos();
-			for (int i=0;i<=turnier.getNummerAktiveRunde();i++)
+			ArrayList<Spieler> freilos = runde.getFreilos();
+			for (int a=0;a<freilos.size();a++)
 			{
-				Runde test = turnier.getRunde(i);
-				Spieler testfreilos = test.getFreilos();
-				if (freilos == testfreilos) erg += Parameter.malusMehrAlsEinmalFreilos;
+				for (int i=0;i<=turnier.getNummerAktiveRunde();i++)
+				{
+					Runde test = turnier.getRunde(i);
+					ArrayList<Spieler> testfreilos = test.getFreilos();
+					for (int b=0;b<testfreilos.size();b++)
+					{
+						if (freilos.get(a) == testfreilos.get(b)) erg += Parameter.malusMehrAlsEinmalFreilos;
+					}
+				}
 			}
-		}
-		
+		}		
 		return erg;
 	}
 	public int bewerteNichtMehrAlsEinmalGegeneinander(Runde runde)
@@ -245,7 +250,7 @@ public class SimpleTurnierManager implements TurnierManager
 		Spieler[] altGeordneteSpieler = new Spieler[n];
 		for (int i=0;i<n;i++)
 		{
-			altGeordneteSpieler[i] = Parameter.spieler.get(i);
+			altGeordneteSpieler[i] = turnier.getSpieler().get(i);
 		}
 		int m = n;
 		for (int i=0;i<n;i++)
@@ -264,7 +269,7 @@ public class SimpleTurnierManager implements TurnierManager
 		erg.setMaxPartien(nh);
 		if (2*nh != n)
 		{
-			erg.setFreilos(neuGeordneteSpieler[n-1]);
+			erg.addFreilos(neuGeordneteSpieler[n-1]);
 		}
 		for (int i=0;i<nh;i++)
 		{

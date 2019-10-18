@@ -17,3 +17,4 @@ Spieler=Peter=Debye=2300=
 Spieler=Max=Born=1322=
 Spieler=Emmy=Noether=2087=
 Spieler=Christian=Ehm=1282=
+Spieler=Peter=Pan=1544=

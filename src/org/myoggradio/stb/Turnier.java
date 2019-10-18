@@ -13,4 +13,5 @@ public interface Turnier
 	public ArrayList<Spieler> getSpieler();
 	public void start();
 	public boolean storniereAktiveRunde();
+	public void storniereSpieler(Spieler spieler);
 }

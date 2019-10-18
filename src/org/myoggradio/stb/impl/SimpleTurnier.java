@@ -63,7 +63,7 @@ public class SimpleTurnier implements Turnier,Serializable
 		runde0.setMaxPartien(nh);
 		if (2*nh != n)
 		{
-			runde0.setFreilos(spieler.get(n-1));
+			runde0.addFreilos(spieler.get(n-1));
 		}
 		for (int i=0;i<nh;i++)
 		{
@@ -136,5 +136,15 @@ public class SimpleTurnier implements Turnier,Serializable
 			JOptionPane.showMessageDialog(null,"Die erste Runde darf nicht storniert werden","Fehler",JOptionPane.INFORMATION_MESSAGE);
 		}
 		return erg;
+	}
+	@Override
+	public void storniereSpieler(Spieler einspieler) 
+	{
+		for (int i=0;i<aktiveRunde;i++)
+		{
+			Runde runde = runden[i];
+			runde.storniereSpieler(einspieler);
+		}
+		spieler.remove(einspieler);
 	}
 }

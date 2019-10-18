@@ -1,11 +1,12 @@
 package org.myoggradio.stb.impl;
 import java.io.Serializable;
+import java.util.ArrayList;
 import org.myoggradio.stb.*;
 public class SimpleRunde implements Runde,Serializable
 {
 	private static final long serialVersionUID = 1L;
 	private Partie[] partien = null;
-	private Spieler freilos = null;
+	private ArrayList<Spieler> freilos =new ArrayList<Spieler>();
 	@Override
 	public void setMaxPartien(int n) 
 	{
@@ -17,9 +18,9 @@ public class SimpleRunde implements Runde,Serializable
 		partien[nummer] = partie;		
 	}
 	@Override
-	public void setFreilos(Spieler spieler) 
+	public void addFreilos(Spieler spieler) 
 	{
-		freilos = spieler;		
+		freilos.add(spieler);		
 	}
 	@Override
 	public int getMaxPartien() 
@@ -32,7 +33,7 @@ public class SimpleRunde implements Runde,Serializable
 		return partien[nummer];
 	}
 	@Override
-	public Spieler getFreilos() 
+	public ArrayList<Spieler> getFreilos() 
 	{
 		return freilos;
 	}
@@ -47,5 +48,41 @@ public class SimpleRunde implements Runde,Serializable
 			if (ergebnis == 0) erg = false;
 		}
 		return erg;
+	}
+	@Override
+	public void storniereSpieler(Spieler spieler) 
+	{
+		freilos.remove(spieler);
+		for (int i=0;i<partien.length;i++)
+		{
+			Partie partie = partien[i];
+			Spieler weiss = partie.getWeiss();
+			Spieler schwarz = partie.getSchwarz();
+			if (spieler == weiss)
+			{
+				addFreilos(schwarz);
+				remove(partie);
+			}
+			else if (spieler == schwarz)
+			{
+				addFreilos(weiss);
+				remove(partie);
+			}
+		}
+	}
+	private void remove(Partie partie)
+	{
+		Partie[] temp = new Partie[partien.length-1];
+		int j=0;
+		for (int i=0;i<partien.length;i++)
+		{
+			Partie test = partien[i];
+			if (test != partie)
+			{
+				temp[j] = test;
+				j++;
+			}
+		}
+		partien = temp;
 	}
 }

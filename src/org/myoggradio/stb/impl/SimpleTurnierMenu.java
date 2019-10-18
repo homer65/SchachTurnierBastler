@@ -4,6 +4,7 @@ import org.myoggradio.stb.*;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.util.ArrayList;
 public class SimpleTurnierMenu extends JFrame implements ActionListener, TurnierMenu
 {
 	private static final long serialVersionUID = 1;
@@ -19,6 +20,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m15 = new JMenuItem("aktive Runde stornieren");
 	private JMenuItem m21 = new JMenuItem("anzeigen");
 	private JMenuItem m22 = new JMenuItem("speichern");
+	private JMenuItem m23 = new JMenuItem("löschen");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JPanel cpan = new JPanel();
 	private JPanel rpan = new JPanel();
@@ -44,6 +46,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m1.add(m15);
 		m2.add(m21);
 		m2.add(m22);
+		m2.add(m23);
 		m3.add(m31);
 		menu.add(m1);
 		menu.add(m2);
@@ -56,6 +59,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m15.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
+		m23.addActionListener(this);
 		m31.addActionListener(this);
 		butt1.addActionListener(this);
 		butt2.addActionListener(this);
@@ -83,7 +87,8 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	{
 		tpan = new JPanel();
 		Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
-		int nh = Parameter.turnier.getSpieler().size() / 2;
+		//int nh = Parameter.turnier.getSpieler().size() / 2;
+		int nh = runde.getMaxPartien();
 		tpan.setLayout(new GridLayout(nh,3));
 		labtw = new JLabel[nh];
 		labts = new JLabel[nh];
@@ -108,13 +113,17 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	public void buildfpan()
 	{
 		fpan = new JPanel();
-		if (Parameter.turnier.getUngerade() == 1)
+		Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
+		ArrayList<Spieler> freilos = runde.getFreilos();
+		if (freilos.size()> 0)
 		{
-			Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
-			Spieler freilos = runde.getFreilos();
-			String sfreilos = freilos.getVorname() + " " + freilos.getName() + " " + freilos.getDWZ();
-			labf = new JLabel("Freilos " + sfreilos);
-			fpan.add(labf);
+			fpan.setLayout(new GridLayout(freilos.size(),1));
+			for (int i=0;i<freilos.size();i++)
+			{
+				String sfreilos = freilos.get(i).getVorname() + " " + freilos.get(i).getName() + " " + freilos.get(i).getDWZ();
+				labf = new JLabel("Freilos " + sfreilos);
+				fpan.add(labf);
+			}
 		}
 	}
 	public void buildrpan()
@@ -214,7 +223,16 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		if (source == m22) // speichern Spieler
 		{
 			SpielerSaver saver = Factory.getSpielerSaver();
-			saver.save(Parameter.spieler);
+			saver.save(Parameter.turnier.getSpieler());
+		}
+		if (source == m23) // Spieler löschen
+		{
+			SpielerStornierenDialog ssd = Factory.getSpielerStornierenDialog();
+			ssd.setSpieler(Parameter.turnier.getSpieler());
+			ssd.anzeigen();
+			TurnierMenu tm = Factory.getTurnierMenu();
+			tm.anzeigen();
+			dispose();
 		}
 		if (source == m31) // Version anzeigen
 		{

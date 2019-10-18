@@ -82,4 +82,8 @@ public class Factory
 	{
 		return new SimpleRundenSortierer();
 	}
+	public static SpielerStornierenDialog getSpielerStornierenDialog()
+	{
+		return new SimpleSpielerStornierenDialog();
+	}
 }

@@ -1,11 +1,13 @@
 package org.myoggradio.stb;
+import java.util.ArrayList;
 public interface Runde 
 {
 	public void setMaxPartien(int n);
 	public void setPartie(Partie partie,int nummer);
-	public void setFreilos(Spieler spieler);
+	public void addFreilos(Spieler spieler);
 	public int getMaxPartien();
 	public Partie getPartie(int nummer);
-	public Spieler getFreilos();
+	public ArrayList<Spieler> getFreilos();
 	public boolean alleErgebnisEingetragen();
+	public void storniereSpieler(Spieler spieler);
 }
