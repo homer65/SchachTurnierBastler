@@ -11,6 +11,9 @@ import javax.swing.JScrollPane;
 import org.myoggradio.stb.*;
 public class SimpleSpielerStornierenDialog extends JDialog implements SpielerStornierenDialog, ActionListener
 {
+	/*
+	 * Spieler wird aus laufendem Turnier entfernt
+	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Spieler> spieler = null;
 	private JButton[] butt = null;
