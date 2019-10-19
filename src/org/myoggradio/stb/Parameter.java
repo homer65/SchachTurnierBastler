@@ -15,6 +15,6 @@ public class Parameter
 	public static int malusFarbdifferenz3 = 9000;
 	public static int malus3malGleicheFarbe = 9500;
 	public static int malusFarbdifferenz2 = 1;
-	public static int malusGleichGut = 1;
+	public static int malusGleichGut = 100;
 	public static Dimension scrdim = new Dimension(800,700);
 }
