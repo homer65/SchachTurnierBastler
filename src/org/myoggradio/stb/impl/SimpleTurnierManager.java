@@ -295,7 +295,10 @@ public class SimpleTurnierManager implements TurnierManager
 				Runde runde = Parameter.turnier.getRunde(x);
 				if (runde.getFreilos() != null)
 				{
-					if (runde.getFreilos() == spieler) punkte = punkte + 1.0;
+					for (int c=0;c<runde.getFreilos().size();c++)
+					{
+						if (runde.getFreilos().get(c) == spieler) punkte = punkte + 1.0;
+					}
 				}
 				for (int a=0;a<runde.getMaxPartien();a++)
 				{
