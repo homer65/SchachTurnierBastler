@@ -29,7 +29,9 @@ public class SimpleSpielerLoeschenDialog extends JDialog implements SpielerLoesc
 			cpan.add(butt[i]);
 			butt[i].addActionListener(this);
 		}
-		setContentPane(new JScrollPane(cpan));
+		JScrollPane scrpan=new JScrollPane(cpan);
+		scrpan.setPreferredSize(Parameter.scrdim);
+		setContentPane(scrpan);
 		pack();
 	}
 	@Override

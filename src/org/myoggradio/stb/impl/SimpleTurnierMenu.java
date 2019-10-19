@@ -29,6 +29,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JLabel lab2 = new JLabel("0");
 	private JButton butt2 = new JButton("+");
 	private JPanel tpan = new JPanel();
+	private JLabel[] labz = null;
 	private JLabel[] labtw = null;
 	private JLabel[] labts = null;
 	private JButton[] butte = null;
@@ -81,7 +82,9 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		cpan.setLayout(new BorderLayout());
 		cpan.add(rpan,BorderLayout.NORTH);
 		cpan.add(fpan,BorderLayout.CENTER);
-		cpan.add(new JScrollPane(tpan),BorderLayout.SOUTH);
+		JScrollPane scrpan=new JScrollPane(tpan);
+		scrpan.setPreferredSize(Parameter.scrdim);
+		cpan.add(scrpan,BorderLayout.SOUTH);
 	}
 	public void buildtpan()
 	{
@@ -89,7 +92,8 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
 		//int nh = Parameter.turnier.getSpieler().size() / 2;
 		int nh = runde.getMaxPartien();
-		tpan.setLayout(new GridLayout(nh,3));
+		tpan.setLayout(new GridLayout(nh,4));
+		labz = new JLabel[nh];
 		labtw = new JLabel[nh];
 		labts = new JLabel[nh];
 		butte = new JButton[nh];
@@ -101,9 +105,11 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			String sweiss = weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ(); 
 			String sschwarz = schwarz.getVorname() + " " + schwarz.getName() + " " + schwarz.getDWZ(); 
 			int ergebnis = partie.getErgebnis();
+			labz[i] = new JLabel("" + (i+1));
 			labtw[i] = new JLabel(sweiss);
 			labts[i] = new JLabel(sschwarz);
 			butte[i] = new JButton(ErgebnisDarsteller.get(ergebnis));
+			tpan.add(labz[i]);
 			tpan.add(labtw[i]);
 			tpan.add(labts[i]);
 			tpan.add(butte[i]);

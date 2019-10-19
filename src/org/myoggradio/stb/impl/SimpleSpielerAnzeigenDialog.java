@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import org.myoggradio.stb.*;
 public class SimpleSpielerAnzeigenDialog extends JDialog implements SpielerAnzeigenDialog, ActionListener
 {
@@ -30,7 +29,9 @@ public class SimpleSpielerAnzeigenDialog extends JDialog implements SpielerAnzei
 			cpan.add(butt[i]);
 			butt[i].addActionListener(this);
 		}
-		setContentPane(new JScrollPane(cpan));
+		JScrollPane scrpan=new JScrollPane(cpan);
+		scrpan.setPreferredSize(Parameter.scrdim);
+		setContentPane(scrpan);
 		pack();
 	}
 	@Override

@@ -28,7 +28,7 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog
 	public void anzeigen()
 	{
 		JPanel cpan = new JPanel();
-		cpan.setLayout(new GridLayout(ausw.size(),4));
+		cpan.setLayout(new GridLayout(ausw.size(),5));
 		for (int i=0;i<ausw.size();i++)
 		{
 			Auswertung auswertung = ausw.get(i);
@@ -36,16 +36,20 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog
 			double punkte = auswertung.getPunkte();
 			double buchholz = auswertung.getBuchholz();
 			int dwz = spieler.getDWZ();
-			JLabel labs = new JLabel(spieler.getVorname() + " " + spieler.getName() + " " +spieler.getDWZ());
+			JLabel lab1 = new JLabel("   " + (i+1));
+			JLabel labs = new JLabel(spieler.getVorname() + " " + spieler.getName());
 			JLabel labp = new JLabel("   " + punkte);
 			JLabel labb = new JLabel("   " + buchholz);
 			JLabel labd = new JLabel("   " + dwz);
+			cpan.add(lab1);
 			cpan.add(labs);
 			cpan.add(labp);
 			cpan.add(labb);
 			cpan.add(labd);
 		}
-		setContentPane(new JScrollPane(cpan));
+		JScrollPane scrpan=new JScrollPane(cpan);
+		scrpan.setPreferredSize(Parameter.scrdim);
+		setContentPane(scrpan);
 		pack();
 		setVisible(true);
 	}

@@ -1,4 +1,5 @@
 package org.myoggradio.stb;
+import java.awt.Dimension;
 import java.util.ArrayList;
 public class Parameter 
 {
@@ -15,4 +16,5 @@ public class Parameter
 	public static int malus3malGleicheFarbe = 9500;
 	public static int malusFarbdifferenz2 = 1;
 	public static int malusGleichGut = 1;
+	public static Dimension scrdim = new Dimension(800,700);
 }

@@ -16,5 +16,27 @@ Spieler=Erwin=Schrödinger=1688=
 Spieler=Peter=Debye=2300=
 Spieler=Max=Born=1322=
 Spieler=Emmy=Noether=2087=
-Spieler=Christian=Ehm=1282=
-Spieler=Peter=Pan=1544=
+Spieler=Angela=Merkel=1282=
+Spieler=Max=Planck=1544=
+Spieler=Marie=Curie=1222=
+Spieler=Gustav=Hertz=2047=
+Spieler=Conrad=Röntgen=1793=
+Spieler=Isaac=Newton=988=
+Spieler=Felix=Bloch=1496=
+Spieler=Gustav Robert=Kirchhoff=1076=
+Spieler=Max=von Laue=1577=
+Spieler=Ernest=Rutherford=1147=
+Spieler=Abdus=Salam=1866=
+Spieler=Michael=Faraday=1365=
+Spieler=David=Hilbert=1992=
+Spieler=Pierre=de Fermat=1722=
+Spieler=John=von Neumann=2509=
+Spieler=Kurt=Gödel=1737=
+Spieler=Gottfied Wilhelm=Leibniz=1849=
+Spieler=Leonhard=Euler=1919=
+Spieler=Alan=Turing=1845=
+Spieler=Hermann=Minkowski=1290=
+Spieler=Karl=Weierstraß=1949=
+Spieler=Bernhard=Riemann=2488=
+Spieler=Adrien-Marie=Legendre=1459=
+Spieler=Galileo=Galilei=1821=
