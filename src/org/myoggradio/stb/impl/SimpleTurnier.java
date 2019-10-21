@@ -18,6 +18,16 @@ public class SimpleTurnier implements Turnier,Serializable
 		runden = new Runde[n];		
 	}
 	@Override
+	public void setMaxRundenPlus()
+	{
+		Runde[] temp = new Runde[runden.length+1];
+		for (int i=0;i<runden.length;i++)
+		{
+			temp[i] = runden[i];
+		}
+		runden = temp;
+	}
+	@Override
 	public void setNextRunde(Runde runde) 
 	{
 		runden[aktiveRunde] = runde;

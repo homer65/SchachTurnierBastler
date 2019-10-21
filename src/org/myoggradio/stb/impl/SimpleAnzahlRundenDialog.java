@@ -42,6 +42,7 @@ public class SimpleAnzahlRundenDialog extends JDialog implements AnzahlRundenDia
 		if (source == butt1)
 		{
 			Parameter.anzahlRunden = Integer.parseInt(tf1.getText());
+			Parameter.reichweite = Integer.parseInt(tf1.getText());
 			dispose();
 		}
 		if (source == butt2)

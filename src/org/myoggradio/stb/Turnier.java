@@ -14,4 +14,5 @@ public interface Turnier
 	public void start();
 	public boolean storniereAktiveRunde();
 	public void storniereSpieler(Spieler spieler);
+	public void setMaxRundenPlus();
 }

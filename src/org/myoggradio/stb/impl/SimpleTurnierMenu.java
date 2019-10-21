@@ -18,6 +18,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m13 = new JMenuItem("speichern");
 	private JMenuItem m14 = new JMenuItem("laden");
 	private JMenuItem m15 = new JMenuItem("aktive Runde stornieren");
+	private JMenuItem m16 = new JMenuItem("Turnier um eine Runde erweitern");
 	private JMenuItem m21 = new JMenuItem("anzeigen");
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("löschen");
@@ -45,6 +46,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m1.add(m13);
 		m1.add(m14);
 		m1.add(m15);
+		m1.add(m16);
 		m2.add(m21);
 		m2.add(m22);
 		m2.add(m23);
@@ -58,6 +60,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m13.addActionListener(this);
 		m14.addActionListener(this);
 		m15.addActionListener(this);
+		m16.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
@@ -219,6 +222,12 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 					JOptionPane.showMessageDialog(null,"Runde wurde nicht storniert","Fehler",JOptionPane.INFORMATION_MESSAGE);	
 				}
 			}
+		}
+		if (source == m16) // Turnier um eine Runde erweitern
+		{
+			Parameter.anzahlRunden++;
+			Parameter.reichweite++;
+			Parameter.turnier.setMaxRundenPlus();
 		}
 		if (source == m21) // Spieler anzeigen
 		{
