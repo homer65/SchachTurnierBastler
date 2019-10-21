@@ -78,9 +78,10 @@ public class SimpleTurnierManager implements TurnierManager
 		for (int i=0;i<=turnier.getNummerAktiveRunde();i++)
 		{
 			Runde runde = turnier.getRunde(i);
-			if (runde.getFreilos() != null)
+			ArrayList<Spieler> freilose = runde.getFreilos();
+			for (int x=0;x<freilose.size();x++)
 			{
-				if (runde.getFreilos() == spieler) erg = erg + 2;
+				if (freilose.get(x) == spieler) erg = erg + 2;
 			}
 			for (int a=0;a<runde.getMaxPartien();a++)
 			{
