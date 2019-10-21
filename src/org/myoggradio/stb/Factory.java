@@ -60,7 +60,7 @@ public class Factory
 	}
 	public static TurnierManager getTurnierManager()
 	{
-		return new SimpleTurnierManager();
+		return new AdvancedTurnierManager();
 	}
 	public static AuswertungDialog getAuswertungDialog()
 	{

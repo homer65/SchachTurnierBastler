@@ -17,4 +17,5 @@ public class Parameter
 	public static int malusFarbdifferenz2 = 1;
 	public static int malusGleichGut = 25;
 	public static Dimension scrdim = new Dimension(800,700);
+	public static int reichweite = 6;
 }
