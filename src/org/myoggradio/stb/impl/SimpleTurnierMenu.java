@@ -2,6 +2,7 @@ package org.myoggradio.stb.impl;
 import javax.swing.*;
 import org.myoggradio.stb.*;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		cpan.add(rpan,BorderLayout.NORTH);
 		cpan.add(fpan,BorderLayout.CENTER);
 		JScrollPane scrpan=new JScrollPane(tpan);
-		scrpan.setPreferredSize(Parameter.scrdim);
+		scrpan.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		cpan.add(scrpan,BorderLayout.SOUTH);
 	}
 	public void buildtpan()
@@ -144,6 +145,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		lab2 = new JLabel((dargestellteRunde + 1) + "");
 		rpan.add(lab2);
 		rpan.add(butt2);
+		rpan.setPreferredSize(new Dimension(Parameter.scrwidth,25));
 	}
 	public void anzeigen()
 	{

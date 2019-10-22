@@ -1,4 +1,5 @@
 package org.myoggradio.stb.impl;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +35,7 @@ public class SimpleSpielerStornierenDialog extends JDialog implements SpielerSto
 			butt[i].addActionListener(this);
 		}
 		JScrollPane scrpan=new JScrollPane(cpan);
-		scrpan.setPreferredSize(Parameter.scrdim);
+		scrpan.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		setContentPane(scrpan);
 		pack();
 	}

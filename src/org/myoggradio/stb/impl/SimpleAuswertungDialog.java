@@ -1,4 +1,5 @@
 package org.myoggradio.stb.impl;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +49,7 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog
 			cpan.add(labd);
 		}
 		JScrollPane scrpan=new JScrollPane(cpan);
-		scrpan.setPreferredSize(Parameter.scrdim);
+		scrpan.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		setContentPane(scrpan);
 		pack();
 		setVisible(true);

@@ -3,7 +3,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 public class Parameter 
 {
-	public static String version = "0.16 - 21.10.2019";
+	public static String version = "0.17 - 22.10.2019";
 	public static int anzahlRunden = 7;
 	public static ArrayList<Spieler> spieler = new ArrayList<Spieler>();
 	public static Turnier turnier = Factory.getTurnier();
@@ -16,6 +16,7 @@ public class Parameter
 	public static int malus3malGleicheFarbe = 9500;
 	public static int malusFarbdifferenz2 = 1;
 	public static int malusGleichGut = 25;
-	public static Dimension scrdim = new Dimension(600,700);
+	public static int scrwidth = 800;
+	public static int scrheight = 500;
 	public static int reichweite = 6;
 }

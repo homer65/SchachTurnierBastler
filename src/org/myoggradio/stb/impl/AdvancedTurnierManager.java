@@ -21,6 +21,12 @@ public class AdvancedTurnierManager implements TurnierManager
 			Parameter.auswertungen = getAuswertung(turnier.getNummerAktiveRunde());
 			int n = Parameter.auswertungen.size();
 			int nh = n / 2;
+			boolean ungerade = false;
+			if (2*nh != n)
+			{
+				ungerade = true;
+				nh++;
+			}
 			for (int i=0;i<Parameter.maxiter;i++)
 			{
 				s++;
@@ -34,6 +40,13 @@ public class AdvancedTurnierManager implements TurnierManager
 				for (int x=0;x<n;x++)
 				{
 					geordneteAuswertung.add(Parameter.auswertungen.get(x).getSpieler());
+				}
+				Spieler freilos = Factory.getSpieler();
+				if (ungerade)
+				{
+					freilos.setName("FREILOS");
+					freilos.setDWZ(-1);
+					geordneteAuswertung.add(freilos);
 				}
 				Runde runde = Factory.getRunde();
 				runde.setMaxPartien(nh);
@@ -57,9 +70,31 @@ public class AdvancedTurnierManager implements TurnierManager
 					}
 					runde.setPartie(partie,j);
 				}
-				if (geordneteAuswertung.size() > 0)
+				if (ungerade)
 				{
-					runde.addFreilos(geordneteAuswertung.get(0));
+					Runde temp = Factory.getRunde();
+					temp.setMaxPartien(nh-1);
+					int l=0;
+					for (int k=0;k<nh;k++)
+					{
+						Partie partie = runde.getPartie(k);
+						Spieler weiss = partie.getWeiss();
+						Spieler schwarz = partie.getSchwarz();
+						if (weiss==freilos)
+						{
+							temp.addFreilos(schwarz);
+						}
+						else if (schwarz == freilos)
+						{
+							temp.addFreilos(weiss);
+						}
+						else
+						{
+							temp.setPartie(partie, l);
+							l++;
+						}
+					}
+					runde = temp;
 				}
 				int wertRunde = bewerte(runde);
 				if (wertRunde < minimum)
