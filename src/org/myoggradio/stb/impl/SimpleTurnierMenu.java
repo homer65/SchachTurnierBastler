@@ -13,7 +13,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenu m1 = new JMenu("Turnier");
 	private JMenu m2 = new JMenu("Spieler");
 	private JMenu m3 = new JMenu("Info");
-	private JMenuItem m11 = new JMenuItem("Nächste Runde");
+	private JMenuItem m11 = new JMenuItem("Naechste Runde");
 	private JMenuItem m12 = new JMenuItem("Auswertung");
 	private JMenuItem m13 = new JMenuItem("speichern");
 	private JMenuItem m14 = new JMenuItem("laden");
@@ -21,7 +21,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m16 = new JMenuItem("Turnier um eine Runde erweitern");
 	private JMenuItem m21 = new JMenuItem("anzeigen");
 	private JMenuItem m22 = new JMenuItem("speichern");
-	private JMenuItem m23 = new JMenuItem("löschen");
+	private JMenuItem m23 = new JMenuItem("loeschen");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JPanel cpan = new JPanel();
 	private JPanel rpan = new JPanel();
@@ -163,7 +163,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	public void actionPerformed(ActionEvent ae)
 	{
 		Object source = ae.getSource();
-		if (source == m11) // Nächste Runde starten
+		if (source == m11) // NÃ¤chste Runde starten
 		{
 			Runde aktiveRunde = Parameter.turnier.getAktiveRunde();
 			if (aktiveRunde.alleErgebnisEingetragen())
@@ -240,7 +240,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			SpielerSaver saver = Factory.getSpielerSaver();
 			saver.save(Parameter.turnier.getSpieler());
 		}
-		if (source == m23) // Spieler löschen
+		if (source == m23) // Spieler lÃ¶schen
 		{
 			SpielerStornierenDialog ssd = Factory.getSpielerStornierenDialog();
 			ssd.setSpieler(Parameter.turnier.getSpieler());
@@ -253,7 +253,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		{
 			JOptionPane.showMessageDialog(null,Parameter.version,"Version",JOptionPane.INFORMATION_MESSAGE);
 		}
-		if (source == butt1) // Runde zurück
+		if (source == butt1) // Runde zurÃ¼ck
 		{
 			if (dargestellteRunde > 0) 
 			{
@@ -274,7 +274,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(null,"dargestellte Runde ist bereits die größte","Fehler",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null,"dargestellte Runde ist bereits die groesste","Fehler",JOptionPane.INFORMATION_MESSAGE);
 			}
 			init();
 		}
