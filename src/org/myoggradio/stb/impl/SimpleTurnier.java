@@ -134,6 +134,7 @@ public class SimpleTurnier implements Turnier,Serializable
 			if (ok)
 			{
 				aktiveRunde--;
+				Parameter.reichweite--;
 				erg = true;
 			}
 			else
