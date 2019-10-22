@@ -14,8 +14,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenuItem m12 = new JMenuItem("Anzahl Runden festlegen");
 	private JMenuItem m21 = new JMenuItem("laden");
 	private JMenuItem m22 = new JMenuItem("speichern");
-	private JMenuItem m23 = new JMenuItem("einzelnen Spieler hinzufügen");
-	private JMenuItem m24 = new JMenuItem("Spieler löschen");
+	private JMenuItem m23 = new JMenuItem("einzelnen Spieler hinzufuegen");
+	private JMenuItem m24 = new JMenuItem("Spieler loeschen");
 	private JMenuItem m25 = new JMenuItem("Spieler anzeigen");
 	private JMenuItem m31 = new JMenuItem("Version");
 	public SimpleMainMenu()
@@ -86,7 +86,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			SpielerSaver saver = Factory.getSpielerSaver();
 			saver.save(Parameter.spieler);
 		}
-		if (source == m23) // einzelnen Spieler hinzufügen
+		if (source == m23) // einzelnen Spieler hinzufÃ¼gen
 		{
 			NeuerSpielerDialog nsm = Factory.getNeuerSpielerDialog();
 			Spieler s = Factory.getSpieler();
@@ -97,7 +97,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 				Parameter.spieler.add(s);
 			}
 		}
-		if (source == m24) // Spieler löschen
+		if (source == m24) // Spieler lÃ¶schen
 		{
 			SpielerLoeschenDialog nsm = Factory.getSpielerLoeschenDialog();
 			nsm.setSpieler(Parameter.spieler);
