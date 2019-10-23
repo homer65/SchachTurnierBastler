@@ -1,6 +1,8 @@
 # SchachTurnierBastler
 
-SchachTurnierBastler dient zur Verwaltung von Schach Turnieren Ähnlich dem Schweizer System.
+SchachTurnierBastler dient zur Verwaltung von Schach Turnieren ähnlich dem Schweizer System.
+Wichtig: Die Software ist noch im frühen Stadium der Entwicklung.
+Wichtig: Sie sollte nur für vereinsinterne Turniere mit höchstens 50 Teilnehmern genutzt werden.
 Im ersten Schritt gibt man die teilnehmenden Spieler ein und legt die Anzahl zu Spielende Runden fest.
 Danach startet man das Turnier. 
 Ab dann ist keine Änderung mehr an den teilnehmenden Spielern und der Anzahl Runden mehr möglich. 
