@@ -44,63 +44,74 @@ public class AdvancedTurnierManager implements TurnierManager
 				Spieler freilos = Factory.getSpieler();
 				if (ungerade)
 				{
-					freilos.setName("FREILOS");
 					freilos.setDWZ(-1);
 					geordneteAuswertung.add(freilos);
 				}
 				Runde runde = Factory.getRunde();
 				runde.setMaxPartien(nh);
+				boolean rundeErmittelbar = true;
 				for (int j=0;j<nh;j++)
 				{
 					Spieler spieler1 = geordneteAuswertung.get(0);
 					geordneteAuswertung.remove(0);
-					Spieler spieler2 = getRandomPlayer(geordneteAuswertung,Parameter.reichweite);
-					geordneteAuswertung.remove(spieler2);
-					double random = Math.random();
-					Partie partie = Factory.getPartie();
-					if (random > 0.5)
+					Spieler spieler2 = getRandomPlayer(geordneteAuswertung,Parameter.reichweite,spieler1);
+					if (spieler2 != null)
 					{
-						partie.setWeiss(spieler1);
-						partie.setSchwarz(spieler2);
-					}
-					else
-					{
-						partie.setWeiss(spieler2);
-						partie.setSchwarz(spieler1);
-					}
-					runde.setPartie(partie,j);
-				}
-				if (ungerade)
-				{
-					Runde temp = Factory.getRunde();
-					temp.setMaxPartien(nh-1);
-					int l=0;
-					for (int k=0;k<nh;k++)
-					{
-						Partie partie = runde.getPartie(k);
-						Spieler weiss = partie.getWeiss();
-						Spieler schwarz = partie.getSchwarz();
-						if (weiss==freilos)
+						geordneteAuswertung.remove(spieler2);
+						double random = Math.random();
+						Partie partie = Factory.getPartie();
+						if (random > 0.5)
 						{
-							temp.addFreilos(schwarz);
-						}
-						else if (schwarz == freilos)
-						{
-							temp.addFreilos(weiss);
+							partie.setWeiss(spieler1);
+							partie.setSchwarz(spieler2);
 						}
 						else
 						{
-							temp.setPartie(partie, l);
-							l++;
+							partie.setWeiss(spieler2);
+							partie.setSchwarz(spieler1);
 						}
+						runde.setPartie(partie,j);
 					}
-					runde = temp;
+					else
+					{
+						rundeErmittelbar = false;
+						break;
+					}
 				}
-				int wertRunde = bewerte(runde);
-				if (wertRunde < minimum)
+				if (rundeErmittelbar)
 				{
-					minimum = wertRunde;
-					minimumRunde = runde;
+					if (ungerade)
+					{
+						Runde temp = Factory.getRunde();
+						temp.setMaxPartien(nh-1);
+						int l=0;
+						for (int k=0;k<nh;k++)
+						{
+							Partie partie = runde.getPartie(k);
+							Spieler weiss = partie.getWeiss();
+							Spieler schwarz = partie.getSchwarz();
+							if (weiss==freilos)
+							{
+								temp.addFreilos(schwarz);
+							}
+							else if (schwarz == freilos)
+							{
+								temp.addFreilos(weiss);
+							}
+							else
+							{
+								temp.setPartie(partie, l);
+								l++;
+							}
+						}
+						runde = temp;
+					}
+					int wertRunde = bewerte(runde);
+					if (wertRunde < minimum)
+					{
+						minimum = wertRunde;
+						minimumRunde = runde;
+					}
 				}
 			}
 			Protokol.write("AdvancedTurnierManager:Minimum Bewertung: " + minimum);
@@ -111,20 +122,42 @@ public class AdvancedTurnierManager implements TurnierManager
 		}
 		return minimumRunde;
 	}
-	private Spieler getRandomPlayer(ArrayList<Spieler> spieler,int reichweite)
+	private Spieler getRandomPlayer(ArrayList<Spieler> spieler,int reichweite,Spieler spieler1)
 	{
-		if (spieler.size() < reichweite) reichweite = spieler.size();
-		double dr = (double) reichweite;
-		double random = Math.random();
-		dr = dr * random;
-		int x = (int) dr;
-		Spieler erg = spieler.get(x);
+		ArrayList<Spieler> list = new ArrayList<Spieler>();
+		for (int x=0;x<spieler.size();x++)
+		{
+			boolean ok = true;
+			Partie partie = Factory.getPartie();
+			partie.setWeiss(spieler1);
+			partie.setSchwarz(spieler.get(x));
+			for (int i=0;i<=turnier.getNummerAktiveRunde();i++)
+			{
+				Runde test = turnier.getRunde(i);
+				for (int a=0;a<test.getMaxPartien();a++)
+				{
+					Partie partiet1 = test.getPartie(a);
+					if (partieIstGleich(partiet1,partie)) ok = false;
+				}
+			}
+			if (ok) list.add(spieler.get(x));
+		}
+		if (list.size() < reichweite) reichweite = list.size();
+		Spieler erg = null;
+		if (reichweite != 0)
+		{
+			double dr = (double) reichweite;
+			double random = Math.random();
+			dr = dr * random;
+			int x = (int) dr;
+			erg = list.get(x);
+		}
 		return erg;
 	}
 	private int bewerte(Runde runde)
 	{
 		int erg = 0;
-		erg += bewerteNichtMehrAlsEinmalGegeneinander(runde);
+		// erg += bewerteNichtMehrAlsEinmalGegeneinander(runde);
 		erg += bewerteKeinSpielerMehrAlsEinmalFreilos(runde);
 		erg += bewerteDieFarbdifferenzEinesSpielersMussKleiner3Sein(runde);
 		erg += bewerteKeinSpielerDarfDreimalHintereinanderDieGleicheFarbeHaben(runde);

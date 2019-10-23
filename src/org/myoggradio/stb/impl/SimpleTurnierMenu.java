@@ -228,7 +228,6 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		if (source == m16) // Turnier um eine Runde erweitern
 		{
 			Parameter.anzahlRunden++;
-			Parameter.reichweite++;
 			Parameter.turnier.setMaxRundenPlus();
 		}
 		if (source == m21) // Spieler anzeigen
