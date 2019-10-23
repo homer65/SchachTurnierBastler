@@ -1,5 +1,4 @@
 package org.myoggradio.stb;
-import java.awt.Dimension;
 import java.util.ArrayList;
 public class Parameter 
 {
@@ -8,8 +7,8 @@ public class Parameter
 	public static ArrayList<Spieler> spieler = new ArrayList<Spieler>();
 	public static Turnier turnier = Factory.getTurnier();
 	public static ArrayList<Auswertung> auswertungen = new ArrayList<Auswertung>();
-	public static int maxiter = 1000000;
-	public static int itermsg = 100000;
+	public static int maxiter = 5000000;
+	public static int itermsg = 200000;
 	public static int malusGleichePartie = 1000000;
 	public static int malusMehrAlsEinmalFreilos = 900000;
 	public static int malusFarbdifferenz3 = 900000;
