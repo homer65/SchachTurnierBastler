@@ -9,7 +9,7 @@ public class AdvancedTurnierManager implements TurnierManager
 	@Override
 	public Runde starteNaechsteRunde(Turnier turnier) 
 	{
-		int minimum = Parameter.maxiter;
+		int minimum = Integer.MAX_VALUE;
 		Runde minimumRunde = null;
 		this.turnier = turnier;
 		int maxrunden = turnier.getMaxrunden();
