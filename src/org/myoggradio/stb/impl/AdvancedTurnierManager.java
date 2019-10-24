@@ -106,7 +106,7 @@ public class AdvancedTurnierManager implements TurnierManager
 						}
 						runde = temp;
 					}
-					int wertRunde = bewerte(runde);
+					int wertRunde = bewerteTeil1(runde);
 					if (wertRunde < minimum)
 					{
 						minimum = wertRunde;
@@ -114,13 +114,71 @@ public class AdvancedTurnierManager implements TurnierManager
 					}
 				}
 			}
-			Protokol.write("AdvancedTurnierManager:Minimum Bewertung: " + minimum);
+			Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil1: " + minimum);
+			minimum = bewerteTeil2(minimumRunde);
+			Protokol.write("AdvancedTurnierManager:Erste Bewertung Teil2: " + minimum);
+			for (int i=0;i<Parameter.maxiter;i++)
+			{
+				s++;
+				t++;
+				if (s>=Parameter.itermsg)
+				{
+					s = 0;
+					Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t);
+				}
+				Runde runde = copyRunde(minimumRunde);
+				if (runde != null)
+				{
+					randomizeColor(runde);
+					int wertRunde = bewerteTeil2(runde);
+					if (wertRunde < minimum)
+					{
+						minimum = wertRunde;
+						minimumRunde = runde;
+					}
+				}
+			}
+			Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil2: " + minimum);
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(null,"Letzte Runde bereits erzeugt","Fehler",JOptionPane.INFORMATION_MESSAGE);
 		}
 		return minimumRunde;
+	}
+	private Runde copyRunde(Runde runde) // DeepCopy nicht möglich, da Spieler auf = abgefragt werden
+	{
+		Runde erg = Factory.getRunde();
+		erg.setMaxPartien(runde.getMaxPartien());
+		for (int i=0;i<runde.getMaxPartien();i++)
+		{
+			Partie partie = runde.getPartie(i);
+			Partie temp = Factory.getPartie();
+			temp.setErgebnis(partie.getErgebnis());
+			temp.setWeiss(partie.getWeiss());
+			temp.setSchwarz(partie.getSchwarz());
+			erg.setPartie(temp, i);
+		}
+		return erg;
+	}
+	private void randomizeColor(Runde runde)
+	{
+		for (int i=0;i<runde.getMaxPartien();i++)
+		{
+			Partie partie = runde.getPartie(i);
+			randomizeColorPartie(partie);
+		}
+	}
+	private void randomizeColorPartie(Partie partie)
+	{
+		double dr = Math.random();
+		if (dr < 0.5)
+		{
+			Spieler weiss = partie.getWeiss();
+			Spieler schwarz = partie.getSchwarz();
+			partie.setWeiss(schwarz);
+			partie.setSchwarz(weiss);				
+		}
 	}
 	private Spieler getRandomPlayer(ArrayList<Spieler> spieler,int reichweite,Spieler spieler1)
 	{
@@ -154,10 +212,9 @@ public class AdvancedTurnierManager implements TurnierManager
 		}
 		return erg;
 	}
-	private int bewerte(Runde runde)
+	private int bewerteTeil1(Runde runde)
 	{
 		int erg = 0;
-		// erg += bewerteNichtMehrAlsEinmalGegeneinander(runde);
 		erg += bewerteKeinSpielerMehrAlsEinmalFreilos(runde);
 		erg += bewerteDieFarbdifferenzEinesSpielersMussKleiner3Sein(runde);
 		erg += bewerteKeinSpielerDarfDreimalHintereinanderDieGleicheFarbeHaben(runde);
@@ -165,22 +222,14 @@ public class AdvancedTurnierManager implements TurnierManager
 		erg += bewerteGleichGuteSpielerSolltenGegeneinaderSpielen(runde);
 		return erg;
 	}
-	private int bewerteNichtMehrAlsEinmalGegeneinander(Runde runde)
+	private int bewerteTeil2(Runde runde)
 	{
 		int erg = 0;
-		for (int i=0;i<=turnier.getNummerAktiveRunde();i++)
-		{
-			Runde test = turnier.getRunde(i);
-			for (int a=0;a<test.getMaxPartien();a++)
-			{
-				Partie partiet1 = test.getPartie(a);
-				for (int b=0;b<runde.getMaxPartien();b++)
-				{
-					Partie partiet2 = runde.getPartie(b);
-					if (partieIstGleich(partiet1,partiet2)) erg+=Parameter.malusGleichePartie;
-				}
-			}
-		}
+		//erg += bewerteKeinSpielerMehrAlsEinmalFreilos(runde);
+		erg += bewerteDieFarbdifferenzEinesSpielersMussKleiner3Sein(runde);
+		erg += bewerteKeinSpielerDarfDreimalHintereinanderDieGleicheFarbeHaben(runde);
+		erg += bewerteDieFarbdifferenzEinesSpielersSollteKleiner2Sein(runde);
+		//erg += bewerteGleichGuteSpielerSolltenGegeneinaderSpielen(runde);
 		return erg;
 	}
 	private boolean partieIstGleich(Partie p1,Partie p2)
