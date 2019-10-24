@@ -30,7 +30,11 @@ public class PartieComparator implements Comparator<Partie>
 		else if (pos2 > pos1) erg = -1;
 		else
 		{
-			erg = 0;
+			if (pos1s < pos1w) pos1s = pos1w;
+			if (pos2s < pos2w) pos2s = pos2w;
+			if (pos1s > pos2s) erg = 1;
+			else if (pos2s > pos1s) erg = -1;
+			else erg = 0;
 		}
 		//Protokol.write(spieler1w.getName() + "-" + spieler1s.getName() + " " + pos1);
 		//Protokol.write(spieler2w.getName() + "-" + spieler2s.getName() + " " + pos2);
