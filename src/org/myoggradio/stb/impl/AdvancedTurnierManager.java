@@ -14,20 +14,20 @@ public class AdvancedTurnierManager implements TurnierManager
 		this.turnier = turnier;
 		int maxrunden = turnier.getMaxrunden();
 		int aktiverunde = turnier.getNummerAktiveRunde();
-		int s=0;
-		int t=0;
+		int s=0; // Anzahl Iterationen bis zur Meldung
+		int t=0; // Anzahl Iterationen
 		if (maxrunden-1 > aktiverunde)
 		{
 			Parameter.auswertungen = getAuswertung(turnier.getNummerAktiveRunde());
 			int n = Parameter.auswertungen.size();
 			int nh = n / 2;
-			boolean ungerade = false;
+			boolean ungerade = false; // gerade Anzahl von Spielern
 			if (2*nh != n)
 			{
-				ungerade = true;
+				ungerade = true; // ungerade Anzahl von Spielern
 				nh++;
 			}
-			for (int i=0;i<Parameter.maxiter;i++)
+			for (int i=0;i<Parameter.maxiter;i++) // Erste Iteration
 			{
 				s++;
 				t++;
@@ -36,24 +36,28 @@ public class AdvancedTurnierManager implements TurnierManager
 					s = 0;
 					Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t);
 				}
-				ArrayList<Spieler> geordneteAuswertung = new ArrayList<Spieler>();
+				ArrayList<Spieler> geordneteAuswertung = new ArrayList<Spieler>(); 
 				for (int x=0;x<n;x++)
 				{
 					geordneteAuswertung.add(Parameter.auswertungen.get(x).getSpieler());
-				}
+				} // Spieler wurden nach Platzierung sortiert
 				Spieler freilos = Factory.getSpieler();
 				if (ungerade)
 				{
 					freilos.setDWZ(-1);
-					geordneteAuswertung.add(freilos);
+					geordneteAuswertung.add(freilos); // Freilos kommt auf den letzten Platz; Anzahl Spieler wird gerade
 				}
 				Runde runde = Factory.getRunde();
 				runde.setMaxPartien(nh);
 				boolean rundeErmittelbar = true;
-				for (int j=0;j<nh;j++)
+				for (int j=0;j<nh;j++)  // Ermittelung der Paarungen
 				{
-					Spieler spieler1 = geordneteAuswertung.get(0);
+					Spieler spieler1 = geordneteAuswertung.get(0); // Erster Spieler einer Paarung wird von oben genommen
 					geordneteAuswertung.remove(0);
+					/* 
+					 Der zweite Spieler einer Paarung darf noch nicht gegen den Ersten gespielt haben
+					 Er wird zufällig ermittelt, aber nur innerhalb eines bestimmten Abstandes (reichweite)
+					*/
 					Spieler spieler2 = getRandomPlayer(geordneteAuswertung,Parameter.reichweite,spieler1);
 					if (spieler2 != null)
 					{
@@ -74,13 +78,13 @@ public class AdvancedTurnierManager implements TurnierManager
 					}
 					else
 					{
-						rundeErmittelbar = false;
+						rundeErmittelbar = false; // Die Paarungen einer Runde konnten nicht ermittelt werden
 						break;
 					}
 				}
 				if (rundeErmittelbar)
 				{
-					if (ungerade)
+					if (ungerade) // Wenn ja, ermittele Freilos
 					{
 						Runde temp = Factory.getRunde();
 						temp.setMaxPartien(nh-1);
@@ -106,8 +110,8 @@ public class AdvancedTurnierManager implements TurnierManager
 						}
 						runde = temp;
 					}
-					int wertRunde = bewerteTeil1(runde);
-					if (wertRunde < minimum)
+					int wertRunde = bewerteTeil1(runde); // Volle Bewertung
+					if (wertRunde < minimum) // Hat diese Runde die beste (kleinste) Bewertung
 					{
 						minimum = wertRunde;
 						minimumRunde = runde;
@@ -117,7 +121,11 @@ public class AdvancedTurnierManager implements TurnierManager
 			Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil1: " + minimum);
 			minimum = bewerteTeil2(minimumRunde);
 			Protokol.write("AdvancedTurnierManager:Erste Bewertung Teil2: " + minimum);
-			for (int i=0;i<Parameter.maxiter;i++)
+			/*
+			 Ergebnis steht eigentlich fest, aber es wird durch zufälliges Tauschen von Schwarz und Weiss
+			 versucht weiter zu optimieren
+			*/
+			for (int i=0;i<Parameter.maxiter;i++) 
 			{
 				s++;
 				t++;
@@ -126,7 +134,7 @@ public class AdvancedTurnierManager implements TurnierManager
 					s = 0;
 					Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t);
 				}
-				Runde runde = copyRunde(minimumRunde);
+				Runde runde = copyRunde(minimumRunde); // Kein DeepCopy; Spieler müssen identifizierbar bleiben
 				if (runde != null)
 				{
 					randomizeColor(runde);
@@ -146,7 +154,7 @@ public class AdvancedTurnierManager implements TurnierManager
 		}
 		return minimumRunde;
 	}
-	private Runde copyRunde(Runde runde) // DeepCopy nicht m�glich, da Spieler auf = abgefragt werden
+	private Runde copyRunde(Runde runde) // DeepCopy nicht möglich, da Spieler auf = abgefragt werden
 	{
 		Runde erg = Factory.getRunde();
 		erg.setMaxPartien(runde.getMaxPartien());
@@ -161,7 +169,7 @@ public class AdvancedTurnierManager implements TurnierManager
 		}
 		return erg;
 	}
-	private void randomizeColor(Runde runde)
+	private void randomizeColor(Runde runde) // Tausche Schwarz und Weiss zufällig
 	{
 		for (int i=0;i<runde.getMaxPartien();i++)
 		{
