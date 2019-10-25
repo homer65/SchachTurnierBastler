@@ -86,7 +86,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			SpielerSaver saver = Factory.getSpielerSaver();
 			saver.save(Parameter.spieler);
 		}
-		if (source == m23) // einzelnen Spieler hinzufügen
+		if (source == m23) // einzelnen Spieler hinzufuegen
 		{
 			NeuerSpielerDialog nsm = Factory.getNeuerSpielerDialog();
 			Spieler s = Factory.getSpieler();
@@ -97,7 +97,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 				Parameter.spieler.add(s);
 			}
 		}
-		if (source == m24) // Spieler löschen
+		if (source == m24) // Spieler loeschen
 		{
 			SpielerLoeschenDialog nsm = Factory.getSpielerLoeschenDialog();
 			nsm.setSpieler(Parameter.spieler);
