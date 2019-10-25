@@ -1,24 +1,21 @@
 package org.myoggradio.stb.impl;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.myoggradio.stb.*;
-public class SimpleSpielerStornierenDialog extends JDialog implements SpielerStornierenDialog, ActionListener
+public class SimpleSpielerStornierenDialog extends JDialog implements SpielerStornierenDialog,ListSelectionListener
 {
-	/*
-	 * Spieler wird aus laufendem Turnier entfernt
-	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Spieler> spieler = null;
-	private JButton[] butt = null;
 	private JPanel cpan = new JPanel();
+	private JTable table = null;
 	public SimpleSpielerStornierenDialog()
 	{
 		setModal(true);
@@ -26,17 +23,26 @@ public class SimpleSpielerStornierenDialog extends JDialog implements SpielerSto
 	public void init()
 	{
 		cpan = new JPanel();
-		cpan.setLayout(new GridLayout(spieler.size(),1));
-		butt = new JButton[spieler.size()];
+		cpan.setLayout(new FlowLayout());
+		String[] columnNames = new String[4];
+		columnNames[0] = "Nummer";
+		columnNames[1] = "Vorname";
+		columnNames[2] = "Name";
+		columnNames[3] = "DWZ";
+		String[][] rowData = new String[spieler.size()][4];
 		for (int i=0;i<spieler.size();i++)
 		{
-			butt[i] = new JButton(spieler.get(i).toString());
-			cpan.add(butt[i]);
-			butt[i].addActionListener(this);
+			Spieler einSpieler = spieler.get(i);
+			rowData[i][0] = (i+1) + "";
+			rowData[i][1] = einSpieler.getVorname();
+			rowData[i][2] = einSpieler.getName();
+			rowData[i][3] = einSpieler.getDWZ() + "";
 		}
-		JScrollPane scrpan=new JScrollPane(cpan);
-		scrpan.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
-		setContentPane(scrpan);
+		table = new JTable(rowData,columnNames);
+		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getSelectionModel().addListSelectionListener(this);
+		cpan.add(new JScrollPane(table));
+		setContentPane(cpan);
 		pack();
 	}
 	@Override
@@ -51,19 +57,22 @@ public class SimpleSpielerStornierenDialog extends JDialog implements SpielerSto
 		setVisible(true);
 	}
 	@Override
-	public void actionPerformed(ActionEvent ae) 
+	public void valueChanged(ListSelectionEvent lse) 
 	{
-		Object source = ae.getSource();
-		for (int i=0;i<spieler.size();i++)
+		boolean isAdjusting = lse.getValueIsAdjusting();
+		if (!isAdjusting)
 		{
-			if (source == butt[i])
+			int x = table.getSelectedRow();
+			Spieler s = spieler.get(x);
+			String msg = "Spieler " + s.getVorname() + " " + s.getName() + " " + s.getDWZ() + " wirklich loeschen?";
+			int ok = JOptionPane.showConfirmDialog(null,msg);
+			if (ok == JOptionPane.YES_OPTION)
 			{
-				int ok = JOptionPane.showConfirmDialog(null, "Spieler wirklich stornieren?");
-				if (ok == JOptionPane.YES_OPTION)
-				{
-					Parameter.turnier.storniereSpieler(spieler.get(i));
-					dispose();
-				}
+				Parameter.turnier.storniereSpieler(s);
+				SpielerStornierenDialog nsm = Factory.getSpielerStornierenDialog();
+				nsm.setSpieler(Parameter.spieler);
+				nsm.anzeigen();
+				dispose();
 			}
 		}
 	}
