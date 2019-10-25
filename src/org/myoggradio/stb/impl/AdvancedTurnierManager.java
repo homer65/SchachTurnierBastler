@@ -422,6 +422,8 @@ public class AdvancedTurnierManager implements TurnierManager
 		{
 			Spieler spieler = Parameter.turnier.getSpieler().get(i);
 			double punkte = 0.0;
+			int anzahlWeiss = 0;
+			int anzahlSchwarz = 0;
 			for (int x=0;x<=rundenNummer;x++)
 			{
 				Runde runde = Parameter.turnier.getRunde(x);
@@ -440,11 +442,13 @@ public class AdvancedTurnierManager implements TurnierManager
 					int ergebnis = partie.getErgebnis();
 					if (spieler == weiss)
 					{
+						anzahlWeiss++;
 						if (ergebnis == 1) punkte += 0.5;
 						if (ergebnis == 2) punkte += 1.0;
 					}
 					if (spieler == schwarz)
 					{
+						anzahlSchwarz++;
 						if (ergebnis == 1) punkte += 0.5;
 						if (ergebnis == 3) punkte += 1.0;
 					}
@@ -453,6 +457,8 @@ public class AdvancedTurnierManager implements TurnierManager
 			Auswertung auswertung = new Auswertung();
 			auswertung.setSpieler(spieler);
 			auswertung.setPunkte(punkte);
+			auswertung.setAnzahlWeiss(anzahlWeiss);
+			auswertung.setAnzahlSchwarz(anzahlSchwarz);
 			erg.add(auswertung);
 		}
 		for (int i=0;i<Parameter.turnier.getSpieler().size();i++)
