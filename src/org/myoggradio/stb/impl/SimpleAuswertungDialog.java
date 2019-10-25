@@ -30,7 +30,7 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog
 	{
 		JPanel cpan = new JPanel();
 		cpan.setLayout(new GridLayout(ausw.size()+1,7));
-		cpan.add(new JLabel("Tisch Nummer"));
+		cpan.add(new JLabel("Platzierung"));
 		cpan.add(new JLabel("Spieler"));
 		cpan.add(new JLabel("Punkte"));
 		cpan.add(new JLabel("Buchholz"));
