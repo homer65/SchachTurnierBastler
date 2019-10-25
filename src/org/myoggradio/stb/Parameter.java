@@ -15,7 +15,7 @@ public class Parameter
 	public static int malus3malGleicheFarbe = 900000;
 	public static int malusFarbdifferenz2 = 1;
 	public static int malusGleichGut = 25;
-	public static int scrwidth = 800;
+	public static int scrwidth = 1200;
 	public static int scrheight = 500;
 	public static int reichweite = 3;
 }
