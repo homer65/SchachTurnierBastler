@@ -167,6 +167,11 @@ public class AdvancedTurnierManager implements TurnierManager
 			temp.setSchwarz(partie.getSchwarz());
 			erg.setPartie(temp, i);
 		}
+		ArrayList<Spieler> freilos = runde.getFreilos();
+		for (int i=0;i<freilos.size();i++)
+		{
+			erg.addFreilos(freilos.get(i));
+		}
 		return erg;
 	}
 	private void randomizeColor(Runde runde) // Tausche Schwarz und Weiss zufällig
