@@ -1,12 +1,15 @@
 package org.myoggradio.stb.impl;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.myoggradio.stb.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.util.ArrayList;
-public class SimpleTurnierMenu extends JFrame implements ActionListener, TurnierMenu
+public class SimpleTurnierMenu extends JFrame implements ActionListener, TurnierMenu, ListSelectionListener
 {
 	private static final long serialVersionUID = 1;
 	private int dargestellteRunde = 0;
@@ -31,12 +34,9 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JLabel lab2 = new JLabel("0");
 	private JButton butt2 = new JButton("+");
 	private JPanel tpan = new JPanel();
-	private JLabel[] labz = null;
-	private JLabel[] labtw = null;
-	private JLabel[] labts = null;
-	private JButton[] butte = null;
 	private JPanel fpan = new JPanel();
 	private JLabel labf = new JLabel("Freilos ");
+	private JTable table = null;
 	public SimpleTurnierMenu()
 	{
 		this.setName("SchachTurnierBastler");
@@ -92,15 +92,16 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	}
 	public void buildtpan()
 	{
-		tpan = new JPanel();
 		Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
-		//int nh = Parameter.turnier.getSpieler().size() / 2;
 		int nh = runde.getMaxPartien();
-		tpan.setLayout(new GridLayout(nh,4));
-		labz = new JLabel[nh];
-		labtw = new JLabel[nh];
-		labts = new JLabel[nh];
-		butte = new JButton[nh];
+		tpan = new JPanel();
+		tpan.setLayout(new FlowLayout());
+		String[] columnNames = new String[4];
+		columnNames[0] = "Tisch Nummer";
+		columnNames[1] = "Weiss";
+		columnNames[2] = "Schwarz";
+		columnNames[3] = "Ergebnis";
+		String[][] rowData = new String[nh][4];
 		for (int i=0;i<nh;i++)
 		{
 			Partie partie = runde.getPartie(i);
@@ -109,16 +110,17 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			String sweiss = weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ(); 
 			String sschwarz = schwarz.getVorname() + " " + schwarz.getName() + " " + schwarz.getDWZ(); 
 			int ergebnis = partie.getErgebnis();
-			labz[i] = new JLabel("" + (i+1));
-			labtw[i] = new JLabel(sweiss);
-			labts[i] = new JLabel(sschwarz);
-			butte[i] = new JButton(ErgebnisDarsteller.get(ergebnis));
-			tpan.add(labz[i]);
-			tpan.add(labtw[i]);
-			tpan.add(labts[i]);
-			tpan.add(butte[i]);
-			butte[i].addActionListener(this);
+			rowData[i][0] = (i+1) + "";
+			rowData[i][1] = sweiss;
+			rowData[i][2] = sschwarz;
+			rowData[i][3] = ErgebnisDarsteller.get(ergebnis);
 		}
+		table = new JTable(rowData,columnNames);
+		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getSelectionModel().addListSelectionListener(this);
+		JScrollPane scrpane = new JScrollPane(table);
+		scrpane.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
+		tpan.add(scrpane);
 	}
 	public void buildfpan()
 	{
@@ -279,17 +281,20 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			}
 			init();
 		}
-		for (int i=0;i<butte.length;i++)
+	}
+	@Override
+	public void valueChanged(ListSelectionEvent lse)
+	{
+		boolean isAdjusting = lse.getValueIsAdjusting();
+		if (!isAdjusting)
 		{
-			if (source == butte[i]) // Ergebnis eintragen
-			{
-				Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
-				Partie partie = runde.getPartie(i);
-				ErgebnisDialog ed = Factory.getErgebnisDialog();
-				ed.setPartie(partie);
-				ed.anzeigen();
-				init();
-			}
+			int x = table.getSelectedRow();
+			Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
+			Partie partie = runde.getPartie(x);
+			ErgebnisDialog ed = Factory.getErgebnisDialog();
+			ed.setPartie(partie);
+			ed.anzeigen();
+			init();
 		}
 	}
 }
