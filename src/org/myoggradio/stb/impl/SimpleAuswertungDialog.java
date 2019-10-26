@@ -1,12 +1,12 @@
 package org.myoggradio.stb.impl;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import org.myoggradio.stb.*;
 public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog
 {
@@ -29,41 +29,33 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog
 	public void anzeigen()
 	{
 		JPanel cpan = new JPanel();
-		cpan.setLayout(new GridLayout(ausw.size()+1,7));
-		cpan.add(new JLabel("Platzierung"));
-		cpan.add(new JLabel("Spieler"));
-		cpan.add(new JLabel("Punkte"));
-		cpan.add(new JLabel("Buchholz"));
-		cpan.add(new JLabel("DWZ"));
-		cpan.add(new JLabel("Anzahl Weiss"));
-		cpan.add(new JLabel("Anzahl Schwarz"));
+		cpan.setLayout(new FlowLayout());
+		String[] columnNames = new String[7];
+		columnNames[0] = "Platzierung";
+		columnNames[1] = "Spieler";
+		columnNames[2] = "Punkte";
+		columnNames[3] = "Buchholz";
+		columnNames[4] = "DWZ";
+		columnNames[5] = "Anzahl Weiss";
+		columnNames[6] = "Anzahl Schwarz";
+		String[][] rowData = new String[ausw.size()][7];
 		for (int i=0;i<ausw.size();i++)
 		{
 			Auswertung auswertung = ausw.get(i);
 			Spieler spieler = auswertung.getSpieler();
-			double punkte = auswertung.getPunkte();
-			double buchholz = auswertung.getBuchholz();
-			int dwz = spieler.getDWZ();
-			int anzahlWeiss = auswertung.getAnzahlWeiss();
-			int anzahlSchwarz = auswertung.getAnzahlSchwarz();
-			JLabel lab1 = new JLabel("   " + (i+1));
-			JLabel labs = new JLabel(spieler.getVorname() + " " + spieler.getName());
-			JLabel labp = new JLabel("   " + punkte);
-			JLabel labb = new JLabel("   " + buchholz);
-			JLabel labd = new JLabel("   " + dwz);
-			JLabel labaw = new JLabel("  " + anzahlWeiss);
-			JLabel labas = new JLabel("  " + anzahlSchwarz);
-			cpan.add(lab1);
-			cpan.add(labs);
-			cpan.add(labp);
-			cpan.add(labb);
-			cpan.add(labd);
-			cpan.add(labaw);
-			cpan.add(labas);
+			rowData[i][0] = (i+1) + "";
+			rowData[i][1] = spieler.getVorname() + " " + spieler.getName();
+			rowData[i][2] = auswertung.getPunkte() + "";
+			rowData[i][3] = auswertung.getBuchholz() + "";
+			rowData[i][4] = spieler.getDWZ() + "";
+			rowData[i][5] = auswertung.getAnzahlWeiss() + "";
+			rowData[i][6] = auswertung.getAnzahlSchwarz() + "";
 		}
-		JScrollPane scrpan=new JScrollPane(cpan);
+		JTable table = new JTable(rowData,columnNames);
+		JScrollPane scrpan = new JScrollPane(table);
 		scrpan.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
-		setContentPane(scrpan);
+		cpan.add(scrpan);
+		setContentPane(cpan);
 		pack();
 		setVisible(true);
 	}
