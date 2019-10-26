@@ -141,12 +141,17 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	public void buildrpan()
 	{
 		rpan = new JPanel();
-		rpan.setLayout(new GridLayout(1,4));
-		rpan.add(lab1);
-		rpan.add(butt1);
+		rpan.setLayout(new BorderLayout());
+		JPanel rpan1 = new JPanel();
+		JPanel rpan2 = new JPanel();
+		rpan1.setLayout(new GridLayout(1,4));
+		rpan1.add(lab1);
+		rpan1.add(butt1);
 		lab2 = new JLabel((dargestellteRunde + 1) + "");
-		rpan.add(lab2);
-		rpan.add(butt2);
+		rpan1.add(lab2);
+		rpan1.add(butt2);
+		rpan.add(rpan1,BorderLayout.WEST);
+		rpan.add(rpan2,BorderLayout.CENTER);
 		rpan.setPreferredSize(new Dimension(Parameter.scrwidth,25));
 	}
 	public void anzeigen()
