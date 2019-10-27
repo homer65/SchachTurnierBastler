@@ -26,7 +26,10 @@ public class FileSpielerLoader implements SpielerLoader
 				{
 					Spieler spieler = Factory.getSpieler();
 					spieler.fromString(satz);
-					erg.add(spieler);
+					if (spieler.getName() != null)
+					{
+						erg.add(spieler);
+					}
 					satz = br.readLine();
 				}
 				br.close();

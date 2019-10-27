@@ -40,6 +40,7 @@ public class SimpleSpieler implements Spieler,Serializable
 	@Override
 	public void fromString(String satz) 
 	{
+		name = null;
 		String[] worte = satz.split("=");
 		if (worte.length >= 4)
 		{

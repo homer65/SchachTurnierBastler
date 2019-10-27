@@ -69,10 +69,11 @@ public class SimpleSpielerLoeschenDialog extends JDialog implements SpielerLoesc
 			if (ok == JOptionPane.YES_OPTION)
 			{
 				spieler.remove(s);
-				SpielerLoeschenDialog nsm = Factory.getSpielerLoeschenDialog();
-				nsm.setSpieler(Parameter.spieler);
-				nsm.anzeigen();
-				dispose();
+				//SpielerLoeschenDialog nsm = Factory.getSpielerLoeschenDialog();
+				//nsm.setSpieler(Parameter.spieler);
+				//nsm.anzeigen();
+				//dispose();
+				init();
 			}
 		}
 	}
