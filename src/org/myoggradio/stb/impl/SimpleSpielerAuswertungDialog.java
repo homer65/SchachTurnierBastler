@@ -6,6 +6,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+
 import org.myoggradio.stb.*;
 public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAuswertungDialog
 {
@@ -117,6 +119,8 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 			}
 		}
 		JTable tab = new JTable(rows,columns);
+		TableColumn column = tab.getColumn(tab.getColumnName(2));
+		column.setCellRenderer(new RowRenderer(partien,spieler));
 		JScrollPane span = new JScrollPane(tab);
 		span.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		
