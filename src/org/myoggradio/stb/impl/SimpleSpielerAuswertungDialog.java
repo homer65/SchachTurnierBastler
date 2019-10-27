@@ -68,6 +68,21 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 		for (int i=0;i<rundeNummer;i++)
 		{
 			Runde runde = turnier.getRunde(i);
+			ArrayList<Spieler> freilos = runde.getFreilos();
+			for (int a=0;a<freilos.size();a++)
+			{
+				if (spieler == freilos.get(a))
+				{
+					Partie partie = Factory.getPartie();
+					Spieler spieler1 = Factory.getSpieler();
+					Spieler spieler2 = Factory.getSpieler();
+					spieler1.setName("FREILOS");
+					partie.setWeiss(spieler1);
+					partie.setSchwarz(spieler2);
+					partie.setErgebnis(2);
+					partien.add(partie);
+				}
+			}
 			for (int a=0;a<runde.getMaxPartien();a++)
 			{
 				Partie partie = runde.getPartie(a);
@@ -88,9 +103,18 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 			Spieler weiss = partie.getWeiss();
 			Spieler schwarz = partie.getSchwarz();
 			int ergebnis = partie.getErgebnis();
-			rows[i][0] = weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ();
-			rows[i][1] = schwarz.getVorname() + " " + schwarz.getName() + " " + schwarz.getDWZ();
-			rows[i][2] = ErgebnisDarsteller.get(ergebnis);
+			if (weiss.getName().equals("FREILOS"))
+			{
+				rows[i][0] = "FREILOS";
+				rows[i][1] = " ";
+				rows[i][2] = ErgebnisDarsteller.get(ergebnis);
+			}
+			else
+			{
+				rows[i][0] = weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ();
+				rows[i][1] = schwarz.getVorname() + " " + schwarz.getName() + " " + schwarz.getDWZ();
+				rows[i][2] = ErgebnisDarsteller.get(ergebnis);
+			}
 		}
 		JTable tab = new JTable(rows,columns);
 		JScrollPane span = new JScrollPane(tab);
