@@ -427,11 +427,12 @@ public class AdvancedTurnierManager implements TurnierManager
 			for (int x=0;x<=rundenNummer;x++)
 			{
 				Runde runde = Parameter.turnier.getRunde(x);
-				if (runde.getFreilos() != null)
+				ArrayList<Spieler> freilos = runde.getFreilos();
+				if (freilos != null)
 				{
-					for (int c=0;c<runde.getFreilos().size();c++)
+					for (int c=0;c<freilos.size();c++)
 					{
-						if (runde.getFreilos().get(c) == spieler) punkte = punkte + 1.0;
+						if (freilos.get(c) == spieler) punkte = punkte + 1.0;
 					}
 				}
 				for (int a=0;a<runde.getMaxPartien();a++)
