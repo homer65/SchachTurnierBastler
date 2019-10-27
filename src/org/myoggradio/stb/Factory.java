@@ -86,4 +86,8 @@ public class Factory
 	{
 		return new SimpleSpielerStornierenDialog();
 	}
+	public static SpielerAuswertungDialog getSpielerAuswertungDialog()
+	{
+		return new SimpleSpielerAuswertungDialog();
+	}
 }

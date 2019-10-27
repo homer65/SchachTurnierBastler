@@ -7,12 +7,16 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.myoggradio.stb.*;
-public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog
+public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog, ListSelectionListener
 {
 	private static final long serialVersionUID = 1L;
 	private int rundeNummer = 0;
 	private ArrayList<Auswertung> ausw = null;
+	private JTable table = null;
 	public SimpleAuswertungDialog()
 	{
 		setModal(true);
@@ -51,12 +55,28 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog
 			rowData[i][5] = auswertung.getAnzahlWeiss() + "";
 			rowData[i][6] = auswertung.getAnzahlSchwarz() + "";
 		}
-		JTable table = new JTable(rowData,columnNames);
+		table = new JTable(rowData,columnNames);
+		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getSelectionModel().addListSelectionListener(this);
 		JScrollPane scrpan = new JScrollPane(table);
 		scrpan.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		cpan.add(scrpan);
 		setContentPane(cpan);
 		pack();
 		setVisible(true);
+	}
+	@Override
+	public void valueChanged(ListSelectionEvent lse) 
+	{
+		boolean isAdjusting = lse.getValueIsAdjusting();
+		if (!isAdjusting)
+		{
+			int x = table.getSelectedRow();
+			Spieler s = ausw.get(x).getSpieler();
+			SpielerAuswertungDialog nsm = Factory.getSpielerAuswertungDialog();
+			nsm.setRunde(rundeNummer);
+			nsm.setSpieler(s);
+			nsm.anzeigen();
+		}
 	}
 }
