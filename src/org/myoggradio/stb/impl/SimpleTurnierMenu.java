@@ -2,6 +2,8 @@ package org.myoggradio.stb.impl;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
+
 import org.myoggradio.stb.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -102,9 +104,11 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		columnNames[2] = "Schwarz";
 		columnNames[3] = "Ergebnis";
 		String[][] rowData = new String[nh][4];
+		ArrayList<Partie> partien = new ArrayList<Partie>();
 		for (int i=0;i<nh;i++)
 		{
 			Partie partie = runde.getPartie(i);
+			partien.add(partie);
 			Spieler weiss = partie.getWeiss();
 			Spieler schwarz = partie.getSchwarz();
 			String sweiss = weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ(); 
@@ -118,6 +122,8 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		table = new JTable(rowData,columnNames);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getSelectionModel().addListSelectionListener(this);
+		TableColumn column = table.getColumn(table.getColumnName(3));
+		column.setCellRenderer(new RowRendererPartie(partien));
 		JScrollPane scrpane = new JScrollPane(table);
 		scrpane.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		tpan.add(scrpane);

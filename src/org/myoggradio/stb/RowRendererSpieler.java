@@ -4,12 +4,12 @@ import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-public class RowRenderer extends DefaultTableCellRenderer 
+public class RowRendererSpieler extends DefaultTableCellRenderer 
 {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Partie> partien = null;
 	private Spieler spieler = null;
-	public RowRenderer(ArrayList<Partie> partien,Spieler spieler)
+	public RowRendererSpieler(ArrayList<Partie> partien,Spieler spieler)
 	{
 		this.partien = partien;
 		this.spieler = spieler;

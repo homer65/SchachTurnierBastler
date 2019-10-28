@@ -120,7 +120,7 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 		}
 		JTable tab = new JTable(rows,columns);
 		TableColumn column = tab.getColumn(tab.getColumnName(2));
-		column.setCellRenderer(new RowRenderer(partien,spieler));
+		column.setCellRenderer(new RowRendererSpieler(partien,spieler));
 		JScrollPane span = new JScrollPane(tab);
 		span.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		
