@@ -7,8 +7,8 @@ public class Parameter
 	public static ArrayList<Spieler> spieler = new ArrayList<Spieler>();
 	public static Turnier turnier = Factory.getTurnier();
 	public static ArrayList<Auswertung> auswertungen = new ArrayList<Auswertung>();
-	public static int maxiter = 1000000;
-	public static int itermsg = 100000;
+	public static int maxiter = 500000;
+	public static int itermsg = 50000;
 	public static int malusGleichePartie = 1000000;
 	public static int malusMehrAlsEinmalFreilos = 950000;
 	public static int malusFarbdifferenz3 = 900000;
