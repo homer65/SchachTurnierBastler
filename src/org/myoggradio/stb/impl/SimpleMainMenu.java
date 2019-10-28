@@ -2,6 +2,7 @@ package org.myoggradio.stb.impl;
 import javax.swing.*;
 import org.myoggradio.stb.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 {
@@ -18,6 +19,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenuItem m24 = new JMenuItem("Spieler loeschen");
 	private JMenuItem m25 = new JMenuItem("Spieler anzeigen");
 	private JMenuItem m31 = new JMenuItem("Version");
+	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	public SimpleMainMenu()
 	{
 		this.setName("SchachTurnierBastler");
@@ -30,6 +32,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m2.add(m24);
 		m2.add(m25);
 		m3.add(m31);
+		m3.add(m32);
 		menu.add(m1);
 		menu.add(m2);
 		menu.add(m3);
@@ -42,6 +45,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m24.addActionListener(this);
 		m25.addActionListener(this);
 		m31.addActionListener(this);
+		m32.addActionListener(this);
 	}
 	public void anzeigen()
 	{
@@ -112,6 +116,11 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		if (source == m31) // Version anzeigen
 		{
 			JOptionPane.showMessageDialog(null,Parameter.version,"Version",JOptionPane.INFORMATION_MESSAGE);
+		}
+		if (source == m32) // Autosave Directory
+		{
+			File aus = new File(".");
+			JOptionPane.showMessageDialog(null,aus.getAbsolutePath(),"Autosave Directory",JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }

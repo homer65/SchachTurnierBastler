@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 public class SimpleTurnierMenu extends JFrame implements ActionListener, TurnierMenu, ListSelectionListener
 {
@@ -29,6 +30,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("loeschen");
 	private JMenuItem m31 = new JMenuItem("Version");
+	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JPanel cpan = new JPanel();
 	private JPanel rpan = new JPanel();
 	private JLabel lab1 = new JLabel("Runde");
@@ -54,6 +56,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m2.add(m22);
 		m2.add(m23);
 		m3.add(m31);
+		m3.add(m32);
 		menu.add(m1);
 		menu.add(m2);
 		menu.add(m3);
@@ -68,6 +71,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m22.addActionListener(this);
 		m23.addActionListener(this);
 		m31.addActionListener(this);
+		m32.addActionListener(this);
 		butt1.addActionListener(this);
 		butt2.addActionListener(this);
 		init();
@@ -266,6 +270,11 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		if (source == m31) // Version anzeigen
 		{
 			JOptionPane.showMessageDialog(null,Parameter.version,"Version",JOptionPane.INFORMATION_MESSAGE);
+		}
+		if (source == m32) // Autosave Directory
+		{
+			File aus = new File(".");
+			JOptionPane.showMessageDialog(null,aus.getAbsolutePath(),"Autosave Directory",JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (source == butt1) // Runde zurück
 		{
