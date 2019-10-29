@@ -10,6 +10,7 @@ public class FileTurnierSaver implements TurnierSaver
 	public void save(Turnier turnier) 
 	{
 		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File("."));
 		int rc = fc.showSaveDialog(null);
 		if (rc == JFileChooser.APPROVE_OPTION)
 		{

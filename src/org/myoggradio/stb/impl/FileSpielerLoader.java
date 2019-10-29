@@ -13,6 +13,7 @@ public class FileSpielerLoader implements SpielerLoader
 	{
 		ArrayList<Spieler> erg = new ArrayList<Spieler>();
 		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File("."));
 		int rc = fc.showOpenDialog(null);
 		if (rc == JFileChooser.APPROVE_OPTION)
 		{

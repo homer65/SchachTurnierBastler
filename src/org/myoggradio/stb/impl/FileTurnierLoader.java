@@ -11,6 +11,7 @@ public class FileTurnierLoader implements TurnierLoader
 	{
 		Turnier erg = null;
 		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File("."));
 		int rc = fc.showOpenDialog(null);
 		if (rc == JFileChooser.APPROVE_OPTION)
 		{
