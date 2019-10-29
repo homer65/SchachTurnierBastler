@@ -128,6 +128,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		table.getSelectionModel().addListSelectionListener(this);
 		TableColumn column = table.getColumn(table.getColumnName(3));
 		column.setCellRenderer(new RowRendererPartie(partien));
+		ColumnResizer.resize(table);
 		JScrollPane scrpane = new JScrollPane(table);
 		scrpane.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		tpan.add(scrpane);

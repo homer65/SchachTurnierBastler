@@ -58,6 +58,7 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog,
 		table = new JTable(rowData,columnNames);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getSelectionModel().addListSelectionListener(this);
+		ColumnResizer.resize(table);
 		JScrollPane scrpan = new JScrollPane(table);
 		scrpan.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
 		cpan.add(scrpan);

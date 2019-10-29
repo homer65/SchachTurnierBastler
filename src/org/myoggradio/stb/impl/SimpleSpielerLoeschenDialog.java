@@ -41,6 +41,7 @@ public class SimpleSpielerLoeschenDialog extends JDialog implements SpielerLoesc
 		table = new JTable(rowData,columnNames);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getSelectionModel().addListSelectionListener(this);
+		ColumnResizer.resize(table);
 		cpan.add(new JScrollPane(table));
 		setContentPane(cpan);
 		pack();

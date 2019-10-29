@@ -36,6 +36,7 @@ public class SimpleSpielerAnzeigenDialog extends JDialog implements SpielerAnzei
 			rowData[i][3] = einSpieler.getDWZ() + "";
 		}
 		JTable table = new JTable(rowData,columnNames);
+		ColumnResizer.resize(table);
 		cpan.add(new JScrollPane(table));
 		setContentPane(cpan);
 		pack();

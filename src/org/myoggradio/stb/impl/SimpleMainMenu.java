@@ -1,8 +1,15 @@
 package org.myoggradio.stb.impl;
 import javax.swing.*;
 import org.myoggradio.stb.*;
+import org.myoggradio.stb.img.Locator;
+import org.myoggradio.stb.img.TuxPanel;
+
+import java.awt.FlowLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 {
@@ -46,6 +53,13 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m25.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
+		Locator locator = new Locator();
+		URL url = locator.getURL("tux.png");
+		Image tux = Toolkit.getDefaultToolkit().getImage(url);
+		TuxPanel tp = new TuxPanel(tux);
+		setLayout(new FlowLayout());
+		add(tp);
+		
 	}
 	public void anzeigen()
 	{
