@@ -20,6 +20,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenu m3 = new JMenu("Info");
 	private JMenuItem m11 = new JMenuItem("Start");
 	private JMenuItem m12 = new JMenuItem("Anzahl Runden festlegen");
+	private JMenuItem m13 = new JMenuItem("laden");
 	private JMenuItem m21 = new JMenuItem("laden");
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("einzelnen Spieler hinzufuegen");
@@ -33,6 +34,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		m1.add(m11);
 		m1.add(m12);
+		m1.add(m13);
 		m2.add(m21);
 		m2.add(m22);
 		m2.add(m23);
@@ -46,6 +48,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		this.setJMenuBar(menu);
 		m11.addActionListener(this);
 		m12.addActionListener(this);
+		m13.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
@@ -92,6 +95,18 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		{
 			AnzahlRundenDialog ard = Factory.getAnzahlRundenDialog();
 			ard.anzeigen();
+		}
+		if (source == m13) // Turnier laden
+		{
+			TurnierLoader loader = Factory.getTurnierLoader();
+			Turnier test = loader.load();
+			if (test != null)
+			{
+				Parameter.turnier = test;
+				TurnierMenu tm = Factory.getTurnierMenu();
+				tm.anzeigen();
+				dispose();
+			}
 		}
 		if (source == m21) // laden Spieler
 		{
