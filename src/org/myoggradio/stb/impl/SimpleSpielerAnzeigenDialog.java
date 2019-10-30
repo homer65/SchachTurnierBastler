@@ -7,6 +7,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 import org.myoggradio.stb.*;
 public class SimpleSpielerAnzeigenDialog extends JDialog implements SpielerAnzeigenDialog, ActionListener
 {
@@ -37,6 +40,11 @@ public class SimpleSpielerAnzeigenDialog extends JDialog implements SpielerAnzei
 		}
 		JTable table = new JTable(rowData,columnNames);
 		ColumnResizer.resize(table);
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
+		sorter.setModel(table.getModel());
+		sorter.setComparator(0, new NumberComparator());
+		sorter.setComparator(3, new NumberComparator());
+		table.setRowSorter(sorter);
 		cpan.add(new JScrollPane(table));
 		setContentPane(cpan);
 		pack();
