@@ -9,6 +9,9 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 import org.myoggradio.stb.*;
 public class SimpleSpielerStornierenDialog extends JDialog implements SpielerStornierenDialog,ListSelectionListener
 {
@@ -41,6 +44,11 @@ public class SimpleSpielerStornierenDialog extends JDialog implements SpielerSto
 		table = new JTable(rowData,columnNames);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getSelectionModel().addListSelectionListener(this);
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
+		sorter.setModel(table.getModel());
+		sorter.setComparator(0, new NumberComparator());
+		sorter.setComparator(3, new NumberComparator());
+		table.setRowSorter(sorter);
 		ColumnResizer.resize(table);
 		cpan.add(new JScrollPane(table));
 		setContentPane(cpan);
