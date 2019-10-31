@@ -72,16 +72,18 @@ public class SimpleSpielerStornierenDialog extends JDialog implements SpielerSto
 		if (!isAdjusting)
 		{
 			int x = table.getSelectedRow();
+			x = table.getRowSorter().convertRowIndexToModel(x);
 			Spieler s = spieler.get(x);
 			String msg = "Spieler " + s.getVorname() + " " + s.getName() + " " + s.getDWZ() + " wirklich loeschen?";
 			int ok = JOptionPane.showConfirmDialog(null,msg);
 			if (ok == JOptionPane.YES_OPTION)
 			{
 				Parameter.turnier.storniereSpieler(s);
-				SpielerStornierenDialog nsm = Factory.getSpielerStornierenDialog();
-				nsm.setSpieler(Parameter.spieler);
-				nsm.anzeigen();
-				dispose();
+				//SpielerStornierenDialog nsm = Factory.getSpielerStornierenDialog();
+				//nsm.setSpieler(Parameter.spieler);
+				//nsm.anzeigen();
+				//dispose();
+				init();
 			}
 		}
 	}

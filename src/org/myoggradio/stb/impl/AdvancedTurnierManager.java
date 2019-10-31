@@ -34,7 +34,7 @@ public class AdvancedTurnierManager implements TurnierManager
 				if (s>=Parameter.itermsg)
 				{
 					s = 0;
-					Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t);
+					Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t + " Derzeitiges Minimum Teil1: " + minimum);
 				}
 				ArrayList<Spieler> geordneteAuswertung = new ArrayList<Spieler>(); 
 				for (int x=0;x<n;x++)
@@ -132,7 +132,7 @@ public class AdvancedTurnierManager implements TurnierManager
 				if (s>=Parameter.itermsg)
 				{
 					s = 0;
-					Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t);
+					Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t + " Derzeitiges Minimum Teil2: " + minimum);
 				}
 				Runde runde = copyRunde(minimumRunde); // Kein DeepCopy; Spieler müssen identifizierbar bleiben
 				if (runde != null)
