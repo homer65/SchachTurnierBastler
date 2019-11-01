@@ -3,6 +3,9 @@ import javax.swing.*;
 import org.myoggradio.stb.*;
 import org.myoggradio.stb.img.Locator;
 import org.myoggradio.stb.img.TuxPanel;
+import org.myoggradio.stbko.KOFactory;
+import org.myoggradio.stbko.KOParameter;
+import org.myoggradio.stbko.KOTurnierMenu;
 
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -18,9 +21,10 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenu m1 = new JMenu("Turnier");
 	private JMenu m2 = new JMenu("Spieler");
 	private JMenu m3 = new JMenu("Info");
-	private JMenuItem m11 = new JMenuItem("Start");
+	private JMenuItem m11 = new JMenuItem("Start schweizer System");
 	private JMenuItem m12 = new JMenuItem("Anzahl Runden festlegen");
 	private JMenuItem m13 = new JMenuItem("laden");
+	private JMenuItem m14 = new JMenuItem("Start KO System");
 	private JMenuItem m21 = new JMenuItem("laden");
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("einzelnen Spieler hinzufuegen");
@@ -33,6 +37,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		this.setName("SchachTurnierBastler");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		m1.add(m11);
+		m1.add(m14);
 		m1.add(m12);
 		m1.add(m13);
 		m2.add(m21);
@@ -49,6 +54,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m11.addActionListener(this);
 		m12.addActionListener(this);
 		m13.addActionListener(this);
+		m14.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
@@ -82,12 +88,19 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	public void actionPerformed(ActionEvent ae)
 	{
 		Object source = ae.getSource();
-		if (source == m11) // Start Turnier
+		if (source == m11) // Start Turnier schweizer System
 		{
 			Parameter.turnier.setMaxRunden(Parameter.anzahlRunden);
 			Parameter.turnier.setSpieler(Parameter.spieler);
 			Parameter.turnier.start();
 			TurnierMenu tm = Factory.getTurnierMenu();
+			tm.anzeigen();
+			dispose();
+		}
+		if (source == m14) // Start Turnier KO System
+		{
+			KOParameter.spieler = Parameter.spieler;
+			KOTurnierMenu tm = KOFactory.getKOTurnierMenu();
 			tm.anzeigen();
 			dispose();
 		}
