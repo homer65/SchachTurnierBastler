@@ -1,21 +1,23 @@
 # SchachTurnierBastler
 
-SchachTurnierBastler dient zur Verwaltung von Schach Turnieren ähnlich dem Schweizer System.
-Wichtig: Die Software ist noch im frühen Stadium der Entwicklung.
-Wichtig: Sie sollte nur für vereinsinterne Turniere mit höchstens 50 Teilnehmern genutzt werden.
+SchachTurnierBastler dient zur Verwaltung von Schach Turnieren Aehnlich dem Schweizer System.
+Wichtig: Die Software ist noch im fruehen Stadium der Entwicklung.
+Wichtig: Sie sollte nur fuer vereinsinterne Turniere mit hoechstens 50 Teilnehmern genutzt werden.
 Im ersten Schritt gibt man die teilnehmenden Spieler ein und legt die Anzahl zu Spielende Runden fest.
 Danach startet man das Turnier. 
-Ab dann ist keine Änderung mehr an den teilnehmenden Spielern und der Anzahl Runden mehr möglich. 
-Ledglich jeweils eine neue Runde kann hinzugefügt werden. Jeweils ein Spieler kann entfernt werden.
+Ab dann ist keine Aenderung mehr an den teilnehmenden Spielern und der Anzahl Runden mehr moeglich. 
+Ledglich jeweils eine neue Runde kann hinzugefuegt werden. Jeweils ein Spieler kann entfernt werden.
 Die erste Runde wird sofort festgelegt. 
-Nachdem die Ergebnisse einer Runde eingetragen wurden, kann die nächste Runde generiert werden. 
-Das Generieren einer Runde dauert eine gewisse Zeit, da hier sehr viele Runden zufällig erzeugt und bewertet werden. 
-Eine neue Runde, für die noch keine Ergebnisse eingetragen wurden, kann storniert werden. 
+Nachdem die Ergebnisse einer Runde eingetragen wurden, kann die naechste Runde generiert werden. 
+Das Generieren einer Runde dauert eine gewisse Zeit, da hier sehr viele Runden zufaellig erzeugt und bewertet werden. 
+Eine neue Runde, fuer die noch keine Ergebnisse eingetragen wurden, kann storniert werden. 
 Ausnahme: Die erste Runde darf nicht storniert werden. 
 Man kann jederzeit eine Auswertung bis zur dargestellten Runde bekommen. 
-Es ist jederzeit möglich eine oder mehrere bereits erzeugte Runden anzusehen. 
-Ein Backup des Turniers oder der Spieler ist immer möglich und sollte auch ausgiebig genutzt werden. 
+Es ist jederzeit moeglich eine oder mehrere bereits erzeugte Runden anzusehen. 
+Ein Backup des Turniers oder der Spieler ist immer moeglich und sollte auch ausgiebig genutzt werden. 
 Vom SchachTurnierBastler werden automatisch Backups des Turniers nach dem Erzeugen einer neuen Runde gemacht.
+
+KO Turniere sind noch nicht vollstaendig implementiert.
 
 Sollten Sie Kommentare, Anregungen oder Verbesserungsvorschläge haben, 
 benachrichtigen Sie mich doch einfach unter christian@myoggradio.org.
