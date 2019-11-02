@@ -1,7 +1,12 @@
 package org.myoggradio.stbko.impl;
 import org.myoggradio.stbko.*;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,11 +14,18 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 import org.myoggradio.stb.*;
-public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSelectionListener
+public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSelectionListener, ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel cpan = new JPanel();
+	private JPanel bpan = new JPanel();
+	private JButton butt1 = new JButton("ok");
+	private JButton butt2 = new JButton("cancel");
+	private JButton butt3 = new JButton("abort");
 	private JTable table = null;
 	private JTable tableGesetzte = null;
 	private ArrayList<Spieler> spieler = null;
@@ -57,19 +69,42 @@ public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSe
 		table = new JTable(rowData,columnNames);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getSelectionModel().addListSelectionListener(this);
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
+		sorter.setModel(table.getModel());
+		sorter.setComparator(0, new NumberComparator());
+		sorter.setComparator(3, new NumberComparator());
+		table.setRowSorter(sorter);
 		ColumnResizer.resize(table);		
 		tableGesetzte = new JTable(rowDataGesetzte,columnNamesGesetzte);
 		tableGesetzte.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableGesetzte.getSelectionModel().addListSelectionListener(this);
 		ColumnResizer.resize(table);		
-		cpan.add(new JScrollPane(table),BorderLayout.WEST);
+		cpan.add(new JScrollPane(table),BorderLayout.CENTER);
 		cpan.add(new JScrollPane(tableGesetzte),BorderLayout.EAST);
+		buildbpan();
+		cpan.add(bpan,BorderLayout.SOUTH);
 		setContentPane(cpan);
 		pack();
+	}
+	private void buildbpan()
+	{
+		JPanel bpan1 = new JPanel();
+		JPanel bpan2 = new JPanel();
+		bpan = new JPanel();
+		bpan1.setLayout(new GridLayout(1,3));
+		bpan.setLayout(new BorderLayout());
+		bpan1.add(butt1);
+		bpan1.add(butt2);
+		bpan1.add(butt3);
+		bpan.add(bpan1,BorderLayout.WEST);
+		bpan.add(bpan2,BorderLayout.CENTER);
 	}
 	@Override
 	public void anzeigen() 
 	{
+		butt1.addActionListener(this);
+		butt2.addActionListener(this);
+		butt3.addActionListener(this);
 		spieler = KOParameter.spieler;
 		gesetzteSpieler = KOParameter.gesetzteSpieler;
 		init();
@@ -87,6 +122,7 @@ public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSe
 			{
 				System.out.println("SimpleKOTurnierMenu:Event:table");
 				int x = table.getSelectedRow();
+				x = table.getRowSorter().convertRowIndexToModel(x);
 				Spieler s = spieler.get(x);
 				spieler.remove(s);
 				gesetzteSpieler.add(s);
@@ -101,6 +137,41 @@ public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSe
 				spieler.add(s);
 				init();	
 			}
+		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent ae) 
+	{
+		Object quelle = ae.getSource();
+		if (quelle == butt1) // ok
+		{
+			int n = spieler.size();
+			for (int i=0;i<n;i++)
+			{
+				double dr = Math.random();
+				double di = (double) spieler.size();
+				double dj = di * dr;
+				int j = (int) dj;
+				Spieler s = spieler.get(j);
+				gesetzteSpieler.add(s);
+				spieler.remove(s);
+			}
+			init(); // muss geaendert werden
+		}
+		if (quelle == butt2) // cancel
+		{
+			int n = gesetzteSpieler.size();
+			for (int i=0;i<n;i++)
+			{
+				Spieler s = gesetzteSpieler.get(0);
+				spieler.add(s);
+				gesetzteSpieler.remove(s);
+			}
+			init();
+		}
+		if (quelle == butt3) // abort
+		{
+			dispose();
 		}
 	}
 }
