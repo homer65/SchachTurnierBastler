@@ -156,7 +156,13 @@ public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSe
 				gesetzteSpieler.add(s);
 				spieler.remove(s);
 			}
-			init(); // muss geaendert werden
+			KOParameter.turnier.setSpieler(gesetzteSpieler);
+			KOTurnierManager manager = KOFactory.getKOTurnierManager();
+			KORunde runde = manager.starteErsteRunde(KOParameter.turnier);
+			KOParameter.turnier.setNextRunde(runde);
+			KOTurnierMenu2 ktm2 = KOFactory.getKOTurnierMenu2();
+			ktm2.anzeigen();
+			dispose();
 		}
 		if (quelle == butt2) // cancel
 		{

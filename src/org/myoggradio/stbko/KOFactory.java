@@ -6,4 +6,16 @@ public class KOFactory
 	{
 		return new SimpleKOTurnierMenu();
 	}
+	public static KOTurnierMenu2 getKOTurnierMenu2()
+	{
+		return null;
+	}
+	public static KOTurnier getKOTurnier()
+	{
+		return null;
+	}
+	public static KOTurnierManager getKOTurnierManager()
+	{
+		return null;
+	}
 }
