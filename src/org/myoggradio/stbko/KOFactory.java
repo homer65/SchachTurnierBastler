@@ -2,6 +2,10 @@ package org.myoggradio.stbko;
 import org.myoggradio.stbko.impl.*;
 public class KOFactory 
 {
+	public static KORunde getKORunde()
+	{
+		return new SimpleKORunde();
+	}
 	public static KOTurnierMenu getKOTurnierMenu()
 	{
 		return new SimpleKOTurnierMenu();
@@ -12,10 +16,10 @@ public class KOFactory
 	}
 	public static KOTurnier getKOTurnier()
 	{
-		return null;
+		return new SimpleKOTurnier();
 	}
 	public static KOTurnierManager getKOTurnierManager()
 	{
-		return null;
+		return new SimpleKOTurnierManager();
 	}
 }
