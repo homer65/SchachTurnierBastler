@@ -113,14 +113,12 @@ public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSe
 	@Override
 	public void valueChanged(ListSelectionEvent lse) 
 	{
-		System.out.println("SimpleKOTurnierMenu:Event");
 		boolean isAdjusting = lse.getValueIsAdjusting();
 		if (!isAdjusting)
 		{
 			Object quelle = lse.getSource();
 			if (quelle == table.getSelectionModel())
 			{
-				System.out.println("SimpleKOTurnierMenu:Event:table");
 				int x = table.getSelectedRow();
 				x = table.getRowSorter().convertRowIndexToModel(x);
 				Spieler s = spieler.get(x);

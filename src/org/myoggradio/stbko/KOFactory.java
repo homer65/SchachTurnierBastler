@@ -12,7 +12,7 @@ public class KOFactory
 	}
 	public static KOTurnierMenu2 getKOTurnierMenu2()
 	{
-		return null;
+		return new SimpleKOTurnierMenu2();
 	}
 	public static KOTurnier getKOTurnier()
 	{

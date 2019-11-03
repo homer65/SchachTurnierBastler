@@ -21,6 +21,7 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 			x++;
 			zweiHochX = zweiHochX * 2;
 		}
+		Protokol.write("SimpleKOTurnierManager:zweiHochX:"+ zweiHochX);
 		for (int i=n;i<zweiHochX;i++) // Fuelle gesetzte mit FREILOS auf
 		{
 			Spieler freilos = Factory.getSpieler();
@@ -29,14 +30,11 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 			freilos.setDWZ(0);
 			gesetzte.add(freilos);
 		}
+		Protokol.write("SimpleKOTurnierManager:Anzahl gesetzte:" + gesetzte.size());
 		Spieler[] spieler = new Spieler[zweiHochX];
-		for (int i=0;i<zweiHochX;i++) // Fuelle Feld erstmal mit FREILOS auf
+		for (int i=0;i<zweiHochX;i++) // Fuelle Feld erstmal mit null auf
 		{
-			Spieler freilos = Factory.getSpieler();
-			freilos.setName("FREILOS");
-			freilos.setVorname("");
-			freilos.setDWZ(0);
-			spieler[i] = freilos;
+			spieler[i] = null;
 		}
 		spieler[0] = gesetzte.get(0);
 		gesetzte.remove(0);
@@ -54,13 +52,15 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 				int blockLast = ((j+1) * blockGroesse) - 1;
 				Spieler first = spieler[blockFirst];
 				Spieler last = spieler[blockLast];
-				if (istFreilos(first))
+				if (first==null)
 				{
+					Protokol.write("SimpleKOTurnierManager:blockFirst:" + blockFirst);
 					spieler[blockFirst] = gesetzte.get(0);
 					gesetzte.remove(0);
 				}
-				if (istFreilos(last))
+				if (last==null)
 				{
+					Protokol.write("SimpleKOTurnierManager:blockLast:" + blockLast);
 					spieler[blockLast] = gesetzte.get(0);
 					gesetzte.remove(0);
 				}
