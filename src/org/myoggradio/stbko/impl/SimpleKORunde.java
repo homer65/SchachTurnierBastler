@@ -32,6 +32,7 @@ public class SimpleKORunde implements KORunde
 		{
 			int ergebnis = partien[i].getErgebnis();
 			if (ergebnis == 0) erg = false;
+			if (ergebnis == 1) erg = false;
 		}
 		return erg;
 	}

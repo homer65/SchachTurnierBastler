@@ -137,12 +137,30 @@ public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSe
 			}
 		}
 	}
+	private void fuelleSpielerMitFreilosAuf()
+	{
+		int n = gesetzteSpieler.size() + spieler.size();
+		int zweiHochX = 2;
+		while (zweiHochX < n) // Berechne Turniergroesse
+		{
+			zweiHochX = zweiHochX * 2;
+		}
+		for (int i=n;i<zweiHochX;i++) // Fuelle spieler mit FREILOS auf
+		{
+			Spieler freilos = Factory.getSpieler();
+			freilos.setName("FREILOS");
+			freilos.setVorname("");
+			freilos.setDWZ(0);
+			spieler.add(freilos);
+		}
+	}
 	@Override
 	public void actionPerformed(ActionEvent ae) 
 	{
 		Object quelle = ae.getSource();
 		if (quelle == butt1) // ok
 		{
+			fuelleSpielerMitFreilosAuf();
 			int n = spieler.size();
 			for (int i=0;i<n;i++)
 			{

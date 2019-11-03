@@ -22,4 +22,8 @@ public class KOFactory
 	{
 		return new SimpleKOTurnierManager();
 	}
+	public static KOErgebnisDialog getKOErgebnisDialog()
+	{
+		return new SimpleKOErgebnisDialog();
+	}
 }

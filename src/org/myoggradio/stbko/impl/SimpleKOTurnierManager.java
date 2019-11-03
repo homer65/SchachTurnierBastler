@@ -1,5 +1,8 @@
 package org.myoggradio.stbko.impl;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import org.myoggradio.stb.*;
 import org.myoggradio.stbko.*;
 public class SimpleKOTurnierManager implements KOTurnierManager
@@ -7,7 +10,61 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 	@Override
 	public KORunde starteNaechsteRunde(KOTurnier turnier) 
 	{
-		return null;
+		KORunde erg = KOFactory.getKORunde();
+		KORunde runde = turnier.getAktiveRunde();
+		int n = runde.getMaxPartien();
+		int nh = n / 2;
+		erg.setMaxPartien(nh);
+		if (nh > 0)
+		{
+			for (int i=0;i<nh;i++)
+			{
+				Partie partie1 = runde.getPartie(2*i);
+				Partie partie2 = runde.getPartie(2*i+1);
+				Spieler spieler1 = getSieger(partie1);
+				if (spieler1 == null)
+				{
+					erg = null;
+					JOptionPane.showMessageDialog(null,"Es sind nicht alle Ergebnisse eingetragen","Fehler",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				Spieler spieler2 = getSieger(partie2);
+				if (spieler2 == null)
+				{
+					erg = null;
+					JOptionPane.showMessageDialog(null,"Es sind nicht alle Ergebnisse eingetragen","Fehler",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				Partie partie = Factory.getPartie();
+				double dr = Math.random();
+				if (dr > 0.5)
+				{
+					partie.setWeiss(spieler1);
+					partie.setSchwarz(spieler2);
+				}
+				else
+				{
+					partie.setWeiss(spieler2);
+					partie.setSchwarz(spieler1);
+				}
+				partie.setErgebnis(0);
+				erg.setPartie(partie,i);
+			}
+		}
+		else
+		{
+			erg = null;
+			JOptionPane.showMessageDialog(null,"Letzte Runde bereits erzeugt","Fehler",JOptionPane.INFORMATION_MESSAGE);
+		}
+		return erg;
+	}
+	private Spieler getSieger(Partie partie)
+	{
+		Spieler erg = null;
+		int ergebnis = partie.getErgebnis();
+		if (ergebnis == 2) erg = partie.getWeiss();
+		if (ergebnis == 3) erg = partie.getSchwarz();
+		return erg;
 	}
 	@Override
 	public KORunde starteErsteRunde(KOTurnier turnier) 
@@ -21,16 +78,6 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 			x++;
 			zweiHochX = zweiHochX * 2;
 		}
-		Protokol.write("SimpleKOTurnierManager:zweiHochX:"+ zweiHochX);
-		for (int i=n;i<zweiHochX;i++) // Fuelle gesetzte mit FREILOS auf
-		{
-			Spieler freilos = Factory.getSpieler();
-			freilos.setName("FREILOS");
-			freilos.setVorname("");
-			freilos.setDWZ(0);
-			gesetzte.add(freilos);
-		}
-		Protokol.write("SimpleKOTurnierManager:Anzahl gesetzte:" + gesetzte.size());
 		Spieler[] spieler = new Spieler[zweiHochX];
 		for (int i=0;i<zweiHochX;i++) // Fuelle Feld erstmal mit null auf
 		{
@@ -54,13 +101,11 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 				Spieler last = spieler[blockLast];
 				if (first==null)
 				{
-					Protokol.write("SimpleKOTurnierManager:blockFirst:" + blockFirst);
 					spieler[blockFirst] = gesetzte.get(0);
 					gesetzte.remove(0);
 				}
 				if (last==null)
 				{
-					Protokol.write("SimpleKOTurnierManager:blockLast:" + blockLast);
 					spieler[blockLast] = gesetzte.get(0);
 					gesetzte.remove(0);
 				}

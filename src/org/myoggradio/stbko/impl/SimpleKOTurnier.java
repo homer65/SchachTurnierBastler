@@ -19,7 +19,7 @@ public class SimpleKOTurnier implements KOTurnier
 	@Override
 	public KORunde getRunde(int nummer) 
 	{
-		return runden.get(nummer-1);
+		return runden.get(nummer);
 	}
 	@Override
 	public KORunde getAktiveRunde() 
@@ -29,7 +29,7 @@ public class SimpleKOTurnier implements KOTurnier
 	@Override
 	public int getNummerAktiveRunde()
 	{
-		return runden.size();
+		return (runden.size()-1);
 	}
 	@Override
 	public ArrayList<Spieler> getSpieler() 

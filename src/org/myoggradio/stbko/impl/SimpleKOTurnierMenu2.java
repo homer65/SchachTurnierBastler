@@ -42,7 +42,6 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 	{
 		this.setName("SchachTurnierBastler");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		//Runtime.getRuntime().addShutdownHook(new Shutdown()); // Muss angepasst werden
 		m1.add(m11);
 		m1.add(m12);
 		m1.add(m13);
@@ -91,7 +90,7 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 	}
 	public void buildtpan()
 	{
-		KORunde runde = KOParameter.turnier.getRunde(dargestellteRunde+1);
+		KORunde runde = KOParameter.turnier.getRunde(dargestellteRunde);
 		int nh = runde.getMaxPartien();
 		tpan = new JPanel();
 		tpan.setLayout(new FlowLayout());
@@ -267,7 +266,7 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 		}
 		if (source == butt2) // Runde vor
 		{
-			int aktiveRunde = Parameter.turnier.getNummerAktiveRunde();
+			int aktiveRunde = KOParameter.turnier.getNummerAktiveRunde();
 			if (dargestellteRunde < aktiveRunde)
 			{
 				dargestellteRunde++;
@@ -288,7 +287,7 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 			int x = table.getSelectedRow();
 			KORunde runde = KOParameter.turnier.getRunde(dargestellteRunde);
 			Partie partie = runde.getPartie(x);
-			ErgebnisDialog ed = Factory.getErgebnisDialog();
+			KOErgebnisDialog ed = KOFactory.getKOErgebnisDialog();
 			ed.setPartie(partie);
 			ed.anzeigen();
 			init();
