@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -102,6 +103,7 @@ public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSe
 	@Override
 	public void anzeigen() 
 	{
+		JOptionPane.showMessageDialog(null,"Bitte stellen Sie Spieler auf die Setzliste","Information",JOptionPane.INFORMATION_MESSAGE);
 		butt1.addActionListener(this);
 		butt2.addActionListener(this);
 		butt3.addActionListener(this);
