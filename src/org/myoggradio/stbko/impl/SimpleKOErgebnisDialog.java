@@ -15,10 +15,13 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 	private JPanel epan = null;
 	private JPanel bpan = null;
 	private JPanel cpan = null;
+	private JPanel chpan = null;
 	private JButton buttng = null;
 	private JButton buttsw = null;
 	private JButton buttss = null;
 	private Partie partie = null;
+	private JButton buttcw = null;
+	private JButton buttcs = null;
 	public SimpleKOErgebnisDialog()
 	{
 		setModal(true);
@@ -33,10 +36,13 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 	{
 		buildepan();
 		buildbpan();
+		buildchpan();
 		buildcpan();
 		buttng.addActionListener(this);
 		buttsw.addActionListener(this);
 		buttss.addActionListener(this);
+		buttcw.addActionListener(this);
+		buttcs.addActionListener(this);
 		setContentPane(cpan);
 		pack();
 		setVisible(true);
@@ -45,8 +51,18 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 	{
 		cpan = new JPanel();
 		cpan.setLayout(new BorderLayout());
+		cpan.add(chpan,BorderLayout.WEST);
 		cpan.add(epan,BorderLayout.CENTER);
 		cpan.add(bpan,BorderLayout.EAST);
+	}
+	public void buildchpan()
+	{
+		chpan = new JPanel();
+		chpan.setLayout(new GridLayout(2,1));
+		buttcw = new JButton("change white");
+		buttcs = new JButton("change black");
+		chpan.add(buttcw);
+		chpan.add(buttcs);
 	}
 	public void buildbpan()
 	{
@@ -94,6 +110,30 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 		if (source == buttss)
 		{
 			partie.setErgebnis(3);
+		}
+		if (source == buttcw)
+		{
+			Spieler spieler = Factory.getSpieler();
+			Spieler weiss = partie.getWeiss();
+			spieler.setVorname(weiss.getVorname());
+			spieler.setName(weiss.getName());
+			spieler.setDWZ(weiss.getDWZ());
+			NeuerSpielerDialog nsd = Factory.getNeuerSpielerDialog();
+			nsd.setSpieler(spieler);
+			nsd.anzeigen();
+			partie.setWeiss(spieler);
+		}
+		if (source == buttcs)
+		{
+			Spieler spieler = Factory.getSpieler();
+			Spieler schwarz = partie.getSchwarz();
+			spieler.setVorname(schwarz.getVorname());
+			spieler.setName(schwarz.getName());
+			spieler.setDWZ(schwarz.getDWZ());
+			NeuerSpielerDialog nsd = Factory.getNeuerSpielerDialog();
+			nsd.setSpieler(spieler);
+			nsd.anzeigen();
+			partie.setSchwarz(spieler);
 		}
 		anzeigen();
 	}
