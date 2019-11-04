@@ -36,16 +36,46 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 					break;
 				}
 				Partie partie = Factory.getPartie();
-				double dr = Math.random();
-				if (dr > 0.5)
+				int anzahlWeissSpieler1 = getAnzahlWeiss(spieler1);
+				int anzahlSchwarzSpieler1 = getAnzahlSchwarz(spieler1);
+				int anzahlWeissSpieler2 = getAnzahlWeiss(spieler2);
+				int anzahlSchwarzSpieler2 = getAnzahlSchwarz(spieler2);
+				if (anzahlWeissSpieler1 > anzahlWeissSpieler2)
+				{
+					partie.setWeiss(spieler2);
+					partie.setSchwarz(spieler1);
+				}
+				else if (anzahlWeissSpieler1 < anzahlWeissSpieler2)
 				{
 					partie.setWeiss(spieler1);
 					partie.setSchwarz(spieler2);
 				}
 				else
 				{
-					partie.setWeiss(spieler2);
-					partie.setSchwarz(spieler1);
+					if (anzahlSchwarzSpieler1 > anzahlSchwarzSpieler2)
+					{
+						partie.setWeiss(spieler1);
+						partie.setSchwarz(spieler2);
+					}
+					else if (anzahlSchwarzSpieler1 < anzahlSchwarzSpieler2)
+					{
+						partie.setWeiss(spieler2);
+						partie.setSchwarz(spieler1);
+					}
+					else
+					{
+						double dr = Math.random();
+						if (dr > 0.5)
+						{
+							partie.setWeiss(spieler1);
+							partie.setSchwarz(spieler2);
+						}
+						else
+						{
+							partie.setWeiss(spieler2);
+							partie.setSchwarz(spieler1);
+						}
+					}
 				}
 				partie.setErgebnis(0);
 				if (istFreilos(partie.getSchwarz())) partie.setErgebnis(2);
@@ -57,6 +87,34 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 		{
 			erg = null;
 			JOptionPane.showMessageDialog(null,"Letzte Runde bereits erzeugt","Fehler",JOptionPane.INFORMATION_MESSAGE);
+		}
+		return erg;
+	}
+	private int getAnzahlWeiss(Spieler spieler)
+	{
+		int erg = 0;
+		for (int i=0;i<KOParameter.turnier.getNummerAktiveRunde();i++)
+		{
+			KORunde runde = KOParameter.turnier.getRunde(i);
+			for (int a=0;a<runde.getMaxPartien();a++)
+			{
+				Partie partie = runde.getPartie(a);
+				if (spieler == partie.getWeiss()) erg++;
+			}
+		}
+		return erg;
+	}
+	private int getAnzahlSchwarz(Spieler spieler)
+	{
+		int erg = 0;
+		for (int i=0;i<KOParameter.turnier.getNummerAktiveRunde();i++)
+		{
+			KORunde runde = KOParameter.turnier.getRunde(i);
+			for (int a=0;a<runde.getMaxPartien();a++)
+			{
+				Partie partie = runde.getPartie(a);
+				if (spieler == partie.getSchwarz()) erg++;
+			}
 		}
 		return erg;
 	}

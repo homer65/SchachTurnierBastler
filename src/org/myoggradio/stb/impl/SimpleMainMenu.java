@@ -19,7 +19,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenu m2 = new JMenu("Spieler");
 	private JMenu m3 = new JMenu("Info");
 	private JMenuItem m11 = new JMenuItem("Start schweizer System");
-	private JMenuItem m12 = new JMenuItem("Anzahl Runden festlegen");
+	private JMenuItem m12 = new JMenuItem("Anzahl Runden schweizer System");
 	private JMenuItem m13 = new JMenuItem("laden schweizer System");
 	private JMenuItem m15 = new JMenuItem("laden KO System");
 	private JMenuItem m14 = new JMenuItem("Start KO System");
