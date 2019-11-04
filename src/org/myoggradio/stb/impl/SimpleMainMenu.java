@@ -3,10 +3,7 @@ import javax.swing.*;
 import org.myoggradio.stb.*;
 import org.myoggradio.stb.img.Locator;
 import org.myoggradio.stb.img.TuxPanel;
-import org.myoggradio.stbko.KOFactory;
-import org.myoggradio.stbko.KOParameter;
-import org.myoggradio.stbko.KOTurnierMenu;
-
+import org.myoggradio.stbko.*;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -23,7 +20,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenu m3 = new JMenu("Info");
 	private JMenuItem m11 = new JMenuItem("Start schweizer System");
 	private JMenuItem m12 = new JMenuItem("Anzahl Runden festlegen");
-	private JMenuItem m13 = new JMenuItem("laden");
+	private JMenuItem m13 = new JMenuItem("laden schweizer System");
+	private JMenuItem m15 = new JMenuItem("laden KO System");
 	private JMenuItem m14 = new JMenuItem("Start KO System");
 	private JMenuItem m21 = new JMenuItem("laden");
 	private JMenuItem m22 = new JMenuItem("speichern");
@@ -40,6 +38,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m1.add(m14);
 		m1.add(m12);
 		m1.add(m13);
+		m1.add(m15);
 		m2.add(m21);
 		m2.add(m22);
 		m2.add(m23);
@@ -55,6 +54,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m12.addActionListener(this);
 		m13.addActionListener(this);
 		m14.addActionListener(this);
+		m15.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
@@ -109,7 +109,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			AnzahlRundenDialog ard = Factory.getAnzahlRundenDialog();
 			ard.anzeigen();
 		}
-		if (source == m13) // Turnier laden
+		if (source == m13) // Turnier laden schweizer System
 		{
 			TurnierLoader loader = Factory.getTurnierLoader();
 			Turnier test = loader.load();
@@ -117,6 +117,18 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			{
 				Parameter.turnier = test;
 				TurnierMenu tm = Factory.getTurnierMenu();
+				tm.anzeigen();
+				dispose();
+			}
+		}
+		if (source == m15) // Turnier laden KO System
+		{
+			KOTurnierLoader loader = KOFactory.getKOTurnierLoader();
+			KOTurnier test = loader.load();
+			if (test != null)
+			{
+				KOParameter.turnier = test;
+				KOTurnierMenu2 tm = KOFactory.getKOTurnierMenu2();
 				tm.anzeigen();
 				dispose();
 			}
