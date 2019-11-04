@@ -1,9 +1,11 @@
 package org.myoggradio.stbko.impl;
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.myoggradio.stb.Spieler;
 import org.myoggradio.stbko.*;
-public class SimpleKOTurnier implements KOTurnier
+public class SimpleKOTurnier implements KOTurnier,Serializable
 {
+	private static final long serialVersionUID = -7340860382167608998L;
 	private ArrayList<Spieler> spieler = null;
 	private ArrayList<KORunde> runden = new ArrayList<KORunde>();
 	@Override

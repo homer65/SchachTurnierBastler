@@ -1,8 +1,11 @@
 package org.myoggradio.stbko.impl;
+import java.io.Serializable;
+
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stbko.*;
-public class SimpleKORunde implements KORunde
+public class SimpleKORunde implements KORunde,Serializable
 {
+	private static final long serialVersionUID = 1L;
 	Partie[] partien = null;
 	@Override
 	public void setMaxPartien(int n) 

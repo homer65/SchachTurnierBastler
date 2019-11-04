@@ -26,4 +26,12 @@ public class KOFactory
 	{
 		return new SimpleKOErgebnisDialog();
 	}
+	public static KOTurnierLoader getKOTurnierLoader()
+	{
+		return new SimpleKOTurnierLoader();
+	}
+	public static KOTurnierSaver getKOTurnierSaver()
+	{
+		return new SimpleKOTurnierSaver();
+	}
 }

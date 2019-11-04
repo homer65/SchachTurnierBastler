@@ -18,16 +18,10 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 	private int dargestellteRunde = 0;
 	private JMenuBar menu = new JMenuBar();
 	private JMenu m1 = new JMenu("Turnier");
-	private JMenu m2 = new JMenu("Spieler");
 	private JMenu m3 = new JMenu("Info");
 	private JMenuItem m11 = new JMenuItem("Naechste Runde");
-	private JMenuItem m12 = new JMenuItem("Auswertung");
 	private JMenuItem m13 = new JMenuItem("speichern");
 	private JMenuItem m14 = new JMenuItem("laden");
-	private JMenuItem m15 = new JMenuItem("aktive Runde stornieren");
-	private JMenuItem m21 = new JMenuItem("anzeigen");
-	private JMenuItem m22 = new JMenuItem("speichern");
-	private JMenuItem m23 = new JMenuItem("loeschen");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JPanel cpan = new JPanel();
@@ -43,27 +37,16 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 		this.setName("SchachTurnierBastler");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		m1.add(m11);
-		m1.add(m12);
 		m1.add(m13);
 		m1.add(m14);
-		m1.add(m15);
-		m2.add(m21);
-		m2.add(m22);
-		m2.add(m23);
 		m3.add(m31);
 		m3.add(m32);
 		menu.add(m1);
-		menu.add(m2);
 		menu.add(m3);
 		this.setJMenuBar(menu);
 		m11.addActionListener(this);
-		m12.addActionListener(this);
 		m13.addActionListener(this);
 		m14.addActionListener(this);
-		m15.addActionListener(this);
-		m21.addActionListener(this);
-		m22.addActionListener(this);
-		m23.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		butt1.addActionListener(this);
@@ -122,7 +105,7 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 		column.setCellRenderer(new RowRendererPartie(partien));
 		ColumnResizer.resize(table);
 		JScrollPane scrpane = new JScrollPane(table);
-		scrpane.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
+		scrpane.setPreferredSize(new Dimension(KOParameter.scrwidth,KOParameter.scrheight));
 		tpan.add(scrpane);
 	}
 	public void buildrpan()
@@ -178,71 +161,23 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 			}
 			init();
 		}
-		/*
-		if (source == m12) // Auswertung
-		{
-			AuswertungDialog ad = Factory.getAuswertungDialog();
-			ad.setRunde(dargestellteRunde);
-			ad.anzeigen();
-		}
 		if (source == m13) // Turnier speichern
 		{
-			TurnierSaver saver = Factory.getTurnierSaver();
-			saver.save(Parameter.turnier);
+			KOTurnierSaver saver = KOFactory.getKOTurnierSaver();
+			saver.save(KOParameter.turnier);
 		}
 		if (source == m14) // Turnier laden
 		{
-			TurnierLoader loader = Factory.getTurnierLoader();
-			Turnier test = loader.load();
+			KOTurnierLoader loader = KOFactory.getKOTurnierLoader();
+			KOTurnier test = loader.load();
 			if (test != null)
 			{
-				Parameter.turnier = test;
-				TurnierMenu tm = Factory.getTurnierMenu();
+				KOParameter.turnier = test;
+				KOTurnierMenu2 tm = KOFactory.getKOTurnierMenu2();
 				tm.anzeigen();
 				dispose();
 			}
 		}
-		if (source == m15) // dargestellte Runde stornieren
-		{
-			int ok = JOptionPane.showConfirmDialog(null, "aktive Runde wirklich stornieren?");
-			if (ok == JOptionPane.YES_OPTION)
-			{
-				boolean storniert = Parameter.turnier.storniereAktiveRunde();
-				if (storniert)
-				{
-					TurnierMenu tm = Factory.getTurnierMenu();
-					tm.anzeigen();
-					dispose();
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null,"Runde wurde nicht storniert","Fehler",JOptionPane.INFORMATION_MESSAGE);	
-				}
-			}
-		}
-		*/
-		/*
-		if (source == m21) // Spieler anzeigen
-		{
-			SpielerAnzeigenDialog nsm = Factory.getSpielerAnzeigenDialog();
-			nsm.setSpieler(Parameter.turnier.getSpieler());
-			nsm.anzeigen();
-		}
-		if (source == m22) // speichern Spieler
-		{
-			SpielerSaver saver = Factory.getSpielerSaver();
-			saver.save(Parameter.turnier.getSpieler());
-		}
-		if (source == m23) // Spieler löschen
-		{
-			SpielerStornierenDialog ssd = Factory.getSpielerStornierenDialog();
-			ssd.setSpieler(Parameter.turnier.getSpieler());
-			ssd.anzeigen();
-			TurnierMenu tm = Factory.getTurnierMenu();
-			tm.anzeigen();
-			dispose();
-		}
-		*/
 		if (source == m31) // Version anzeigen
 		{
 			JOptionPane.showMessageDialog(null,Parameter.version,"Version",JOptionPane.INFORMATION_MESSAGE);
