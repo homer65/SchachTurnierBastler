@@ -5,6 +5,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 import org.myoggradio.stb.*;
+import org.myoggradio.stb.Shutdown;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -36,6 +38,7 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 	{
 		this.setName("SchachTurnierBastler");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		Runtime.getRuntime().addShutdownHook(new KOShutdown());
 		m1.add(m11);
 		m1.add(m13);
 		m1.add(m14);

@@ -1,10 +1,7 @@
 package org.myoggradio.stbko.impl;
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import org.myoggradio.stb.Factory;
 import org.myoggradio.stb.Spieler;
-import org.myoggradio.stb.TurnierAutoSaver;
 import org.myoggradio.stbko.*;
 public class SimpleKOTurnier implements KOTurnier,Serializable
 {
