@@ -48,6 +48,8 @@ public class SimpleKOTurnierManager implements KOTurnierManager
 					partie.setSchwarz(spieler1);
 				}
 				partie.setErgebnis(0);
+				if (istFreilos(partie.getSchwarz())) partie.setErgebnis(2);
+				if (istFreilos(partie.getWeiss())) partie.setErgebnis(3);
 				erg.setPartie(partie,i);
 			}
 		}
