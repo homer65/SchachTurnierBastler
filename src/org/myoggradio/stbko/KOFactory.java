@@ -34,4 +34,8 @@ public class KOFactory
 	{
 		return new SimpleKOTurnierSaver();
 	}
+	public static KOTurnierAutoSaver getKOTurnierAutoSaver()
+	{
+		return new SimpleKOTurnierAutoSaver();
+	}
 }
