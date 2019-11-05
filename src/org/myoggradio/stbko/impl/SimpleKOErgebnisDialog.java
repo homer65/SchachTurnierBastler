@@ -121,7 +121,10 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 			NeuerSpielerDialog nsd = Factory.getNeuerSpielerDialog();
 			nsd.setSpieler(spieler);
 			nsd.anzeigen();
-			partie.setWeiss(spieler);
+			if (spieler.getName() != null)
+			{
+				partie.setWeiss(spieler);
+			}
 		}
 		if (source == buttcs)
 		{
@@ -133,7 +136,10 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 			NeuerSpielerDialog nsd = Factory.getNeuerSpielerDialog();
 			nsd.setSpieler(spieler);
 			nsd.anzeigen();
-			partie.setSchwarz(spieler);
+			if (spieler.getName() != null)
+			{
+				partie.setSchwarz(spieler);
+			}
 		}
 		anzeigen();
 	}
