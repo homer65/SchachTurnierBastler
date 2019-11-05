@@ -17,6 +17,7 @@ Fuer beide gilt:
 Es ist jederzeit moeglich eine oder mehrere bereits erzeugte Runden anzusehen. 
 Ein Backup des Turniers oder der Spieler ist immer moeglich und sollte auch ausgiebig genutzt werden. 
 Vom SchachTurnierBastler werden automatisch Backups des Turniers nach dem Erzeugen einer neuen Runde gemacht.
+Auch beim Verlassen des Programms wird ein Backup gemacht.
 
 Sollten Sie Kommentare, Anregungen oder Verbesserungsvorschläge haben, 
 benachrichtigen Sie mich doch einfach unter christian@myoggradio.org.
