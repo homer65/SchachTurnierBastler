@@ -22,6 +22,7 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 	private Partie partie = null;
 	private JButton buttcw = null;
 	private JButton buttcs = null;
+	private JButton buttausw = null;
 	public SimpleKOErgebnisDialog()
 	{
 		setModal(true);
@@ -43,6 +44,7 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 		buttss.addActionListener(this);
 		buttcw.addActionListener(this);
 		buttcs.addActionListener(this);
+		buttausw.addActionListener(this);
 		setContentPane(cpan);
 		pack();
 		setVisible(true);
@@ -58,11 +60,13 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 	public void buildchpan()
 	{
 		chpan = new JPanel();
-		chpan.setLayout(new GridLayout(2,1));
+		chpan.setLayout(new GridLayout(3,1));
 		buttcw = new JButton("change white");
 		buttcs = new JButton("change black");
+		buttausw = new JButton("Auswertung");
 		chpan.add(buttcw);
 		chpan.add(buttcs);
+		chpan.add(buttausw);
 	}
 	public void buildbpan()
 	{
@@ -140,6 +144,12 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 			{
 				partie.setSchwarz(spieler);
 			}
+		}
+		if (source == buttausw)
+		{
+			KOAuswertungDialog ad = KOFactory.getKOAuswertungDialog();
+			ad.setPartie(partie);;
+			ad.anzeigen();
 		}
 		anzeigen();
 	}

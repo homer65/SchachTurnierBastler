@@ -38,4 +38,8 @@ public class KOFactory
 	{
 		return new SimpleKOTurnierAutoSaver();
 	}
+	public static KOAuswertungDialog getKOAuswertungDialog()
+	{
+		return new SimpleKOAuswertungDialog();
+	}
 }
