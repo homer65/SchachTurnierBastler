@@ -135,7 +135,7 @@ public class SimpleKOTurnierMenu extends JDialog implements KOTurnierMenu,ListSe
 				Spieler s = gesetzteSpieler.get(x);
 				gesetzteSpieler.remove(s);
 				spieler.add(s);
-				init();	
+				init();
 			}
 		}
 	}

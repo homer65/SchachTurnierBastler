@@ -69,7 +69,7 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 		cpan.setLayout(new BorderLayout());
 		cpan.add(rpan,BorderLayout.NORTH);
 		JScrollPane scrpan=new JScrollPane(tpan);
-		scrpan.setPreferredSize(new Dimension(Parameter.scrwidth,Parameter.scrheight));
+		scrpan.setPreferredSize(new Dimension(KOParameter.scrwidth,KOParameter.scrheight));
 		cpan.add(scrpan,BorderLayout.CENTER);
 	}
 	public void buildtpan()
