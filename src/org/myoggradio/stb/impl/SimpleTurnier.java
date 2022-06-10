@@ -148,6 +148,23 @@ public class SimpleTurnier implements Turnier,Serializable
 		return erg;
 	}
 	@Override
+	public void ergaenzeSpieler(Spieler einspieler) 
+	{
+		if (aktiveRunde == 1)
+		{
+			for (int i=0;i<aktiveRunde;i++)
+			{
+				Runde runde = runden[i];
+				runde.ergaenzeSpieler(einspieler);
+			}
+			spieler.add(einspieler);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null,"Spieler darf nur in erster Runde ergaenzt werden","Fehler",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	@Override
 	public void storniereSpieler(Spieler einspieler) 
 	{
 		for (int i=0;i<aktiveRunde;i++)

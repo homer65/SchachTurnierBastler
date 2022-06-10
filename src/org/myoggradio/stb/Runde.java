@@ -10,4 +10,5 @@ public interface Runde
 	public ArrayList<Spieler> getFreilos();
 	public boolean alleErgebnisEingetragen();
 	public void storniereSpieler(Spieler spieler);
+	public void ergaenzeSpieler(Spieler spieler);
 }

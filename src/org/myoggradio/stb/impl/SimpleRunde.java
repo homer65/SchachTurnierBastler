@@ -50,6 +50,29 @@ public class SimpleRunde implements Runde,Serializable
 		return erg;
 	}
 	@Override
+	public void ergaenzeSpieler(Spieler spieler) 
+	{
+		if (freilos.size() > 0)
+		{
+			Spieler gegner = freilos.get(freilos.size() - 1);
+			freilos.remove(gegner);
+			Partie partie = Factory.getPartie();
+			partie.setWeiss(gegner);
+			partie.setSchwarz(spieler);
+			Partie[] temp = new Partie[partien.length + 1];
+			for (int i=0;i<partien.length;i++)
+			{
+				temp[i] = partien[i];
+			}
+			temp[partien.length] = partie;
+			partien = temp;
+		}
+		else
+		{
+			freilos.add(spieler);
+		}
+	}
+	@Override
 	public void storniereSpieler(Spieler spieler) 
 	{
 		freilos.remove(spieler);

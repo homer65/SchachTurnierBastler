@@ -28,6 +28,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m21 = new JMenuItem("anzeigen");
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("loeschen");
+	private JMenuItem m24 = new JMenuItem("ergaenzen");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JPanel cpan = new JPanel();
@@ -54,6 +55,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m2.add(m21);
 		m2.add(m22);
 		m2.add(m23);
+		m2.add(m24);
 		m3.add(m31);
 		m3.add(m32);
 		menu.add(m1);
@@ -69,6 +71,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
+		m24.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		butt1.addActionListener(this);
@@ -258,11 +261,19 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			SpielerSaver saver = Factory.getSpielerSaver();
 			saver.save(Parameter.turnier.getSpieler());
 		}
-		if (source == m23) // Spieler löschen
+		if (source == m23) // Spieler loeschen
 		{
 			SpielerStornierenDialog ssd = Factory.getSpielerStornierenDialog();
 			ssd.setSpieler(Parameter.turnier.getSpieler());
 			ssd.anzeigen();
+			TurnierMenu tm = Factory.getTurnierMenu();
+			tm.anzeigen();
+			dispose();
+		}
+		if (source == m24) // Spieler ergaenzen
+		{
+			SpielerErgaenzenDialog sed = Factory.getSpielerErgaenzenDialog();
+			sed.anzeigen();
 			TurnierMenu tm = Factory.getTurnierMenu();
 			tm.anzeigen();
 			dispose();
@@ -276,7 +287,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			File aus = new File(".");
 			JOptionPane.showMessageDialog(null,aus.getAbsolutePath(),"Autosave Directory",JOptionPane.INFORMATION_MESSAGE);
 		}
-		if (source == butt1) // Runde zurück
+		if (source == butt1) // Runde zurueck
 		{
 			if (dargestellteRunde > 0) 
 			{

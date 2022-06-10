@@ -30,6 +30,10 @@ public class Factory
 	{
 		return new SimpleSpielerLoeschenDialog();
 	}
+	public static SpielerErgaenzenDialog getSpielerErgaenzenDialog()
+	{
+		return new SimpleSpielerErgaenzenDialog();
+	}
 	public static SpielerAnzeigenDialog getSpielerAnzeigenDialog()
 	{
 		return new SimpleSpielerAnzeigenDialog();
