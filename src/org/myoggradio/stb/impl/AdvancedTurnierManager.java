@@ -14,6 +14,7 @@ public class AdvancedTurnierManager implements TurnierManager
 		this.turnier = turnier;
 		int maxrunden = turnier.getMaxrunden();
 		int aktiverunde = turnier.getNummerAktiveRunde();
+		Protokol.write("AdvancedTurnierManager:startNaechsteRunde:maxrunden:" + maxrunden + ":aktiverunde:" + aktiverunde);
 		int s=0; // Anzahl Iterationen bis zur Meldung
 		int t=0; // Anzahl Iterationen
 		if (maxrunden-1 > aktiverunde)
@@ -58,6 +59,7 @@ public class AdvancedTurnierManager implements TurnierManager
 					 Der zweite Spieler einer Paarung darf noch nicht gegen den Ersten gespielt haben
 					 Er wird zufällig ermittelt, aber nur innerhalb eines bestimmten Abstandes (reichweite)
 					*/
+					// Protokol.write("AdvancedTurnierManager:debug:" + j + ":" + nh + ":" + geordneteAuswertung.size() + ":" + Parameter.reichweite);
 					Spieler spieler2 = getRandomPlayer(geordneteAuswertung,Parameter.reichweite,spieler1);
 					if (spieler2 != null)
 					{
@@ -118,53 +120,61 @@ public class AdvancedTurnierManager implements TurnierManager
 					}
 				}
 			}
-			Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil1: " + minimum);
-			minimum = bewerteTeil2(minimumRunde);
-			Protokol.write("AdvancedTurnierManager:Erste Bewertung Teil2: " + minimum);
-			/*
-			 Ergebnis steht eigentlich fest, aber es wird durch zufälliges Tauschen von Schwarz und Weiss
-			 versucht weiter zu optimieren
-			*/
-			for (int i=0;i<Parameter.maxiter;i++) 
+			if (minimumRunde == null)
 			{
-				s++;
-				t++;
-				if (s>=Parameter.itermsg)
+				Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil1:Es konnte keine Minimum Runde ermittelt werden");
+				JOptionPane.showMessageDialog(null,"Es konnte keine Runde ermittelt werden","Fehler",JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+				Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil1: " + minimum);
+				minimum = bewerteTeil2(minimumRunde);
+				Protokol.write("AdvancedTurnierManager:Erste Bewertung Teil2: " + minimum);
+				/*
+				 Ergebnis steht eigentlich fest, aber es wird durch zufälliges Tauschen von Schwarz und Weiss
+				 versucht weiter zu optimieren
+				*/
+				for (int i=0;i<Parameter.maxiter;i++) 
 				{
-					s = 0;
-					Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t + " Derzeitiges Minimum Teil2: " + minimum);
+					s++;
+					t++;
+					if (s>=Parameter.itermsg)
+					{
+						s = 0;
+						Protokol.write("AdvancedTurnierManager:Anzahl Iterationen: " + t + " Derzeitiges Minimum Teil2: " + minimum);
+					}
+					Runde runde = copyRunde(minimumRunde); // Kein DeepCopy; Spieler müssen identifizierbar bleiben
+					if (runde != null)
+					{
+						randomizeColor(runde);
+						int wertRunde = bewerteTeil2(runde);
+						if (wertRunde < minimum)
+						{
+							minimum = wertRunde;
+							minimumRunde = runde;
+						}
+					}
 				}
-				Runde runde = copyRunde(minimumRunde); // Kein DeepCopy; Spieler müssen identifizierbar bleiben
-				if (runde != null)
+				Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil2: " + minimum);
+				minimum = bewerteTeil3(minimumRunde);
+				Protokol.write("AdvancedTurnierManager:Erste Bewertung Teil3: " + minimum);
+				for (int i=0;i<minimumRunde.getMaxPartien();i++)
 				{
-					randomizeColor(runde);
-					int wertRunde = bewerteTeil2(runde);
+					Runde runde = copyRunde(minimumRunde);
+					Partie partie = runde.getPartie(i);
+					Spieler weiss = partie.getWeiss();
+					Spieler schwarz = partie.getSchwarz();
+					partie.setWeiss(schwarz);
+					partie.setSchwarz(weiss);
+					int wertRunde = bewerteTeil3(runde);
 					if (wertRunde < minimum)
 					{
 						minimum = wertRunde;
 						minimumRunde = runde;
 					}
 				}
+				Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil3: " + minimum);
 			}
-			Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil2: " + minimum);
-			minimum = bewerteTeil3(minimumRunde);
-			Protokol.write("AdvancedTurnierManager:Erste Bewertung Teil3: " + minimum);
-			for (int i=0;i<minimumRunde.getMaxPartien();i++)
-			{
-				Runde runde = copyRunde(minimumRunde);
-				Partie partie = runde.getPartie(i);
-				Spieler weiss = partie.getWeiss();
-				Spieler schwarz = partie.getSchwarz();
-				partie.setWeiss(schwarz);
-				partie.setSchwarz(weiss);
-				int wertRunde = bewerteTeil3(runde);
-				if (wertRunde < minimum)
-				{
-					minimum = wertRunde;
-					minimumRunde = runde;
-				}
-			}
-			Protokol.write("AdvancedTurnierManager:Minimum Bewertung Teil3: " + minimum);
 		}
 		else
 		{
@@ -175,6 +185,8 @@ public class AdvancedTurnierManager implements TurnierManager
 	private Runde copyRunde(Runde runde) // DeepCopy nicht möglich, da Spieler auf = abgefragt werden
 	{
 		Runde erg = Factory.getRunde();
+		if (runde != null)
+		{
 		erg.setMaxPartien(runde.getMaxPartien());
 		for (int i=0;i<runde.getMaxPartien();i++)
 		{
@@ -189,6 +201,11 @@ public class AdvancedTurnierManager implements TurnierManager
 		for (int i=0;i<freilos.size();i++)
 		{
 			erg.addFreilos(freilos.get(i));
+		}
+		}
+		else
+		{
+			erg = null;
 		}
 		return erg;
 	}
@@ -256,11 +273,14 @@ public class AdvancedTurnierManager implements TurnierManager
 	private int bewerteTeil2(Runde runde)
 	{
 		int erg = 0;
-		//erg += bewerteKeinSpielerMehrAlsEinmalFreilos(runde);
-		erg += bewerteDieFarbdifferenzEinesSpielersMussKleiner3Sein(runde);
-		erg += bewerteKeinSpielerDarfDreimalHintereinanderDieGleicheFarbeHaben(runde);
-		erg += bewerteDieFarbdifferenzEinesSpielersSollteKleiner2Sein(runde);
-		//erg += bewerteGleichGuteSpielerSolltenGegeneinaderSpielen(runde);
+		if (runde != null)
+		{
+			//erg += bewerteKeinSpielerMehrAlsEinmalFreilos(runde);
+			erg += bewerteDieFarbdifferenzEinesSpielersMussKleiner3Sein(runde);
+			erg += bewerteKeinSpielerDarfDreimalHintereinanderDieGleicheFarbeHaben(runde);
+			erg += bewerteDieFarbdifferenzEinesSpielersSollteKleiner2Sein(runde);
+			//erg += bewerteGleichGuteSpielerSolltenGegeneinaderSpielen(runde);
+		}
 		return erg;
 	}
 	private int bewerteTeil3(Runde runde)
@@ -277,8 +297,11 @@ public class AdvancedTurnierManager implements TurnierManager
 				anzahlWeiss+=getAnzahlWeiss(spieler,testrunde);
 				anzahlSchwarz+=getAnzahlSchwarz(spieler,testrunde);
 			}
-			anzahlWeiss+=getAnzahlWeiss(spieler,runde);
-			anzahlSchwarz+=getAnzahlSchwarz(spieler,runde);
+			if (runde != null)
+			{
+				anzahlWeiss+=getAnzahlWeiss(spieler,runde);
+				anzahlSchwarz+=getAnzahlSchwarz(spieler,runde);
+			}
 			int delta = anzahlWeiss-anzahlSchwarz;
 			int deltaq = delta * delta;
 			erg += deltaq;
@@ -331,8 +354,11 @@ public class AdvancedTurnierManager implements TurnierManager
 				anzahlWeiss+=getAnzahlWeiss(spieler,testrunde);
 				anzahlSchwarz+=getAnzahlSchwarz(spieler,testrunde);
 			}
-			anzahlWeiss+=getAnzahlWeiss(spieler,runde);
-			anzahlSchwarz+=getAnzahlSchwarz(spieler,runde);
+			if (runde != null)
+			{
+				anzahlWeiss+=getAnzahlWeiss(spieler,runde);
+				anzahlSchwarz+=getAnzahlSchwarz(spieler,runde);
+			}
 			int delta = anzahlWeiss-anzahlSchwarz;
 			if (delta < 0) delta = anzahlSchwarz-anzahlWeiss;
 			if (delta > 2) erg += Parameter.malusFarbdifferenz3;
@@ -342,23 +368,26 @@ public class AdvancedTurnierManager implements TurnierManager
 	private int bewerteKeinSpielerDarfDreimalHintereinanderDieGleicheFarbeHaben(Runde runde)
 	{
 		int erg = 0;
-		int aktiveRunde = turnier.getNummerAktiveRunde();
-		if (aktiveRunde > 0)
+		if (runde != null)
 		{
-			Runde rundet0 = runde;
-			Runde rundet1 = turnier.getRunde(aktiveRunde);
-			Runde rundet2 = turnier.getRunde(aktiveRunde-1);
-			for (int i=0;i<turnier.getSpieler().size();i++)
+			int aktiveRunde = turnier.getNummerAktiveRunde();
+			if (aktiveRunde > 0)
 			{
-				Spieler spieler = turnier.getSpieler().get(i);
-				int anzahlWeiss = getAnzahlWeiss(spieler,rundet0);
-				anzahlWeiss += getAnzahlWeiss(spieler,rundet1);
-				anzahlWeiss += getAnzahlWeiss(spieler,rundet2);
-				int anzahlSchwarz = getAnzahlSchwarz(spieler,rundet0);
-				anzahlSchwarz += getAnzahlSchwarz(spieler,rundet1);
-				anzahlSchwarz += getAnzahlSchwarz(spieler,rundet2);
-				if (anzahlWeiss == 3) erg += Parameter.malus3malGleicheFarbe;
-				if (anzahlSchwarz == 3) erg += Parameter.malus3malGleicheFarbe;
+				Runde rundet0 = runde;
+				Runde rundet1 = turnier.getRunde(aktiveRunde);
+				Runde rundet2 = turnier.getRunde(aktiveRunde-1);
+				for (int i=0;i<turnier.getSpieler().size();i++)
+				{
+					Spieler spieler = turnier.getSpieler().get(i);
+					int anzahlWeiss = getAnzahlWeiss(spieler,rundet0);
+					anzahlWeiss += getAnzahlWeiss(spieler,rundet1);
+					anzahlWeiss += getAnzahlWeiss(spieler,rundet2);
+					int anzahlSchwarz = getAnzahlSchwarz(spieler,rundet0);
+					anzahlSchwarz += getAnzahlSchwarz(spieler,rundet1);
+					anzahlSchwarz += getAnzahlSchwarz(spieler,rundet2);
+					if (anzahlWeiss == 3) erg += Parameter.malus3malGleicheFarbe;
+					if (anzahlSchwarz == 3) erg += Parameter.malus3malGleicheFarbe;
+				}
 			}
 		}
 		return erg;
@@ -377,8 +406,11 @@ public class AdvancedTurnierManager implements TurnierManager
 				anzahlWeiss+=getAnzahlWeiss(spieler,testrunde);
 				anzahlSchwarz+=getAnzahlSchwarz(spieler,testrunde);
 			}
-			anzahlWeiss+=getAnzahlWeiss(spieler,runde);
-			anzahlSchwarz+=getAnzahlSchwarz(spieler,runde);
+			if (runde != null)
+			{
+				anzahlWeiss+=getAnzahlWeiss(spieler,runde);
+				anzahlSchwarz+=getAnzahlSchwarz(spieler,runde);
+			}
 			int delta = anzahlWeiss-anzahlSchwarz;
 			if (delta < 0) delta = anzahlSchwarz-anzahlWeiss;
 			if (delta > 1) erg += Parameter.malusFarbdifferenz2;
