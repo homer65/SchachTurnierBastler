@@ -51,6 +51,7 @@ public class SimpleTurnier implements Turnier,Serializable
 	@Override
 	public Runde getRunde(int nummer) 
 	{
+		if (runden == null) Protokol.write("SimpleTurnier:getRunde:debug:" + nummer);
 		return runden[nummer];
 	}
 	@Override

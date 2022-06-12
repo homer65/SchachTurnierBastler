@@ -139,6 +139,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	{
 		fpan = new JPanel();
 		Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
+		if (runde == null) Protokol.write("SimpleTurnierMenu:buildfpan:" + dargestellteRunde);
 		ArrayList<Spieler> freilos = runde.getFreilos();
 		if (freilos.size()> 0)
 		{

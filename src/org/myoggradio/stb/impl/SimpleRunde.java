@@ -6,7 +6,7 @@ public class SimpleRunde implements Runde,Serializable
 {
 	private static final long serialVersionUID = 1L;
 	private Partie[] partien = null;
-	private ArrayList<Spieler> freilos =new ArrayList<Spieler>();
+	private ArrayList<Spieler> freilos = new ArrayList<Spieler>();
 	@Override
 	public void setMaxPartien(int n) 
 	{

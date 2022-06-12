@@ -1,0 +1,5 @@
+Spieler=Christian=Ehm=1250=
+Spieler=Ralf=Scheithauer=1330=
+Spieler=Uwe=Pewny=2100=
+Spieler=Jens=Hinkmann=2000=
+Spieler=Karl-Heinz=Fränkl=1900=
