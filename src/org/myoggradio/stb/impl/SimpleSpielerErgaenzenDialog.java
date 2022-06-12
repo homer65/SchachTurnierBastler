@@ -58,7 +58,6 @@ public class SimpleSpielerErgaenzenDialog extends JDialog implements SpielerErga
 		}
 		if (source == butt2)
 		{
-			spieler.setName(null);
 			dispose();
 		}
 	}
