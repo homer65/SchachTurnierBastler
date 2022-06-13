@@ -504,7 +504,7 @@ public class AdvancedTurnierManager implements TurnierManager
 				{
 					for (int c=0;c<freilos.size();c++)
 					{
-						if (freilos.get(c) == spieler) punkte = punkte + 1.0;
+						if (freilos.get(c).istGleich(spieler)) punkte = punkte + 1.0;
 					}
 				}
 				for (int a=0;a<runde.getMaxPartien();a++)
@@ -513,13 +513,13 @@ public class AdvancedTurnierManager implements TurnierManager
 					Spieler weiss = partie.getWeiss();
 					Spieler schwarz = partie.getSchwarz();
 					int ergebnis = partie.getErgebnis();
-					if (spieler == weiss)
+					if (spieler.istGleich(weiss))
 					{
 						anzahlWeiss++;
 						if (ergebnis == 1) punkte += 0.5;
 						if (ergebnis == 2) punkte += 1.0;
 					}
-					if (spieler == schwarz)
+					if (spieler.istGleich(schwarz))
 					{
 						anzahlSchwarz++;
 						if (ergebnis == 1) punkte += 0.5;
@@ -547,25 +547,25 @@ public class AdvancedTurnierManager implements TurnierManager
 					Partie partie = runde.getPartie(a);
 					Spieler weiss = partie.getWeiss();
 					Spieler schwarz = partie.getSchwarz();
-					if (spieler == weiss)
+					if (spieler.istGleich(weiss))
 					{
 						for (int k=0;k<erg.size();k++)
 						{
 							Auswertung test = erg.get(k);
 							Spieler testspieler = test.getSpieler();
-							if (testspieler == schwarz)
+							if (testspieler.istGleich(schwarz))
 							{
 								buchholz += test.getPunkte();
 							}
 						}
 					}
-					if (spieler == schwarz)
+					if (spieler.istGleich(schwarz))
 					{
 						for (int k=0;k<erg.size();k++)
 						{
 							Auswertung test = erg.get(k);
 							Spieler testspieler = test.getSpieler();
-							if (testspieler == weiss)
+							if (testspieler.istGleich(weiss))
 							{
 								buchholz += test.getPunkte();
 							}

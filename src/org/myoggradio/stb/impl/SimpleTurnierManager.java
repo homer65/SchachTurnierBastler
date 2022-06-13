@@ -286,6 +286,7 @@ public class SimpleTurnierManager implements TurnierManager
 	@Override
 	public ArrayList<Auswertung> getAuswertung(int rundenNummer) 
 	{
+		Protokol.write("SimpleTurnierManager:getAuswertung:Runde:" + rundenNummer);
 		ArrayList<Auswertung> erg = new ArrayList<Auswertung>();
 		for (int i=0;i<Parameter.turnier.getSpieler().size();i++)
 		{
@@ -298,7 +299,10 @@ public class SimpleTurnierManager implements TurnierManager
 				{
 					for (int c=0;c<runde.getFreilos().size();c++)
 					{
-						if (runde.getFreilos().get(c) == spieler) punkte = punkte + 1.0;
+						if (runde.getFreilos().get(c).istGleich(spieler))
+						{
+							punkte = punkte + 1.0;
+						}
 					}
 				}
 				for (int a=0;a<runde.getMaxPartien();a++)
@@ -307,12 +311,12 @@ public class SimpleTurnierManager implements TurnierManager
 					Spieler weiss = partie.getWeiss();
 					Spieler schwarz = partie.getSchwarz();
 					int ergebnis = partie.getErgebnis();
-					if (spieler == weiss)
+					if (spieler.istGleich(weiss))
 					{
 						if (ergebnis == 1) punkte += 0.5;
 						if (ergebnis == 2) punkte += 1.0;
 					}
-					if (spieler == schwarz)
+					if (spieler.istGleich(schwarz))
 					{
 						if (ergebnis == 1) punkte += 0.5;
 						if (ergebnis == 3) punkte += 1.0;
@@ -337,25 +341,25 @@ public class SimpleTurnierManager implements TurnierManager
 					Partie partie = runde.getPartie(a);
 					Spieler weiss = partie.getWeiss();
 					Spieler schwarz = partie.getSchwarz();
-					if (spieler == weiss)
+					if (spieler.istGleich(weiss))
 					{
 						for (int k=0;k<erg.size();k++)
 						{
 							Auswertung test = erg.get(k);
 							Spieler testspieler = test.getSpieler();
-							if (testspieler == schwarz)
+							if (testspieler.istGleich(schwarz))
 							{
 								buchholz += test.getPunkte();
 							}
 						}
 					}
-					if (spieler == schwarz)
+					if (spieler.istGleich(schwarz))
 					{
 						for (int k=0;k<erg.size();k++)
 						{
 							Auswertung test = erg.get(k);
 							Spieler testspieler = test.getSpieler();
-							if (testspieler == weiss)
+							if (testspieler.istGleich(weiss))
 							{
 								buchholz += test.getPunkte();
 							}

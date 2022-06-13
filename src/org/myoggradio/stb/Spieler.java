@@ -9,4 +9,5 @@ public interface Spieler
 	public int getDWZ();
 	public String toString();
 	public void fromString(String satz);
+	public boolean istGleich(Spieler test);
 }

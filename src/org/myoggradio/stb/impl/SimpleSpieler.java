@@ -62,4 +62,14 @@ public class SimpleSpieler implements Spieler,Serializable
 		erg += dwz + "=";
 		return erg;
 	}
+	@Override
+	public boolean istGleich(Spieler test) 
+	{
+		boolean erg = true;
+		if (dwz != test.getDWZ()) erg = false;
+		if (!name.equals(test.getName())) erg = false;
+		if (!vorname.equals(test.getVorname())) erg = false;
+		return erg;
+	}
+	
 }

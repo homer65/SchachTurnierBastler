@@ -24,6 +24,7 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog,
 	@Override
 	public void setRunde(int n) 
 	{
+		Protokol.write("SimpleAuswertungDialog:setRunde:Runde:" + n);
 		this.rundeNummer = n;
 		TurnierManager manager = Factory.getTurnierManager();
 		ausw = manager.getAuswertung(rundeNummer);
@@ -32,6 +33,7 @@ public class SimpleAuswertungDialog extends JDialog implements AuswertungDialog,
 	@Override
 	public void anzeigen()
 	{
+		Protokol.write("SimpleAuswertungDialog:anzeigen:Runde:" + rundeNummer);
 		JPanel cpan = new JPanel();
 		cpan.setLayout(new FlowLayout());
 		String[] columnNames = new String[7];
