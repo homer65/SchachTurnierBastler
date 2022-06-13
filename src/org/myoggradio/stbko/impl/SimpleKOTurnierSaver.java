@@ -1,7 +1,5 @@
 package org.myoggradio.stbko.impl;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import javax.swing.JFileChooser;
 import org.myoggradio.stb.*;
 import org.myoggradio.stbko.*;
@@ -18,11 +16,8 @@ public class SimpleKOTurnierSaver implements KOTurnierSaver
 			try
 			{
 				File aus = fc.getSelectedFile();
-				FileOutputStream fos = new FileOutputStream(aus);
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				oos.writeObject(turnier);
-				oos.flush();
-				oos.close();
+				XMLKOTurnierSaver xml = new XMLKOTurnierSaver();
+				xml.save(turnier,aus);
 			}
 			catch (Exception e)
 			{
