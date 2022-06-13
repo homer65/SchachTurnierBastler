@@ -1,8 +1,5 @@
 package org.myoggradio.stb.impl;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import org.myoggradio.stb.*;
@@ -20,20 +17,8 @@ public class FileSpielerLoader implements SpielerLoader
 			try
 			{
 				File ein = fc.getSelectedFile();
-				Reader rdr = new FileReader(ein);
-				BufferedReader br = new BufferedReader(rdr);
-				String satz = br.readLine();
-				while (satz != null)
-				{
-					Spieler spieler = Factory.getSpieler();
-					spieler.fromString(satz);
-					if (spieler.getName() != null)
-					{
-						erg.add(spieler);
-					}
-					satz = br.readLine();
-				}
-				br.close();
+				XMLSpielerLoader xml = new XMLSpielerLoader();
+				erg = xml.load(ein);
 			}
 			catch (Exception e)
 			{

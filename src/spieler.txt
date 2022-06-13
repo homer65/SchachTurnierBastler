@@ -1,5 +1,1 @@
-Spieler=Christian=Ehm=1250=
-Spieler=Ralf=Scheithauer=1330=
-Spieler=Uwe=Pewny=2100=
-Spieler=Jens=Hinkmann=2000=
-Spieler=Karl-Heinz=Fränkl=1900=
+<?xml version="1.0" ?><spielerlist><spieler vorname="Christian" name="Ehm" dwz="1250"></spieler><spieler vorname="Ralf" name="Scheithauer" dwz="1330"></spieler><spieler vorname="Karl-Heinz" name="Fränkl" dwz="1900"></spieler></spielerlist>
