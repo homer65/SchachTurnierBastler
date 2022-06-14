@@ -51,5 +51,10 @@ public class SimpleKOTurnier implements KOTurnier,Serializable
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public int getMaxrunden() 
+	{
+		return runden.size();
+	}
 
 }

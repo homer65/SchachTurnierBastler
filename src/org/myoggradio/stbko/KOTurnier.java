@@ -8,6 +8,7 @@ public interface KOTurnier
 	public KORunde getRunde(int nummer);
 	public KORunde getAktiveRunde();
 	public int getNummerAktiveRunde();
+	public int getMaxrunden();
 	public ArrayList<Spieler> getSpieler();
 	public void start();
 	public boolean storniereAktiveRunde();

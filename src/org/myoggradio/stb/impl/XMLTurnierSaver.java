@@ -36,43 +36,46 @@ public class XMLTurnierSaver
 				out.writeAttribute("dwz","" + s.getDWZ());
 				out.writeEndElement();
 			}
-			int n = turnier.getNummerAktiveRunde();
+			int n = turnier.getMaxrunden();
 			for (int i=0;i<n;i++)
 			{
 				Protokol.write("XMLTurnierSaver:save:Runde:" + i);
 				Runde runde = turnier.getRunde(i);
-				out.writeStartElement("runde");
-				ArrayList<Spieler> freilos = runde.getFreilos();
-				for (int j=0;j<freilos.size();j++)
+				if (runde != null)
 				{
-					Spieler s = freilos.get(j);
-					out.writeStartElement("freilos");
-					out.writeAttribute("vorname",s.getVorname());
-					out.writeAttribute("name",s.getName());
-					out.writeAttribute("dwz","" + s.getDWZ());
+					out.writeStartElement("runde");
+					ArrayList<Spieler> freilos = runde.getFreilos();
+					for (int j=0;j<freilos.size();j++)
+					{
+						Spieler s = freilos.get(j);
+						out.writeStartElement("freilos");
+						out.writeAttribute("vorname",s.getVorname());
+						out.writeAttribute("name",s.getName());
+						out.writeAttribute("dwz","" + s.getDWZ());
+						out.writeEndElement();
+					}
+					int m = runde.getMaxPartien();
+					for (int j=0;j<m;j++)
+					{
+						Partie partie = runde.getPartie(j);
+						out.writeStartElement("partie");
+						out.writeAttribute("ergebnis","" + partie.getErgebnis());
+						Spieler weiss = partie.getWeiss();
+						out.writeStartElement("weiss");
+						out.writeAttribute("vorname",weiss.getVorname());
+						out.writeAttribute("name",weiss.getName());
+						out.writeAttribute("dwz","" + weiss.getDWZ());
+						out.writeEndElement();
+						Spieler schwarz = partie.getSchwarz();
+						out.writeStartElement("schwarz");
+						out.writeAttribute("vorname",schwarz.getVorname());
+						out.writeAttribute("name",schwarz.getName());
+						out.writeAttribute("dwz","" + schwarz.getDWZ());
+						out.writeEndElement();
+						out.writeEndElement();
+					}
 					out.writeEndElement();
 				}
-				n = runde.getMaxPartien();
-				for (int j=0;j<n;j++)
-				{
-					Partie partie = runde.getPartie(j);
-					out.writeStartElement("partie");
-					out.writeAttribute("ergebnis","" + partie.getErgebnis());
-					Spieler weiss = partie.getWeiss();
-					out.writeStartElement("weiss");
-					out.writeAttribute("vorname",weiss.getVorname());
-					out.writeAttribute("name",weiss.getName());
-					out.writeAttribute("dwz","" + weiss.getDWZ());
-					out.writeEndElement();
-					Spieler schwarz = partie.getSchwarz();
-					out.writeStartElement("schwarz");
-					out.writeAttribute("vorname",schwarz.getVorname());
-					out.writeAttribute("name",schwarz.getName());
-					out.writeAttribute("dwz","" + schwarz.getDWZ());
-					out.writeEndElement();
-					out.writeEndElement();
-				}
-				out.writeEndElement();
 			}
 			out.writeEndElement();
 			out.writeEndDocument();

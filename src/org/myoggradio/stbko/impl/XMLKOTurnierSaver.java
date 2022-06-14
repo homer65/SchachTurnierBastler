@@ -34,32 +34,35 @@ public class XMLKOTurnierSaver
 				out.writeAttribute("dwz","" + s.getDWZ());
 				out.writeEndElement();
 			}
-			int n = turnier.getNummerAktiveRunde();
+			int n = turnier.getMaxrunden();
 			for (int i=0;i<n;i++)
 			{
 				KORunde runde = turnier.getRunde(i);
-				out.writeStartElement("korunde");
-				n = runde.getMaxPartien();
-				for (int j=0;j<n;j++)
+				if (runde != null)
 				{
-					Partie partie = runde.getPartie(j);
-					out.writeStartElement("partie");
-					out.writeAttribute("ergebnis","" + partie.getErgebnis());
-					Spieler weiss = partie.getWeiss();
-					out.writeStartElement("weiss");
-					out.writeAttribute("vorname",weiss.getVorname());
-					out.writeAttribute("name",weiss.getName());
-					out.writeAttribute("dwz","" + weiss.getDWZ());
-					out.writeEndElement();
-					Spieler schwarz = partie.getSchwarz();
-					out.writeStartElement("schwarz");
-					out.writeAttribute("vorname",schwarz.getVorname());
-					out.writeAttribute("name",schwarz.getName());
-					out.writeAttribute("dwz","" + schwarz.getDWZ());
-					out.writeEndElement();
+					out.writeStartElement("korunde");
+					int m = runde.getMaxPartien();
+					for (int j=0;j<m;j++)
+					{
+						Partie partie = runde.getPartie(j);
+						out.writeStartElement("partie");
+						out.writeAttribute("ergebnis","" + partie.getErgebnis());
+						Spieler weiss = partie.getWeiss();
+						out.writeStartElement("weiss");
+						out.writeAttribute("vorname",weiss.getVorname());
+						out.writeAttribute("name",weiss.getName());
+						out.writeAttribute("dwz","" + weiss.getDWZ());
+						out.writeEndElement();
+						Spieler schwarz = partie.getSchwarz();
+						out.writeStartElement("schwarz");
+						out.writeAttribute("vorname",schwarz.getVorname());
+						out.writeAttribute("name",schwarz.getName());
+						out.writeAttribute("dwz","" + schwarz.getDWZ());
+						out.writeEndElement();
+						out.writeEndElement();
+					}
 					out.writeEndElement();
 				}
-				out.writeEndElement();
 			}
 			out.writeEndElement();
 			out.writeEndDocument();
