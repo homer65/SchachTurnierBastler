@@ -7,6 +7,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
+
+import org.myoggradio.stb.Parameter;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Spieler;
@@ -24,6 +26,7 @@ public class XMLKOTurnierSaver
 			XMLStreamWriter out = outputFactory.createXMLStreamWriter(writer);
 			out.writeStartDocument();
 			out.writeStartElement("koturnier");
+			out.writeAttribute("version",Parameter.version);
 			ArrayList<Spieler> spieler = turnier.getSpieler();
 			for (int i=0;i<spieler.size();i++)
 			{

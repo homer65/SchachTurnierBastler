@@ -1,14 +1,21 @@
 package org.myoggradio.stb;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.myoggradio.stb.impl.XMLTurnierSaver;
 public class Shutdown extends Thread
 {
+	private String pattern = "yyyy-MM-dd_hh-mm-ss";
 	@Override
 	public void run() 
 	{
 		try
 		{
-			File aus = new File("SchachTurnierBastler-Turnier-Shutdown-AutoSave.stb");
+			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+			Date jetzt = new Date();
+			String datum = sdf.format(jetzt);
+			File aus = new File("SchachTurnierBastler-Turnier-Shutdown-AutoSave" + datum + ".stb");
 			String pfad = aus.getAbsolutePath();
 			Protokol.write("Shutdown:save: " + pfad);
 			XMLTurnierSaver xml = new XMLTurnierSaver();
