@@ -3,6 +3,11 @@ import javax.swing.*;
 import org.myoggradio.stb.*;
 import org.myoggradio.stb.img.Locator;
 import org.myoggradio.stb.img.TuxPanel;
+import org.myoggradio.stbjgj.JGJFactory;
+import org.myoggradio.stbjgj.JGJParameter;
+import org.myoggradio.stbjgj.JGJTurnier;
+import org.myoggradio.stbjgj.JGJTurnierLoader;
+import org.myoggradio.stbjgj.JGJTurnierMenu;
 import org.myoggradio.stbko.*;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -23,6 +28,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenuItem m13 = new JMenuItem("laden schweizer System");
 	private JMenuItem m15 = new JMenuItem("laden KO System");
 	private JMenuItem m14 = new JMenuItem("Start KO System");
+	private JMenuItem m16 = new JMenuItem("Start JGJ System");
+	private JMenuItem m17 = new JMenuItem("laden JGJ System");
 	private JMenuItem m21 = new JMenuItem("laden");
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("einzelnen Spieler hinzufuegen");
@@ -39,6 +46,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m1.add(m12);
 		m1.add(m13);
 		m1.add(m15);
+		m1.add(m16);
+		m1.add(m17);
 		m2.add(m21);
 		m2.add(m22);
 		m2.add(m23);
@@ -55,6 +64,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m13.addActionListener(this);
 		m14.addActionListener(this);
 		m15.addActionListener(this);
+		m16.addActionListener(this);
+		m17.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
@@ -129,6 +140,29 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			{
 				KOParameter.turnier = test;
 				KOTurnierMenu2 tm = KOFactory.getKOTurnierMenu2();
+				tm.anzeigen();
+				dispose();
+			}
+		}
+		if (source == m16) // Start Turnier JGJ System
+		{
+			JGJParameter.spieler = Parameter.spieler;
+			JGJTurnier turnier = JGJFactory.getJGJTurnier();
+			turnier.setSpieler(Parameter.spieler);
+			turnier.start();
+			JGJParameter.turnier = turnier;
+			JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
+			tm.anzeigen();
+			dispose();
+		}
+		if (source == m17) // Turnier laden KO System
+		{
+			JGJTurnierLoader loader = JGJFactory.getJGJTurnierLoader();
+			JGJTurnier test = loader.load();
+			if (test != null)
+			{
+				JGJParameter.turnier = test;
+				JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
 				tm.anzeigen();
 				dispose();
 			}

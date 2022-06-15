@@ -1,7 +1,5 @@
 package org.myoggradio.stbko.impl;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import org.myoggradio.stb.*;
 import org.myoggradio.stbko.*;
 public class SimpleKOTurnierAutoSaver implements KOTurnierAutoSaver
@@ -15,11 +13,8 @@ public class SimpleKOTurnierAutoSaver implements KOTurnierAutoSaver
 			File aus = new File("SchachTurnierBastler-KOTurnier-Runde-" + n + "-AutoSave.stb");
 			String pfad = aus.getAbsolutePath();
 			Protokol.write("SimpleKOTurnierAutosaver:save: " + pfad);
-			FileOutputStream fos = new FileOutputStream(aus);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(turnier);
-			oos.flush();
-			oos.close();
+			XMLKOTurnierSaver xml = new XMLKOTurnierSaver();
+			xml.save(turnier,aus);
 		}
 		catch (Exception e)
 		{

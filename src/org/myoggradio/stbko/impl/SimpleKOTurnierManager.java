@@ -1,8 +1,6 @@
 package org.myoggradio.stbko.impl;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import org.myoggradio.stb.*;
 import org.myoggradio.stbko.*;
 public class SimpleKOTurnierManager implements KOTurnierManager

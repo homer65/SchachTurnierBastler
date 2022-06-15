@@ -1,6 +1,5 @@
 package org.myoggradio.stbko.impl;
 import java.io.Serializable;
-
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stbko.*;
 public class SimpleKORunde implements KORunde,Serializable
