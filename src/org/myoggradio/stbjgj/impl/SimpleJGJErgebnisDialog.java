@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -10,7 +12,10 @@ import javax.swing.JPanel;
 import org.myoggradio.stb.*;
 import org.myoggradio.stbjgj.JGJErgebnisDialog;
 import org.myoggradio.stbjgj.JGJFactory;
+import org.myoggradio.stbjgj.JGJParameter;
 import org.myoggradio.stbjgj.JGJPartieAuswertungsDialog;
+import org.myoggradio.stbjgj.JGJRunde;
+import org.myoggradio.stbjgj.JGJTurnier;
 public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialog, ActionListener
 {
 	private static final long serialVersionUID = 1L;
@@ -137,7 +142,7 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 			nsd.anzeigen();
 			if (spieler.getName() != null)
 			{
-				partie.setWeiss(spieler);
+				changeSpieler(weiss,spieler);
 			}
 		}
 		if (source == buttcs)
@@ -152,7 +157,7 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 			nsd.anzeigen();
 			if (spieler.getName() != null)
 			{
-				partie.setSchwarz(spieler);
+				changeSpieler(schwarz,spieler);
 			}
 		}
 		if (source == buttausw)
@@ -162,5 +167,41 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 			ad.anzeigen();
 		}
 		anzeigen();
+	}
+	public void changeSpieler(Spieler alt,Spieler neu)
+	{
+		ArrayList<Spieler> spieler = JGJParameter.spieler;
+		for (int i=0;i<spieler.size();i++)
+		{
+			Spieler test = spieler.get(i);
+			if (test.istGleich(alt))
+			{
+				test = neu;
+			}
+		}
+		JGJTurnier turnier = JGJParameter.turnier;
+		int maxrunden = turnier.getMaxrunden();
+		for (int i=0;i<maxrunden;i++)
+		{
+			JGJRunde runde = turnier.getRunde(i);
+			Spieler[] rspieler = runde.getSpieler();
+			for (int j=0;j<rspieler.length;j++)
+			{
+				Spieler test = rspieler[j];
+				if (test.istGleich(alt))
+				{
+					rspieler[j] = neu;
+				}
+			}
+			int maxpartien = runde.getMaxPartien();
+			for (int j=0;j<maxpartien;j++)
+			{
+				Partie partie = runde.getPartie(j);
+				Spieler weiss = partie.getWeiss();
+				Spieler schwarz = partie.getSchwarz();
+				if (weiss.istGleich(alt)) partie.setWeiss(neu);
+				if (schwarz.istGleich(alt)) partie.setSchwarz(neu);
+			}
+		}
 	}
 }

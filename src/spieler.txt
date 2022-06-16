@@ -1,1 +1,0 @@
-<?xml version="1.0" ?><spielerlist><spieler vorname="Christian" name="Ehm" dwz="1250"></spieler><spieler vorname="Ralf" name="Scheithauer" dwz="1330"></spieler><spieler vorname="Karl-Heinz" name="Fränkl" dwz="1900"></spieler><spieler vorname="Jens" name="Hinkmann" dwz="2000"></spieler></spielerlist>

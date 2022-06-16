@@ -42,6 +42,12 @@ public class SimpleNeuerSpielerDialog extends JDialog implements NeuerSpielerDia
 	public void setSpieler(Spieler spieler) 
 	{
 		this.spieler = spieler;
+		if (spieler != null)
+		{
+			tf1.setText(spieler.getVorname());
+			tf2.setText(spieler.getName());
+			tf3.setText("" + spieler.getDWZ());
+		}
 	}
 	@Override
 	public void anzeigen() 
