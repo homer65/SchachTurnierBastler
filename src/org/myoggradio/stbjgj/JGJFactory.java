@@ -2,8 +2,10 @@ package org.myoggradio.stbjgj;
 import org.myoggradio.stbjgj.impl.SimpleJGJErgebnisDialog;
 import org.myoggradio.stbjgj.impl.SimpleJGJRunde;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnier;
+import org.myoggradio.stbjgj.impl.SimpleJGJTurnierLoader;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnierManager;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnierMenu;
+import org.myoggradio.stbjgj.impl.SimpleJGJTurnierSaver;
 public class JGJFactory 
 {
 	public static JGJTurnier getJGJTurnier()
@@ -16,11 +18,11 @@ public class JGJFactory
 	}
 	public static JGJTurnierLoader getJGJTurnierLoader()
 	{
-		return null;
+		return new SimpleJGJTurnierLoader();
 	}
 	public static JGJTurnierSaver getJGJTurnierSaver()
 	{
-		return null;
+		return new SimpleJGJTurnierSaver();
 	}
 	public static JGJRunde getJGJRunde()
 	{

@@ -1,4 +1,4 @@
-package org.myoggradio.stbko.impl;
+package org.myoggradio.stbjgj.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -9,19 +9,19 @@ import org.myoggradio.stb.Factory;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Spieler;
-import org.myoggradio.stbko.KOFactory;
-import org.myoggradio.stbko.KORunde;
-import org.myoggradio.stbko.KOTurnier;
+import org.myoggradio.stbjgj.JGJFactory;
+import org.myoggradio.stbjgj.JGJRunde;
+import org.myoggradio.stbjgj.JGJTurnier;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-public class XMLKOTurnierLoader 
+public class XMLJGJTurnierLoader 
 {
-	public KOTurnier load(File file)
+	public JGJTurnier load(File file)
 	{
-		KOTurnier erg = KOFactory.getKOTurnier();
+		JGJTurnier erg = JGJFactory.getJGJTurnier();
 		try
 		{
 			InputStream fin = new FileInputStream(file);
@@ -30,11 +30,11 @@ public class XMLKOTurnierLoader
 			Document doc = db.parse(new InputSource(fin));
 			Node turnier = doc.getFirstChild();
 			Element elemturnier = (Element) turnier;
-			erg = getKOTurnier(elemturnier);
+			erg = getJGJTurnier(elemturnier);
 		}
 		catch (Exception e)
 		{
-			Protokol.write("XML:read:Exception:");
+			Protokol.write("XMLJGJLoader:read:Exception:");
 			Protokol.write(e.toString());
 		}
 		return erg; 
@@ -51,9 +51,10 @@ public class XMLKOTurnierLoader
 		erg.setDWZ(dwz);
 		return erg;
 	}
-	public KORunde getKORunde(Element element)
+	public JGJRunde getJGJRunde(Element element)
 	{
-		KORunde erg = KOFactory.getKORunde();
+		JGJRunde erg = JGJFactory.getJGJRunde();
+		ArrayList<Spieler> spieler = new ArrayList<Spieler>();
 		ArrayList<Partie> partien = new ArrayList<Partie>();
 		NodeList list = element.getChildNodes();
 		for (int i=0;i<list.getLength();i++)
@@ -63,6 +64,11 @@ public class XMLKOTurnierLoader
 			{
 				Element rundeelement = (Element) node;
 				String name = rundeelement.getTagName();
+				if (name.equals("spieler"))
+				{
+					Spieler s = getSpieler(rundeelement);
+					spieler.add(s);
+				}
 				if (name.equals("partie"))
 				{
 					Partie partie = getPartie(rundeelement);
@@ -75,6 +81,12 @@ public class XMLKOTurnierLoader
 		{
 			erg.setPartie(partien.get(i),i);
 		}
+		Spieler[] rspieler = new Spieler[spieler.size()];
+		for (int i=0;i<spieler.size();i++)
+		{
+			rspieler[i] = spieler.get(i);
+		}
+		erg.setSpieler(rspieler);
 		return erg;
 	}
 	public Partie getPartie(Element element)
@@ -107,11 +119,11 @@ public class XMLKOTurnierLoader
 		partie.setSchwarz(schwarz);
 		return partie;
 	}
-	public KOTurnier getKOTurnier(Element element)
+	public JGJTurnier getJGJTurnier(Element element)
 	{
-		KOTurnier erg = KOFactory.getKOTurnier();
+		JGJTurnier erg = JGJFactory.getJGJTurnier();
 		ArrayList<Spieler> spielerlist = new ArrayList<Spieler>();
-		ArrayList<KORunde> runden = new ArrayList<KORunde>();
+		ArrayList<JGJRunde> runden = new ArrayList<JGJRunde>();
 		NodeList list = element.getChildNodes();
 		for (int i=0;i<list.getLength();i++)
 		{
@@ -125,9 +137,9 @@ public class XMLKOTurnierLoader
 					Spieler spieler = getSpieler(turnierelement);
 					spielerlist.add(spieler);
 				}
-				if (name.equals("korunde"))
+				if (name.equals("jgjrunde"))
 				{
-					KORunde runde = getKORunde(turnierelement);
+					JGJRunde runde = getJGJRunde(turnierelement);
 					runden.add(runde);
 				}
 			}
@@ -135,7 +147,7 @@ public class XMLKOTurnierLoader
 		erg.setSpieler(spielerlist);
 		for (int i=0;i<runden.size();i++)
 		{
-			if (runden.get(i) == null) Protokol.write("XMLKOTurnierLoader:getTurnier:Null Runde:" + i);
+			if (runden.get(i) == null) Protokol.write("XMLJGJTurnierLoader:getTurnier:Null Runde:" + i);
 			erg.setNextRunde(runden.get(i));
 		}
 		return erg;

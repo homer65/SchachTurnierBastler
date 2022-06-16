@@ -1,4 +1,4 @@
-package org.myoggradio.stbko.impl;
+package org.myoggradio.stbjgj.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -11,11 +11,11 @@ import org.myoggradio.stb.Parameter;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Spieler;
-import org.myoggradio.stbko.KORunde;
-import org.myoggradio.stbko.KOTurnier;
-public class XMLKOTurnierSaver
+import org.myoggradio.stbjgj.JGJRunde;
+import org.myoggradio.stbjgj.JGJTurnier;
+public class XMLJGJTurnierSaver
 {
-	public void save(KOTurnier turnier,File file) 
+	public void save(JGJTurnier turnier,File file) 
 	{
 		try
 		{
@@ -24,7 +24,7 @@ public class XMLKOTurnierSaver
 			XMLOutputFactory outputFactory = XMLOutputFactory.newFactory();
 			XMLStreamWriter out = outputFactory.createXMLStreamWriter(writer);
 			out.writeStartDocument();
-			out.writeStartElement("koturnier");
+			out.writeStartElement("jgjturnier");
 			out.writeAttribute("version",Parameter.version);
 			ArrayList<Spieler> spieler = turnier.getSpieler();
 			for (int i=0;i<spieler.size();i++)
@@ -39,11 +39,22 @@ public class XMLKOTurnierSaver
 			int n = turnier.getMaxrunden();
 			for (int i=0;i<n;i++)
 			{
-				KORunde runde = turnier.getRunde(i);
+				JGJRunde runde = turnier.getRunde(i);
 				if (runde != null)
 				{
-					out.writeStartElement("korunde");
-					int m = runde.getMaxPartien();
+					out.writeStartElement("jgjrunde");
+					Spieler[] rspieler = runde.getSpieler();
+					int m = rspieler.length;
+					for (int j=0;j<m;j++)
+					{
+						Spieler rs = rspieler[j];
+						out.writeStartElement("spieler");
+						out.writeAttribute("vorname",rs.getVorname());
+						out.writeAttribute("name",rs.getName());
+						out.writeAttribute("dwz","" + rs.getDWZ());
+						out.writeEndElement();
+					}
+					m = runde.getMaxPartien();
 					for (int j=0;j<m;j++)
 					{
 						Partie partie = runde.getPartie(j);
