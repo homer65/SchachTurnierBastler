@@ -1,4 +1,5 @@
 package org.myoggradio.stbjgj;
+import org.myoggradio.stbjgj.impl.SimpleJGJAuswertungsDialog;
 import org.myoggradio.stbjgj.impl.SimpleJGJErgebnisDialog;
 import org.myoggradio.stbjgj.impl.SimpleJGJRunde;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnier;
@@ -35,5 +36,9 @@ public class JGJFactory
 	public static JGJErgebnisDialog getJGJErgebnisDialog()
 	{
 		return new SimpleJGJErgebnisDialog();
+	}
+	public static JGJAuswertungsDialog getJGJAuswertungsDialog()
+	{
+		return new SimpleJGJAuswertungsDialog();
 	}
 }

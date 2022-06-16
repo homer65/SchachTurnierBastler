@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 import org.myoggradio.stb.*;
+import org.myoggradio.stbjgj.JGJAuswertungsDialog;
 import org.myoggradio.stbjgj.JGJErgebnisDialog;
 import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJParameter;
@@ -28,6 +29,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 	private JMenuBar menu = new JMenuBar();
 	private JMenu m1 = new JMenu("Turnier");
 	private JMenu m3 = new JMenu("Info");
+	private JMenuItem m12 = new JMenuItem("auswerten");
 	private JMenuItem m13 = new JMenuItem("speichern");
 	private JMenuItem m14 = new JMenuItem("laden");
 	private JMenuItem m31 = new JMenuItem("Version");
@@ -45,6 +47,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		this.setName("SchachTurnierBastler");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Runtime.getRuntime().addShutdownHook(new JGJShutdown());
+		m1.add(m12);
 		m1.add(m13);
 		m1.add(m14);
 		m3.add(m31);
@@ -52,6 +55,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		menu.add(m1);
 		menu.add(m3);
 		this.setJMenuBar(menu);
+		m12.addActionListener(this);
 		m13.addActionListener(this);
 		m14.addActionListener(this);
 		m31.addActionListener(this);
@@ -149,6 +153,12 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 	public void actionPerformed(ActionEvent ae)
 	{
 		Object source = ae.getSource();
+		if (source == m12) // Auswertung
+		{
+			JGJAuswertungsDialog ad = JGJFactory.getJGJAuswertungsDialog();
+			ad.setRunde(dargestellteRunde);
+			ad.anzeigen();
+		}
 		if (source == m13) // Turnier speichern
 		{
 			JGJTurnierSaver saver = JGJFactory.getJGJTurnierSaver();
