@@ -149,15 +149,21 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 					int ergebnis = partie.getErgebnis();
 					if (spieler.istGleich(weiss))
 					{
-						if (!weiss.istGleich(freilos)) anzahlWeiss++;
-						if (ergebnis == 1) punkte += 0.5;
-						if (ergebnis == 2) punkte += 1.0;
+						if (!schwarz.istGleich(freilos)) 
+						{
+							anzahlWeiss++;
+							if (ergebnis == 1) punkte += 0.5;
+							if (ergebnis == 2) punkte += 1.0;
+						}
 					}
 					if (spieler.istGleich(schwarz))
 					{
-						if (!schwarz.istGleich(freilos)) anzahlSchwarz++;
-						if (ergebnis == 1) punkte += 0.5;
-						if (ergebnis == 3) punkte += 1.0;
+						if (!weiss.istGleich(freilos)) 
+						{
+							anzahlSchwarz++;
+							if (ergebnis == 1) punkte += 0.5;
+							if (ergebnis == 3) punkte += 1.0;
+						}	
 					}
 				}
 			}
@@ -189,7 +195,10 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 							Spieler testspieler = test.getSpieler();
 							if (testspieler.istGleich(schwarz))
 							{
-								buchholz += test.getPunkte();
+								if (testspieler != freilos)
+								{
+									buchholz += test.getPunkte();
+								}
 							}
 						}
 					}
@@ -201,7 +210,10 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 							Spieler testspieler = test.getSpieler();
 							if (testspieler.istGleich(weiss))
 							{
-								buchholz += test.getPunkte();
+								if (testspieler != freilos)
+								{
+									buchholz += test.getPunkte();
+								}
 							}
 						}
 					}
@@ -209,7 +221,16 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 			}
 			auswertung.setBuchholz(buchholz);
 		}
-		return erg;
+		ArrayList<Auswertung> gefiltert = new ArrayList<Auswertung>();
+		for (int i=0;i<erg.size();i++)
+		{
+			Auswertung auswertung = erg.get(i);
+			if (!auswertung.getSpieler().istGleich(freilos))
+			{
+				gefiltert.add(auswertung);
+			}
+		}
+		return gefiltert;
 	}
 	private boolean istUngerade(int i)
 	{
