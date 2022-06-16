@@ -9,7 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.myoggradio.stb.*;
 import org.myoggradio.stbjgj.JGJErgebnisDialog;
-import org.myoggradio.stbko.*;
+import org.myoggradio.stbjgj.JGJFactory;
+import org.myoggradio.stbjgj.JGJPartieAuswertungsDialog;
 public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialog, ActionListener
 {
 	private static final long serialVersionUID = 1L;
@@ -156,7 +157,7 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 		}
 		if (source == buttausw)
 		{
-			KOAuswertungDialog ad = KOFactory.getKOAuswertungDialog();
+			JGJPartieAuswertungsDialog ad = JGJFactory.getJGJPartieAuswertungsDialog();
 			ad.setPartie(partie);;
 			ad.anzeigen();
 		}

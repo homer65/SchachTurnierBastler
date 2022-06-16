@@ -2,12 +2,10 @@ package org.myoggradio.stbko.impl;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
-
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import org.myoggradio.stb.ColumnResizer;
 import org.myoggradio.stb.ErgebnisDarsteller;
 import org.myoggradio.stb.Partie;

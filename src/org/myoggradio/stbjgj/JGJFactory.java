@@ -1,6 +1,7 @@
 package org.myoggradio.stbjgj;
 import org.myoggradio.stbjgj.impl.SimpleJGJAuswertungsDialog;
 import org.myoggradio.stbjgj.impl.SimpleJGJErgebnisDialog;
+import org.myoggradio.stbjgj.impl.SimpleJGJPartieAuswertungsDialog;
 import org.myoggradio.stbjgj.impl.SimpleJGJRunde;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnier;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnierLoader;
@@ -40,5 +41,9 @@ public class JGJFactory
 	public static JGJAuswertungsDialog getJGJAuswertungsDialog()
 	{
 		return new SimpleJGJAuswertungsDialog();
+	}
+	public static JGJPartieAuswertungsDialog getJGJPartieAuswertungsDialog()
+	{
+		return new SimpleJGJPartieAuswertungsDialog();
 	}
 }
