@@ -2,8 +2,6 @@ package org.myoggradio.stbjgj.impl;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.myoggradio.stb.Parameter;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stbjgj.JGJParameter;
 public class JGJShutdown extends Thread

@@ -2,8 +2,6 @@ package org.myoggradio.stbko;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.myoggradio.stb.Parameter;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stbko.impl.XMLKOTurnierSaver;
 public class KOShutdown extends Thread
