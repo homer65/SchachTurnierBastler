@@ -40,6 +40,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenuItem m16 = new JMenuItem("Start JGJ System");
 	//private JMenuItem m17 = new JMenuItem("laden JGJ System");
 	private JMenuItem m18 = new JMenuItem("Laden autodetect");
+	private JMenuItem m19 = new JMenuItem("Laden letzte Shutdown Sicherung");
 	private JMenuItem m21 = new JMenuItem("laden");
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("einzelnen Spieler hinzufuegen");
@@ -59,6 +60,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m1.add(m16);
 		//m1.add(m17);
 		m1.add(m18);
+		m1.add(m19);
 		m2.add(m21);
 		m2.add(m22);
 		m2.add(m23);
@@ -78,6 +80,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m16.addActionListener(this);
 		//m17.addActionListener(this);
 		m18.addActionListener(this);
+		m19.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
@@ -142,59 +145,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 				if (rc == JFileChooser.APPROVE_OPTION)
 				{
 					File file = fc.getSelectedFile();
-					InputStream fin = new FileInputStream(file);
-					DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-					DocumentBuilder db = dbf.newDocumentBuilder();
-					Document doc = db.parse(new InputSource(fin));
-					Node turnier = doc.getFirstChild();
-					Element elemturnier = (Element) turnier;
-					String tagname = elemturnier.getTagName();
-					if (tagname.equals("spielerlist"))
-					{
-						XMLSpielerLoader xml = new XMLSpielerLoader();
-						ArrayList<Spieler> test = xml.load(file);
-						if (test.size() > 0) Parameter.spieler = test;
-					}
-					else if (tagname.equals("turnier"))
-					{
-						XMLTurnierLoader xml = new XMLTurnierLoader();
-						Turnier test = xml.load(file);
-						if (test != null)
-						{
-							Parameter.turnier = test;
-							TurnierMenu tm = Factory.getTurnierMenu();
-							tm.anzeigen();
-							dispose();
-						}
-					}
-					else if (tagname.equals("koturnier"))
-					{
-						XMLKOTurnierLoader xml = new XMLKOTurnierLoader();
-						KOTurnier test = xml.load(file);
-						if (test != null)
-						{
-							KOParameter.turnier = test;
-							KOTurnierMenu2 tm = KOFactory.getKOTurnierMenu2();
-							tm.anzeigen();
-							dispose();
-						}
-					}
-					else if (tagname.equals("jgjturnier"))
-					{
-						XMLJGJTurnierLoader xml = new XMLJGJTurnierLoader();
-						JGJTurnier test = xml.load(file);
-						if (test != null)
-						{
-							JGJParameter.turnier = test;
-							JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
-							tm.anzeigen();
-							dispose();
-						}
-					}
-					else
-					{
-						Protokol.write("SimpleMainMenu:actionPerformed:m18:Kann Datei nicht erkennen");
-					}
+					load(file);
 				}
 				else
 				{
@@ -206,6 +157,11 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 				Protokol.write("SimpleMainMenu:actionPerformed:m18:Exception:");
 				Protokol.write(e.toString());
 			}
+		}
+		if (source == m19)
+		{
+			File file = new File("SchachTurnierBastler-Shutdown-AutoSave.stb");
+			load(file);
 		}
 		/*
 		if (source == m13) // Turnier laden schweizer System
@@ -298,6 +254,70 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		{
 			File aus = new File(".");
 			JOptionPane.showMessageDialog(null,aus.getAbsolutePath(),"Autosave Directory",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	private void load(File file)
+	{
+		try
+		{
+			InputStream fin = new FileInputStream(file);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse(new InputSource(fin));
+			Node turnier = doc.getFirstChild();
+			Element elemturnier = (Element) turnier;
+			String tagname = elemturnier.getTagName();
+			if (tagname.equals("spielerlist"))
+			{
+				XMLSpielerLoader xml = new XMLSpielerLoader();
+				ArrayList<Spieler> test = xml.load(file);
+				if (test.size() > 0) Parameter.spieler = test;
+			}
+			else if (tagname.equals("turnier"))
+			{
+				XMLTurnierLoader xml = new XMLTurnierLoader();
+				Turnier test = xml.load(file);
+				if (test != null)
+				{
+					Parameter.turnier = test;
+					TurnierMenu tm = Factory.getTurnierMenu();
+					tm.anzeigen();
+					dispose();
+				}
+			}
+			else if (tagname.equals("koturnier"))
+			{
+				XMLKOTurnierLoader xml = new XMLKOTurnierLoader();
+				KOTurnier test = xml.load(file);
+				if (test != null)
+				{
+					KOParameter.turnier = test;
+					KOTurnierMenu2 tm = KOFactory.getKOTurnierMenu2();
+					tm.anzeigen();
+					dispose();
+				}
+			}
+			else if (tagname.equals("jgjturnier"))
+			{
+				XMLJGJTurnierLoader xml = new XMLJGJTurnierLoader();
+				JGJTurnier test = xml.load(file);
+				if (test != null)
+				{
+					JGJParameter.turnier = test;
+					JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
+					tm.anzeigen();
+					dispose();
+				}
+			}
+			else
+			{
+				Protokol.write("SimpleMainMenu:load:Kann Datei nicht erkennen");
+			}
+		}
+		catch (Exception e)
+		{
+			Protokol.write("SimpleMainMenu:loaad:Exception:");
+			Protokol.write(e.toString());
 		}
 	}
 }

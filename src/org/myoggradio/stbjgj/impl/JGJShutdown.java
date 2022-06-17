@@ -2,6 +2,8 @@ package org.myoggradio.stbjgj.impl;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.myoggradio.stb.Parameter;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stbjgj.JGJParameter;
 public class JGJShutdown extends Thread
@@ -20,6 +22,8 @@ public class JGJShutdown extends Thread
 			Protokol.write("JGJShutdown:save: " + pfad);
 			XMLJGJTurnierSaver xml = new XMLJGJTurnierSaver();
 			xml.save(JGJParameter.turnier,aus);
+			File aus2 = new File("SchachTurnierBastler-Shutdown-AutoSave.stb");
+			xml.save(JGJParameter.turnier,aus2);
 		}
 		catch (Exception e)
 		{

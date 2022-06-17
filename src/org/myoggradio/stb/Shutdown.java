@@ -20,6 +20,8 @@ public class Shutdown extends Thread
 			Protokol.write("Shutdown:save: " + pfad);
 			XMLTurnierSaver xml = new XMLTurnierSaver();
 			xml.save(Parameter.turnier,aus);
+			File aus2 = new File("SchachTurnierBastler-Shutdown-AutoSave.stb");
+			xml.save(Parameter.turnier,aus2);
 		}
 		catch (Exception e)
 		{

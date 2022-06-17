@@ -2,6 +2,8 @@ package org.myoggradio.stbko;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.myoggradio.stb.Parameter;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stbko.impl.XMLKOTurnierSaver;
 public class KOShutdown extends Thread
@@ -20,6 +22,8 @@ public class KOShutdown extends Thread
 			Protokol.write("KOShutdown:save: " + pfad);
 			XMLKOTurnierSaver xml = new XMLKOTurnierSaver();
 			xml.save(KOParameter.turnier,aus);
+			File aus2 = new File("SchachTurnierBastler-Shutdown-AutoSave.stb");
+			xml.save(KOParameter.turnier,aus2);
 		}
 		catch (Exception e)
 		{
