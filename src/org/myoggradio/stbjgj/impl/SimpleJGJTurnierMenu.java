@@ -32,6 +32,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 	private JMenuItem m12 = new JMenuItem("auswerten");
 	private JMenuItem m13 = new JMenuItem("speichern");
 	private JMenuItem m14 = new JMenuItem("laden");
+	private JMenuItem m15 = new JMenuItem("print");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JPanel cpan = new JPanel();
@@ -50,6 +51,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		m1.add(m12);
 		m1.add(m13);
 		m1.add(m14);
+		m1.add(m15);
 		m3.add(m31);
 		m3.add(m32);
 		menu.add(m1);
@@ -58,6 +60,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		m12.addActionListener(this);
 		m13.addActionListener(this);
 		m14.addActionListener(this);
+		m15.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		butt1.addActionListener(this);
@@ -175,6 +178,12 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 				tm.anzeigen();
 				dispose();
 			}
+		}
+		if (source == m15) // Print Runde
+		{
+			JGJRunde runde = JGJParameter.turnier.getRunde(dargestellteRunde);
+			PrintToHtml print = Factory.getPrintToHtml();
+			print.print(runde);
 		}
 		if (source == m31) // Version anzeigen
 		{

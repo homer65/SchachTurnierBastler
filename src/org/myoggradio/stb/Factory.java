@@ -94,4 +94,8 @@ public class Factory
 	{
 		return new SimpleSpielerAuswertungDialog();
 	}
+	public static PrintToHtml getPrintToHtml()
+	{
+		return new SimplePrintToHtml();
+	}
 }

@@ -25,6 +25,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m14 = new JMenuItem("laden");
 	private JMenuItem m15 = new JMenuItem("aktive Runde stornieren");
 	private JMenuItem m16 = new JMenuItem("Turnier um eine Runde erweitern");
+	private JMenuItem m17 = new JMenuItem("Print Runde");
 	private JMenuItem m21 = new JMenuItem("anzeigen");
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("loeschen");
@@ -52,6 +53,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m1.add(m14);
 		m1.add(m15);
 		m1.add(m16);
+		m1.add(m17);
 		m2.add(m21);
 		m2.add(m22);
 		m2.add(m23);
@@ -68,6 +70,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m14.addActionListener(this);
 		m15.addActionListener(this);
 		m16.addActionListener(this);
+		m17.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m23.addActionListener(this);
@@ -250,6 +253,12 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		{
 			Parameter.anzahlRunden++;
 			Parameter.turnier.setMaxRundenPlus();
+		}
+		if (source == m17) // Print Runde
+		{
+			Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
+			PrintToHtml print = Factory.getPrintToHtml();
+			print.print(runde);
 		}
 		if (source == m21) // Spieler anzeigen
 		{

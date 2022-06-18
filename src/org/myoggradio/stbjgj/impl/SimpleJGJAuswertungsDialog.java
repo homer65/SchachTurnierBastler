@@ -1,9 +1,14 @@
 package org.myoggradio.stbjgj.impl;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.JDialog;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,15 +19,22 @@ import org.myoggradio.stb.*;
 import org.myoggradio.stbjgj.JGJAuswertungsDialog;
 import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJTurnierManager;
-public class SimpleJGJAuswertungsDialog extends JDialog implements JGJAuswertungsDialog, ListSelectionListener
+public class SimpleJGJAuswertungsDialog extends JDialog implements ActionListener,JGJAuswertungsDialog, ListSelectionListener
 {
 	private static final long serialVersionUID = 1L;
 	private int rundeNummer = 0;
 	private ArrayList<Auswertung> ausw = null;
 	private JTable table = null;
+	private JMenuBar menu = new JMenuBar();
+	private JMenu m1 = new JMenu("File");
+	private JMenuItem m11 = new JMenuItem("Print");
 	public SimpleJGJAuswertungsDialog()
 	{
 		setModal(true);
+		m1.add(m11);
+		menu.add(m1);
+		this.setJMenuBar(menu);
+		m11.addActionListener(this);
 	}
 	@Override
 	public void setRunde(int n) 
@@ -83,6 +95,16 @@ public class SimpleJGJAuswertungsDialog extends JDialog implements JGJAuswertung
 			nsm.setRunde(rundeNummer);
 			nsm.setSpieler(s);
 			nsm.anzeigen();
+		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent ae) 
+	{
+		Object quelle = ae.getSource();
+		if (quelle == m11)
+		{
+			PrintToHtml print = Factory.getPrintToHtml();
+			print.print(ausw);
 		}
 	}
 }
