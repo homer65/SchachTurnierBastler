@@ -276,8 +276,17 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			{
 				try
 				{
-					Parameter.anzahlRunden = Integer.parseInt(anzahlRunden);
-					prefs.put("SchachTurnierBastler_anzahlRunden",anzahlRunden);
+					int temp = Integer.parseInt(anzahlRunden);
+					if (temp > 2 && temp < 11)
+					{
+						Parameter.anzahlRunden = Integer.parseInt(anzahlRunden);
+						prefs.put("SchachTurnierBastler_anzahlRunden",anzahlRunden);
+					}
+					else
+					{
+						Protokol.write("SimpleMainMenu:actionPerformed:m41:");
+						Protokol.write("Einstellung ausserhalb des Normalen");
+					}
 				}
 				catch (Exception e)
 				{
@@ -295,8 +304,17 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			{
 				try
 				{
-					Parameter.maxiter = Integer.parseInt(maxiter);
-					prefs.put("SchachTurnierBastler_maxiter",maxiter);
+					int temp = Integer.parseInt(maxiter);
+					if (temp > 499000 && temp < 50000001)
+					{
+						Parameter.maxiter = Integer.parseInt(maxiter);
+						prefs.put("SchachTurnierBastler_maxiter",maxiter);
+					}
+					else
+					{
+						Protokol.write("SimpleMainMenu:actionPerformed:m42:");
+						Protokol.write("Einstellung ausserhalb des Normalen");
+					}
 				}
 				catch (Exception e)
 				{
@@ -314,8 +332,17 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			{
 				try
 				{
-					Parameter.itermsg = Integer.parseInt(itermsg);
-					prefs.put("SchachTurnierBastler_anzahlRunden",itermsg);
+					int temp = Integer.parseInt(itermsg);
+					if (temp > 4999 && temp < 1000001)
+					{
+						Parameter.itermsg = Integer.parseInt(itermsg);
+						prefs.put("SchachTurnierBastler_anzahlRunden",itermsg);
+					}
+					else
+					{
+						Protokol.write("SimpleMainMenu:actionPerformed:m43:");
+						Protokol.write("Einstellung ausserhalb des Normalen");	
+					}
 				}
 				catch (Exception e)
 				{
