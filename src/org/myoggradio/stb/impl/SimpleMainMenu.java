@@ -336,7 +336,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 					if (temp > 4999 && temp < 1000001)
 					{
 						Parameter.itermsg = Integer.parseInt(itermsg);
-						prefs.put("SchachTurnierBastler_anzahlRunden",itermsg);
+						prefs.put("SchachTurnierBastler_itermsg",itermsg);
 					}
 					else
 					{
