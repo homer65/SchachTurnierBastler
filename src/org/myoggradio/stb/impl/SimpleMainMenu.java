@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 {
 	private static final long serialVersionUID = 1;
@@ -32,6 +33,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenu m1 = new JMenu("Turnier");
 	private JMenu m2 = new JMenu("Spieler");
 	private JMenu m3 = new JMenu("Info");
+	private JMenu m4 = new JMenu("Einstellungen");
 	private JMenuItem m11 = new JMenuItem("Start schweizer System");
 	private JMenuItem m12 = new JMenuItem("Anzahl Runden schweizer System");
 	//private JMenuItem m13 = new JMenuItem("laden schweizer System");
@@ -48,6 +50,9 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenuItem m25 = new JMenuItem("Spieler anzeigen");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
+	private JMenuItem m41 = new JMenuItem("Anzahl Runden schweizer System");
+	private JMenuItem m42 = new JMenuItem("Maximale Anzahl Iterationen");
+	private JMenuItem m43 = new JMenuItem("Anzahl Iterationen bis zur Meldung");
 	public SimpleMainMenu()
 	{
 		this.setName("SchachTurnierBastler");
@@ -68,9 +73,13 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m2.add(m25);
 		m3.add(m31);
 		m3.add(m32);
+		m4.add(m41);
+		m4.add(m42);
+		m4.add(m43);
 		menu.add(m1);
 		menu.add(m2);
 		menu.add(m3);
+		menu.add(m4);
 		this.setJMenuBar(menu);
 		m11.addActionListener(this);
 		m12.addActionListener(this);
@@ -88,6 +97,9 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m25.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
+		m41.addActionListener(this);
+		m42.addActionListener(this);
+		m43.addActionListener(this);
 		Locator locator = new Locator();
 		URL url = locator.getURL("tux.png");
 		Image tux = Toolkit.getDefaultToolkit().getImage(url);
@@ -254,6 +266,63 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		{
 			File aus = new File(".");
 			JOptionPane.showMessageDialog(null,aus.getAbsolutePath(),"Autosave Directory",JOptionPane.INFORMATION_MESSAGE);
+		}
+		if (source == m41)
+		{
+			Preferences prefs = Preferences.userRoot();
+			String anzahlRunden = prefs.get("SchachTurnierBastler_anzahlRunden","" + Parameter.anzahlRunden);
+			anzahlRunden = JOptionPane.showInputDialog("Anzahl Runden schweizer System",anzahlRunden);
+			if (anzahlRunden != null)
+			{
+				try
+				{
+					Parameter.anzahlRunden = Integer.parseInt(anzahlRunden);
+					prefs.put("SchachTurnierBastler_anzahlRunden",anzahlRunden);
+				}
+				catch (Exception e)
+				{
+					Protokol.write("SimpleMainMenu:actionPerformed:m41:Exception:");
+					Protokol.write(e.toString());
+				}
+			}
+		}
+		if (source == m42)
+		{
+			Preferences prefs = Preferences.userRoot();
+			String maxiter = prefs.get("SchachTurnierBastler_maxiter","" + Parameter.maxiter);
+			maxiter = JOptionPane.showInputDialog("Maximale Anzahl Iterartionen",maxiter);
+			if (maxiter != null)
+			{
+				try
+				{
+					Parameter.maxiter = Integer.parseInt(maxiter);
+					prefs.put("SchachTurnierBastler_maxiter",maxiter);
+				}
+				catch (Exception e)
+				{
+					Protokol.write("SimpleMainMenu:actionPerformed:m42:Exception:");
+					Protokol.write(e.toString());
+				}
+			}	
+		}
+		if (source == m43)
+		{
+			Preferences prefs = Preferences.userRoot();
+			String itermsg = prefs.get("SchachTurnierBastler_itermsg","" + Parameter.itermsg);
+			itermsg = JOptionPane.showInputDialog("Anzahl Iterationen bis zur Meldung",itermsg);
+			if (itermsg != null)
+			{
+				try
+				{
+					Parameter.itermsg = Integer.parseInt(itermsg);
+					prefs.put("SchachTurnierBastler_anzahlRunden",itermsg);
+				}
+				catch (Exception e)
+				{
+					Protokol.write("SimpleMainMenu:actionPerformed:m43:Exception:");
+					Protokol.write(e.toString());
+				}
+			}
 		}
 	}
 	private void load(File file)

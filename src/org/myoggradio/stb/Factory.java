@@ -4,7 +4,7 @@ public class Factory
 {
 	public static Initialisierung getInitialisierung()
 	{
-		return new NoInitialisierung();
+		return new PreferencesInitialisierung();
 	}
 	public static MainMenu getMainMenu()
 	{
