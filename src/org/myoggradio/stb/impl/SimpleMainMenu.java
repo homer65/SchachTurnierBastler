@@ -175,7 +175,19 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		}
 		if (source == m19)
 		{
-			File file = new File("SchachTurnierBastler-Shutdown-AutoSave.stb");
+			if (Parameter.autoSaveDirectory != null)
+			{
+				File test = new File(Parameter.autoSaveDirectory);
+				if (!test.isDirectory())
+				{
+					Parameter.autoSaveDirectory = ".";
+				}
+			}
+			else 
+			{
+				Parameter.autoSaveDirectory = ".";
+			}
+			File file = new File(Parameter.autoSaveDirectory + File.separator + "SchachTurnierBastler-Shutdown-AutoSave.stb");
 			load(file);
 		}
 		/*
