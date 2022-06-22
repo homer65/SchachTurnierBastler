@@ -44,7 +44,8 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JTable table = null;
 	public SimpleTurnierMenu()
 	{
-		this.setName("SchachTurnierBastler");
+		super("SchachTurnierBastler SimpleTurnierMenu");
+		this.setName("SchachTurnierBastler SimpleTurnierMenu");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Runtime.getRuntime().addShutdownHook(new Shutdown());
 		m1.add(m11);

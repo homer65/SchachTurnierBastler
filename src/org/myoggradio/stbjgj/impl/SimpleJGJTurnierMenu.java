@@ -45,6 +45,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 	private JTable table = null;
 	public SimpleJGJTurnierMenu()
 	{
+		super("SchachTurnierBastler SimpleJGJTurnierMenu");
 		this.setName("SchachTurnierBastler");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Runtime.getRuntime().addShutdownHook(new JGJShutdown());
