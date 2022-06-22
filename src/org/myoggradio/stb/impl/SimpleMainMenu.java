@@ -53,6 +53,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenuItem m41 = new JMenuItem("Anzahl Runden schweizer System");
 	private JMenuItem m42 = new JMenuItem("Maximale Anzahl Iterationen");
 	private JMenuItem m43 = new JMenuItem("Anzahl Iterationen bis zur Meldung");
+	private JMenuItem m44 = new JMenuItem("Auto Save Directory");
 	public SimpleMainMenu()
 	{
 		this.setName("SchachTurnierBastler");
@@ -76,6 +77,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m4.add(m41);
 		m4.add(m42);
 		m4.add(m43);
+		m4.add(m44);
 		menu.add(m1);
 		menu.add(m2);
 		menu.add(m3);
@@ -100,6 +102,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m41.addActionListener(this);
 		m42.addActionListener(this);
 		m43.addActionListener(this);
+		m44.addActionListener(this);
 		Locator locator = new Locator();
 		URL url = locator.getURL("tux.png");
 		Image tux = Toolkit.getDefaultToolkit().getImage(url);
@@ -348,6 +351,43 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 				{
 					Protokol.write("SimpleMainMenu:actionPerformed:m43:Exception:");
 					Protokol.write(e.toString());
+				}
+			}
+		}
+		if (source == m44)
+		{
+			Preferences prefs = Preferences.userRoot();
+			String autoSaveDirectory = prefs.get("SchachTurnierBastler_autoSaveDirectory","" + Parameter.autoSaveDirectory);
+			if (autoSaveDirectory == null)
+			{
+				autoSaveDirectory = ".";
+			}
+			File directory = new File(autoSaveDirectory);
+			JFileChooser chooser = new JFileChooser();
+			chooser.setCurrentDirectory(directory);
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int ok = chooser.showOpenDialog(null);
+			if (ok == JFileChooser.APPROVE_OPTION)
+			{
+				File selectedDirectory = chooser.getSelectedFile();
+				if (selectedDirectory != null)
+				{
+					if (selectedDirectory.isDirectory())
+					{
+						Parameter.autoSaveDirectory = selectedDirectory.getAbsolutePath();
+						prefs.put("SchachTurnierBastler_autoSaveDirectory",Parameter.autoSaveDirectory);
+						Protokol.write("SimpleMainMenu:actionPerformed:m44:");
+						Protokol.write(Parameter.autoSaveDirectory);
+					}
+					else
+					{
+						Protokol.write("SimpleMainMenu:actionPerformed:m44:Kein Directory:");
+						Protokol.write(selectedDirectory.getAbsolutePath());
+					}
+				}
+				else
+				{
+					Protokol.write("SimpleMainMenu:actionPerformed:m44:Null Directory:");
 				}
 			}
 		}

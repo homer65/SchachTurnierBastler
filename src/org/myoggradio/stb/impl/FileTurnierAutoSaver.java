@@ -8,8 +8,20 @@ public class FileTurnierAutoSaver implements TurnierAutoSaver
 	{
 		try
 		{
+			if (Parameter.autoSaveDirectory != null)
+			{
+				File test = new File(Parameter.autoSaveDirectory);
+				if (!test.isDirectory())
+				{
+					Parameter.autoSaveDirectory = ".";
+				}
+			}
+			else 
+			{
+				Parameter.autoSaveDirectory = ".";
+			}
 			int n = turnier.getNummerAktiveRunde();
-			File aus = new File("SchachTurnierBastler-Turnier-Runde-" + n + "-AutoSave.stb");
+			File aus = new File(Parameter.autoSaveDirectory + File.separator + "SchachTurnierBastler-Turnier-Runde-" + n + "-AutoSave.stb");
 			String pfad = aus.getAbsolutePath();
 			Protokol.write("FileTurnierAutosaver:save: " + pfad);
 			XMLTurnierSaver xml = new XMLTurnierSaver();

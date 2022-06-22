@@ -11,9 +11,10 @@ public class PreferencesInitialisierung implements Initialisierung
 		Preferences prefs = Preferences.userRoot();	
 		String anzahlRunden = prefs.get("SchachTurnierBastler_anzahlRunden","7");
 		Parameter.anzahlRunden = Integer.parseInt(anzahlRunden);
-		String maxiter = prefs.get("SchachTurnierBastler","500000");
+		String maxiter = prefs.get("SchachTurnierBastler_maxiter","500000");
 		Parameter.maxiter = Integer.parseInt(maxiter);
 		String itermsg = prefs.get("SchachTurnierBastler_itermsg","50000");
 		Parameter.itermsg = Integer.parseInt(itermsg);
+		Parameter.autoSaveDirectory = prefs.get("SchachTurnierBastler_autoSaveDirectory", ".");
 	}
 }

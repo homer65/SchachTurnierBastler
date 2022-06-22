@@ -12,15 +12,27 @@ public class Shutdown extends Thread
 	{
 		try
 		{
+			if (Parameter.autoSaveDirectory != null)
+			{
+				File test = new File(Parameter.autoSaveDirectory);
+				if (!test.isDirectory())
+				{
+					Parameter.autoSaveDirectory = ".";
+				}
+			}
+			else 
+			{
+				Parameter.autoSaveDirectory = ".";
+			}
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			Date jetzt = new Date();
 			String datum = sdf.format(jetzt);
-			File aus = new File("SchachTurnierBastler-Turnier-Shutdown-AutoSave" + datum + ".stb");
+			File aus = new File(Parameter.autoSaveDirectory + File.separator + "SchachTurnierBastler-Turnier-Shutdown-AutoSave" + datum + ".stb");
 			String pfad = aus.getAbsolutePath();
 			Protokol.write("Shutdown:save: " + pfad);
 			XMLTurnierSaver xml = new XMLTurnierSaver();
 			xml.save(Parameter.turnier,aus);
-			File aus2 = new File("SchachTurnierBastler-Shutdown-AutoSave.stb");
+			File aus2 = new File(Parameter.autoSaveDirectory + File.separator + "SchachTurnierBastler-Shutdown-AutoSave.stb");
 			xml.save(Parameter.turnier,aus2);
 		}
 		catch (Exception e)
