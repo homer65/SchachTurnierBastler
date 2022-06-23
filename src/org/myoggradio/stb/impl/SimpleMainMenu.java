@@ -35,7 +35,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenu m3 = new JMenu("Info");
 	private JMenu m4 = new JMenu("Einstellungen");
 	private JMenuItem m11 = new JMenuItem("Start schweizer System");
-	private JMenuItem m12 = new JMenuItem("Anzahl Runden schweizer System");
+	//private JMenuItem m12 = new JMenuItem("Anzahl Runden schweizer System");
 	//private JMenuItem m13 = new JMenuItem("laden schweizer System");
 	//private JMenuItem m15 = new JMenuItem("laden KO System");
 	private JMenuItem m14 = new JMenuItem("Start KO System");
@@ -60,7 +60,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		m1.add(m11);
 		m1.add(m14);
-		m1.add(m12);
+		//m1.add(m12);
 		//m1.add(m13);
 		//m1.add(m15);
 		m1.add(m16);
@@ -84,7 +84,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		menu.add(m4);
 		this.setJMenuBar(menu);
 		m11.addActionListener(this);
-		m12.addActionListener(this);
+		//m12.addActionListener(this);
 		//m13.addActionListener(this);
 		m14.addActionListener(this);
 		//m15.addActionListener(this);
@@ -145,11 +145,11 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			tm.anzeigen();
 			dispose();
 		}
-		if (source == m12) // Anzahl Runden festlegen
-		{
-			AnzahlRundenDialog ard = Factory.getAnzahlRundenDialog();
-			ard.anzeigen();
-		}
+		//if (source == m12) // Anzahl Runden festlegen
+		//{
+		//	AnzahlRundenDialog ard = Factory.getAnzahlRundenDialog();
+		//	ard.anzeigen();
+		//}
 		if (source == m18) // Turnier laden autodetect
 		{
 			try
