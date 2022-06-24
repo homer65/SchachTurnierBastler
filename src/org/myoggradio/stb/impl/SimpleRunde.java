@@ -108,4 +108,9 @@ public class SimpleRunde implements Runde,Serializable
 		}
 		partien = temp;
 	}
+	@Override
+	public void removeFreilos() 
+	{
+		freilos = new ArrayList<Spieler>();		
+	}
 }

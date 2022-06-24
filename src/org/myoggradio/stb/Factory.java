@@ -2,6 +2,10 @@ package org.myoggradio.stb;
 import org.myoggradio.stb.impl.*;
 public class Factory 
 {
+	public static RundeManuellMenu getRundeManuellMenu()
+	{
+		return new SimpleRundeManuellMenu();
+	}
 	public static Initialisierung getInitialisierung()
 	{
 		return new PreferencesInitialisierung();
