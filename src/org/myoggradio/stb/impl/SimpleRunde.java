@@ -113,4 +113,44 @@ public class SimpleRunde implements Runde,Serializable
 	{
 		freilos = new ArrayList<Spieler>();		
 	}
+	@Override
+	public void changeSpieler(Spieler alt, Spieler neu) 
+	{
+		for (int i=0;i<freilos.size();i++)
+		{
+			if (freilos.get(i).istGleich(alt))
+			{
+				freilos.get(i).setVorname(neu.getVorname());
+				freilos.get(i).setName(neu.getName());
+				freilos.get(i).setDWZ(neu.getDWZ());
+			}
+		}
+		for (int i=0;i<partien.length;i++)
+		{
+			Partie partie = partien[i];
+			if (partie != null)
+			{
+				Spieler weiss = partie.getWeiss();
+				Spieler schwarz = partie.getSchwarz();
+				if (weiss != null)
+				{
+					if (weiss.istGleich(alt))
+					{
+						weiss.setVorname(neu.getVorname());
+						weiss.setName(neu.getName());
+						weiss.setDWZ(neu.getDWZ());
+					}
+				}
+				if (schwarz != null)
+				{
+					if (schwarz.istGleich(alt))
+					{
+						schwarz.setVorname(neu.getVorname());
+						schwarz.setName(neu.getName());
+						schwarz.setDWZ(neu.getDWZ());
+					}
+				}
+			}
+		}
+	}
 }

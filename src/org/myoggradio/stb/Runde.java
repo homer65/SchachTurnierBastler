@@ -12,4 +12,5 @@ public interface Runde
 	public boolean alleErgebnisEingetragen();
 	public void storniereSpieler(Spieler spieler);
 	public void ergaenzeSpieler(Spieler spieler);
+	public void changeSpieler(Spieler alt,Spieler neu);
 }

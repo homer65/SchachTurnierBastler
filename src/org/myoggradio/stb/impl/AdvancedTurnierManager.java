@@ -578,4 +578,16 @@ public class AdvancedTurnierManager implements TurnierManager
 		Collections.sort(erg,new AuswertungComparator());
 		return erg;
 	}
+	@Override
+	public void changeSpieler(Spieler alt, Spieler neu) 
+	{
+		for (int i=0;i<Parameter.turnier.getMaxrunden();i++)
+		{
+			Runde runde = Parameter.turnier.getRunde(i);
+			if (runde != null)
+			{
+				runde.changeSpieler(alt,neu);
+			}
+		}
+	}
 }

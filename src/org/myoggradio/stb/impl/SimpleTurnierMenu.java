@@ -31,6 +31,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m23 = new JMenuItem("loeschen");
 	private JMenuItem m24 = new JMenuItem("ergaenzen");
+	private JMenuItem m25 = new JMenuItem("aendern");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JPanel cpan = new JPanel();
@@ -61,6 +62,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m2.add(m22);
 		m2.add(m23);
 		m2.add(m24);
+		m2.add(m25);
 		m3.add(m31);
 		m3.add(m32);
 		menu.add(m1);
@@ -79,6 +81,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		m22.addActionListener(this);
 		m23.addActionListener(this);
 		m24.addActionListener(this);
+		m25.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		butt1.addActionListener(this);
@@ -296,6 +299,15 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		{
 			SpielerErgaenzenDialog sed = Factory.getSpielerErgaenzenDialog();
 			sed.anzeigen();
+			TurnierMenu tm = Factory.getTurnierMenu();
+			tm.anzeigen();
+			dispose();
+		}
+		if (source == m25) // Spieler aendern
+		{
+			SpielerChangeDialog scd = Factory.getSpielerChangeDialog();
+			scd.setSpieler(Parameter.turnier.getSpieler());
+			scd.anzeigen();
 			TurnierMenu tm = Factory.getTurnierMenu();
 			tm.anzeigen();
 			dispose();
