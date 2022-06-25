@@ -195,7 +195,7 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 		}
 		if (source == m32) // Autosave Directory
 		{
-			File aus = new File(".");
+			File aus = new File(Parameter.autoSaveDirectory);
 			JOptionPane.showMessageDialog(null,aus.getAbsolutePath(),"Autosave Directory",JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (source == butt1) // Runde zurueck
