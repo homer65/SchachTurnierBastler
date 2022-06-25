@@ -48,6 +48,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenuItem m23 = new JMenuItem("einzelnen Spieler hinzufuegen");
 	private JMenuItem m24 = new JMenuItem("Spieler loeschen");
 	private JMenuItem m25 = new JMenuItem("Spieler anzeigen");
+	private JMenuItem m26 = new JMenuItem("Spieler aendern");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JMenuItem m41 = new JMenuItem("Anzahl Runden schweizer System");
@@ -72,6 +73,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m2.add(m23);
 		m2.add(m24);
 		m2.add(m25);
+		m2.add(m26);
 		m3.add(m31);
 		m3.add(m32);
 		m4.add(m41);
@@ -97,6 +99,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m23.addActionListener(this);
 		m24.addActionListener(this);
 		m25.addActionListener(this);
+		m26.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		m41.addActionListener(this);
@@ -272,6 +275,12 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			SpielerAnzeigenDialog nsm = Factory.getSpielerAnzeigenDialog();
 			nsm.setSpieler(Parameter.spieler);
 			nsm.anzeigen();
+		}
+		if (source == m26) // Spieler aendern
+		{
+			SpielerAendernDialog sad = Factory.getSpielerAendernDialog();
+			sad.setSpieler(Parameter.spieler);
+			sad.anzeigen();
 		}
 		if (source == m31) // Version anzeigen
 		{

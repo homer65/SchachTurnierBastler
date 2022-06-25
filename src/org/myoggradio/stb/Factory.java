@@ -2,6 +2,14 @@ package org.myoggradio.stb;
 import org.myoggradio.stb.impl.*;
 public class Factory 
 {
+	public static EinenSpielerAendernDialog getEinenSpielerAendernDialog()
+	{
+		return new SimpleEinenSpielerAendernDialog();
+	}
+	public static SpielerAendernDialog getSpielerAendernDialog()
+	{
+		return new SimpleSpielerAendernDialog();
+	}
 	public static RundeManuellMenu getRundeManuellMenu()
 	{
 		return new SimpleRundeManuellMenu();
