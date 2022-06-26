@@ -1,11 +1,11 @@
 package org.myoggradio.stb.impl;
-
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-
 import org.myoggradio.stb.Auswertung;
 import org.myoggradio.stb.ErgebnisDarsteller;
 import org.myoggradio.stb.Partie;
@@ -23,7 +23,8 @@ public class SimplePrintToHtml implements PrintToHtml
 	{
 		try
 		{
-			wrt = new FileWriter(file);
+			OutputStream os = new FileOutputStream(file);
+			wrt = new OutputStreamWriter(os,"UTF-8");
 			wrt.write("<html lang=\"de-DE\">" + "\n");
 			wrt.write("<head>" + "\n");
 			wrt.write("<meta charset=\"UTF-8\">" + "\n");
@@ -56,6 +57,9 @@ public class SimplePrintToHtml implements PrintToHtml
 			wrt.write("<table>" + "\n");
 			wrt.write("<tr>" + "\n");
 			wrt.write("<th>" + "\n");
+			wrt.write("<b>Tisch</b>");
+			wrt.write("</th>" + "\n");			
+			wrt.write("<th>" + "\n");
 			wrt.write("<b>Weiss</b>");
 			wrt.write("</th>" + "\n");
 			wrt.write("<th>" + "\n");
@@ -73,6 +77,9 @@ public class SimplePrintToHtml implements PrintToHtml
 				int ergebnis = partie.getErgebnis();
 				String serg = ErgebnisDarsteller.get(ergebnis);
 				wrt.write("<tr>" + "\n");
+				wrt.write("<td>" + "\n");
+				wrt.write(" " + (i + 1));
+				wrt.write("</td>" + "\n");
 				wrt.write("<td>" + "\n");
 				wrt.write(weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ());
 				wrt.write("</td>" + "\n");
@@ -101,6 +108,9 @@ public class SimplePrintToHtml implements PrintToHtml
 			wrt.write("<table>" + "\n");
 			wrt.write("<tr>" + "\n");
 			wrt.write("<th>" + "\n");
+			wrt.write("<b>Tisch</b>");
+			wrt.write("</th>" + "\n");
+			wrt.write("<th>" + "\n");
 			wrt.write("<b>Weiss</b>");
 			wrt.write("</th>" + "\n");
 			wrt.write("<th>" + "\n");
@@ -118,6 +128,9 @@ public class SimplePrintToHtml implements PrintToHtml
 				int ergebnis = partie.getErgebnis();
 				String serg = ErgebnisDarsteller.get(ergebnis);
 				wrt.write("<tr>" + "\n");
+				wrt.write("<td>" + "\n");
+				wrt.write(" " + (i + 1));
+				wrt.write("</td>" + "\n");
 				wrt.write("<td>" + "\n");
 				wrt.write(weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ());
 				wrt.write("</td>" + "\n");
@@ -146,6 +159,9 @@ public class SimplePrintToHtml implements PrintToHtml
 			wrt.write("<table>" + "\n");
 			wrt.write("<tr>" + "\n");
 			wrt.write("<th>" + "\n");
+			wrt.write("<b>Tisch</b>");
+			wrt.write("</th>" + "\n");
+			wrt.write("<th>" + "\n");
 			wrt.write("<b>Weiss</b>");
 			wrt.write("</th>" + "\n");
 			wrt.write("<th>" + "\n");
@@ -163,6 +179,9 @@ public class SimplePrintToHtml implements PrintToHtml
 				int ergebnis = partie.getErgebnis();
 				String serg = ErgebnisDarsteller.get(ergebnis);
 				wrt.write("<tr>" + "\n");
+				wrt.write("<td>" + "\n");
+				wrt.write(" " + (i + 1));
+				wrt.write("</td>" + "\n");
 				wrt.write("<td>" + "\n");
 				wrt.write(weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ());
 				wrt.write("</td>" + "\n");
