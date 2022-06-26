@@ -10,8 +10,6 @@ import org.myoggradio.stbjgj.JGJErgebnisDialog;
 import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJParameter;
 import org.myoggradio.stbjgj.JGJRunde;
-import org.myoggradio.stbjgj.JGJTurnier;
-import org.myoggradio.stbjgj.JGJTurnierLoader;
 import org.myoggradio.stbjgj.JGJTurnierMenu;
 import org.myoggradio.stbjgj.JGJTurnierSaver;
 
@@ -31,7 +29,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 	private JMenu m3 = new JMenu("Info");
 	private JMenuItem m12 = new JMenuItem("auswerten");
 	private JMenuItem m13 = new JMenuItem("speichern");
-	private JMenuItem m14 = new JMenuItem("laden");
+	private JMenuItem m14 = new JMenuItem("laden autodetect");
 	private JMenuItem m15 = new JMenuItem("print");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
@@ -169,16 +167,10 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 			saver.save(JGJParameter.turnier);
 		}
 		if (source == m14) // Turnier laden
-		{
-			JGJTurnierLoader loader = JGJFactory.getJGJTurnierLoader();
-			JGJTurnier test = loader.load();
-			if (test != null)
-			{
-				JGJParameter.turnier = test;
-				JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
-				tm.anzeigen();
-				dispose();
-			}
+		{			
+			AutoLoader loader = new AutoLoader();
+			boolean ok = loader.load();
+			if (ok) dispose();
 		}
 		if (source == m15) // Print Runde
 		{

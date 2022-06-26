@@ -1,7 +1,5 @@
 package org.myoggradio.stb.impl;
 import javax.swing.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.myoggradio.stb.*;
 import org.myoggradio.stb.img.Locator;
 import org.myoggradio.stb.img.TuxPanel;
@@ -9,20 +7,12 @@ import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJParameter;
 import org.myoggradio.stbjgj.JGJTurnier;
 import org.myoggradio.stbjgj.JGJTurnierMenu;
-import org.myoggradio.stbjgj.impl.XMLJGJTurnierLoader;
 import org.myoggradio.stbko.*;
-import org.myoggradio.stbko.impl.XMLKOTurnierLoader;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
@@ -155,26 +145,9 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		//}
 		if (source == m18) // Turnier laden autodetect
 		{
-			try
-			{
-				JFileChooser fc = new JFileChooser();
-				fc.setCurrentDirectory(new File("."));
-				int rc = fc.showOpenDialog(null);
-				if (rc == JFileChooser.APPROVE_OPTION)
-				{
-					File file = fc.getSelectedFile();
-					load(file);
-				}
-				else
-				{
-					Protokol.write("SimpleMainMenu:actionPerformed:m18:Keine Datei ausgewaehlt");
-				}
-			}
-			catch (Exception e)
-			{
-				Protokol.write("SimpleMainMenu:actionPerformed:m18:Exception:");
-				Protokol.write(e.toString());
-			}
+			AutoLoader loader = new AutoLoader();
+			boolean ok = loader.load();
+			if (ok) dispose();
 		}
 		if (source == m19)
 		{
@@ -191,7 +164,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 				Parameter.autoSaveDirectory = ".";
 			}
 			File file = new File(Parameter.autoSaveDirectory + File.separator + "SchachTurnierBastler-Shutdown-AutoSave.stb");
-			load(file);
+			AutoLoader loader = new AutoLoader();
+			loader.load(file);
 		}
 		/*
 		if (source == m13) // Turnier laden schweizer System
@@ -411,70 +385,6 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 					Protokol.write("SimpleMainMenu:actionPerformed:m44:Null Directory:");
 				}
 			}
-		}
-	}
-	private void load(File file)
-	{
-		try
-		{
-			InputStream fin = new FileInputStream(file);
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(new InputSource(fin));
-			Node turnier = doc.getFirstChild();
-			Element elemturnier = (Element) turnier;
-			String tagname = elemturnier.getTagName();
-			if (tagname.equals("spielerlist"))
-			{
-				XMLSpielerLoader xml = new XMLSpielerLoader();
-				ArrayList<Spieler> test = xml.load(file);
-				if (test.size() > 0) Parameter.spieler = test;
-			}
-			else if (tagname.equals("turnier"))
-			{
-				XMLTurnierLoader xml = new XMLTurnierLoader();
-				Turnier test = xml.load(file);
-				if (test != null)
-				{
-					Parameter.turnier = test;
-					TurnierMenu tm = Factory.getTurnierMenu();
-					tm.anzeigen();
-					dispose();
-				}
-			}
-			else if (tagname.equals("koturnier"))
-			{
-				XMLKOTurnierLoader xml = new XMLKOTurnierLoader();
-				KOTurnier test = xml.load(file);
-				if (test != null)
-				{
-					KOParameter.turnier = test;
-					KOTurnierMenu2 tm = KOFactory.getKOTurnierMenu2();
-					tm.anzeigen();
-					dispose();
-				}
-			}
-			else if (tagname.equals("jgjturnier"))
-			{
-				XMLJGJTurnierLoader xml = new XMLJGJTurnierLoader();
-				JGJTurnier test = xml.load(file);
-				if (test != null)
-				{
-					JGJParameter.turnier = test;
-					JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
-					tm.anzeigen();
-					dispose();
-				}
-			}
-			else
-			{
-				Protokol.write("SimpleMainMenu:load:Kann Datei nicht erkennen");
-			}
-		}
-		catch (Exception e)
-		{
-			Protokol.write("SimpleMainMenu:loaad:Exception:");
-			Protokol.write(e.toString());
 		}
 	}
 }

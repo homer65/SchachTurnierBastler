@@ -21,7 +21,7 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 	private JMenu m3 = new JMenu("Info");
 	private JMenuItem m11 = new JMenuItem("Naechste Runde");
 	private JMenuItem m13 = new JMenuItem("speichern");
-	private JMenuItem m14 = new JMenuItem("laden");
+	private JMenuItem m14 = new JMenuItem("laden autodetect");
 	private JMenuItem m15 = new JMenuItem("print");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
@@ -171,17 +171,11 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 			KOTurnierSaver saver = KOFactory.getKOTurnierSaver();
 			saver.save(KOParameter.turnier);
 		}
-		if (source == m14) // Turnier laden
+		if (source == m14) // Turnier laden autodetect
 		{
-			KOTurnierLoader loader = KOFactory.getKOTurnierLoader();
-			KOTurnier test = loader.load();
-			if (test != null)
-			{
-				KOParameter.turnier = test;
-				KOTurnierMenu2 tm = KOFactory.getKOTurnierMenu2();
-				tm.anzeigen();
-				dispose();
-			}
+			AutoLoader loader = new AutoLoader();
+			boolean ok = loader.load();
+			if (ok) dispose();
 		}
 		if (source == m15) // print
 		{

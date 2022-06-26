@@ -22,7 +22,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 	private JMenuItem m11 = new JMenuItem("Naechste Runde");
 	private JMenuItem m12 = new JMenuItem("Auswertung");
 	private JMenuItem m13 = new JMenuItem("speichern");
-	private JMenuItem m14 = new JMenuItem("laden");
+	private JMenuItem m14 = new JMenuItem("laden autodetect");
 	private JMenuItem m15 = new JMenuItem("aktive Runde stornieren");
 	private JMenuItem m16 = new JMenuItem("Turnier um eine Runde erweitern");
 	private JMenuItem m17 = new JMenuItem("Print Runde");
@@ -226,17 +226,11 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			TurnierSaver saver = Factory.getTurnierSaver();
 			saver.save(Parameter.turnier);
 		}
-		if (source == m14) // Turnier laden
+		if (source == m14) // Turnier laden autodetect
 		{
-			TurnierLoader loader = Factory.getTurnierLoader();
-			Turnier test = loader.load();
-			if (test != null)
-			{
-				Parameter.turnier = test;
-				TurnierMenu tm = Factory.getTurnierMenu();
-				tm.anzeigen();
-				dispose();
-			}
+			AutoLoader loader = new AutoLoader();
+			boolean ok = loader.load();
+			if (ok) dispose();
 		}
 		if (source == m15) // dargestellte Runde stornieren
 		{
