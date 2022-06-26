@@ -38,7 +38,9 @@ public class SimpleKOTurnierMenu2 extends JFrame implements ActionListener, KOTu
 		super("SchachTurnierBastler SimpleKOTurnierMenu2");
 		this.setName("SchachTurnierBastler");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		Runtime.getRuntime().addShutdownHook(new KOShutdown());
+		Runtime runtime = Runtime.getRuntime();
+		if (Parameter.shutdown != null) runtime.removeShutdownHook(Parameter.shutdown);
+		runtime.addShutdownHook(new KOShutdown());
 		m1.add(m11);
 		m1.add(m13);
 		m1.add(m14);

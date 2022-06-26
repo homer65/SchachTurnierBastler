@@ -49,7 +49,9 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		super("SchachTurnierBastler SimpleTurnierMenu");
 		this.setName("SchachTurnierBastler SimpleTurnierMenu");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		Runtime.getRuntime().addShutdownHook(new Shutdown());
+		Runtime runtime = Runtime.getRuntime();
+		if (Parameter.shutdown != null) runtime.removeShutdownHook(Parameter.shutdown);
+		runtime.addShutdownHook(new Shutdown());
 		m1.add(m11);
 		m1.add(m12);
 		m1.add(m13);
