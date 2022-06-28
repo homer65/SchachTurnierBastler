@@ -10,7 +10,7 @@ public class SimpleKOTurnierAutoSaver implements KOTurnierAutoSaver
 		try
 		{
 			int n = turnier.getNummerAktiveRunde();
-			File aus = new File("SchachTurnierBastler-KOTurnier-Runde-" + n + "-AutoSave.stb");
+			File aus = new File(Parameter.autoSaveDirectory + File.separator + "SchachTurnierBastler-KOTurnier-Runde-" + n + "-AutoSave.stb");
 			String pfad = aus.getAbsolutePath();
 			Protokol.write("SimpleKOTurnierAutosaver:save: " + pfad);
 			XMLKOTurnierSaver xml = new XMLKOTurnierSaver();
