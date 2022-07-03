@@ -589,5 +589,44 @@ public class AdvancedTurnierManager implements TurnierManager
 				runde.changeSpieler(alt,neu);
 			}
 		}
+		ArrayList<Spieler> spieler = Parameter.turnier.getSpieler();
+		if (spieler != null)
+		{
+			for (int i=0;i<spieler.size();i++)
+			{
+				Spieler test = spieler.get(i);
+				if (test.istGleich(alt))
+				{
+					test.setVorname(neu.getVorname());
+					test.setName(neu.getName());
+					test.setDWZ(neu.getDWZ());
+				}
+			}
+		}
+		if (turnier != null)
+		{
+			for (int i=0;i<turnier.getMaxrunden();i++)
+			{
+				Runde runde = turnier.getRunde(i);
+				if (runde != null)
+				{
+					runde.changeSpieler(alt,neu);
+				}
+			}
+			spieler = turnier.getSpieler();
+			if (spieler != null)
+			{
+				for (int i=0;i<spieler.size();i++)
+				{
+					Spieler test = spieler.get(i);
+					if (test.istGleich(alt))
+					{
+						test.setVorname(neu.getVorname());
+						test.setName(neu.getName());
+						test.setDWZ(neu.getDWZ());
+					}
+				}
+			}
+		}
 	}
 }
