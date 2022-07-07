@@ -51,7 +51,7 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 		{
 			Auswertung auswertung = ausw.get(i);
 			Spieler test = auswertung.getSpieler();
-			if (test == spieler)
+			if (test.istGleich(spieler))
 			{
 				rowData[0][0] = (i+1) + "";
 				rowData[0][1] = spieler.getVorname() + " " + spieler.getName();
@@ -76,7 +76,7 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 			ArrayList<Spieler> freilos = runde.getFreilos();
 			for (int a=0;a<freilos.size();a++)
 			{
-				if (spieler == freilos.get(a))
+				if (spieler.istGleich(freilos.get(a)))
 				{
 					Partie partie = Factory.getPartie();
 					Spieler spieler1 = Factory.getSpieler();
