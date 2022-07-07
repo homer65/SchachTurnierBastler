@@ -575,6 +575,64 @@ public class AdvancedTurnierManager implements TurnierManager
 			}
 			auswertung.setBuchholz(buchholz);
 		}
+		for (int i=0;i<Parameter.turnier.getSpieler().size();i++)
+		{
+			Auswertung auswertung = erg.get(i);
+			double sonneberger = 0.0;
+			Spieler spieler = auswertung.getSpieler();
+			for (int x=0;x<=rundenNummer;x++)
+			{
+				Runde runde = Parameter.turnier.getRunde(x);
+				for (int a=0;a<runde.getMaxPartien();a++)
+				{
+					Partie partie = runde.getPartie(a);
+					Spieler weiss = partie.getWeiss();
+					Spieler schwarz = partie.getSchwarz();
+					if (spieler.istGleich(weiss))
+					{
+						for (int k=0;k<erg.size();k++)
+						{
+							Auswertung test = erg.get(k);
+							Spieler testspieler = test.getSpieler();
+							if (testspieler.istGleich(schwarz))
+							{
+								int partieergebnis = partie.getErgebnis();
+								if (partieergebnis == 2) //Weiss hat gewonnen
+								{
+									sonneberger += test.getPunkte();
+								}
+								else if (partieergebnis == 1) //Unentschieden
+								{
+									sonneberger += test.getPunkte() / 2.0;
+								}
+							}
+						}
+					}
+					if (spieler.istGleich(schwarz))
+					{
+						for (int k=0;k<erg.size();k++)
+						{
+							Auswertung test = erg.get(k);
+							Spieler testspieler = test.getSpieler();
+							if (testspieler.istGleich(weiss))
+							{
+								int partieergebnis = partie.getErgebnis();
+								if (partieergebnis == 3) //Schwarz hat gewonnen
+								{
+									sonneberger += test.getPunkte();
+								}
+								else if (partieergebnis == 1) //Unentschieden
+								{
+									sonneberger += test.getPunkte() / 2.0;
+								}
+							}
+						}
+					}
+
+				}
+			}
+			auswertung.setSonneberger(sonneberger);
+		}
 		Collections.sort(erg,new AuswertungComparator());
 		return erg;
 	}

@@ -4,6 +4,7 @@ public class Auswertung
 	private Spieler spieler = null;
 	private double punkte = 0.0;
 	private double buchholz = 0.0;
+	private double sonneberger = 0.0;
 	private int anzahlWeiss = 0;
 	private int anzahlSchwarz = 0;
 	public void setAnzahlWeiss(int i)
@@ -26,6 +27,10 @@ public class Auswertung
 	{
 		buchholz = d;
 	}
+	public void setSonneberger(double d)
+	{
+		sonneberger = d;
+	}
 	public int getAnzahlWeiss()
 	{
 		return anzahlWeiss;
@@ -45,5 +50,9 @@ public class Auswertung
 	public double getBuchholz()
 	{
 		return buchholz;
+	}
+	public double getSonneberger()
+	{
+		return sonneberger;
 	}
 }

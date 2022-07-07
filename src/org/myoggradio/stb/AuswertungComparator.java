@@ -10,6 +10,8 @@ public class AuswertungComparator implements Comparator<Auswertung>
 		double punkte2 = o2.getPunkte();
 		double buchholz1 = o1.getBuchholz();
 		double buchholz2 = o2.getBuchholz();
+		double sonneberger1 = o1.getSonneberger();
+		double sonneberger2 = o2.getSonneberger();
 		int dwz1 = o1.getSpieler().getDWZ();
 		int dwz2 = o2.getSpieler().getDWZ();
 		if (punkte1 > punkte2) erg = -1;
@@ -20,11 +22,16 @@ public class AuswertungComparator implements Comparator<Auswertung>
 			else if (buchholz2 > buchholz1) erg = 1;
 			else 
 			{
-				if (dwz1 > dwz2) erg = -1;
-				else if (dwz2 > dwz1) erg = 1;
+				if (sonneberger1 > sonneberger2) erg = -1;
+				else if (sonneberger2 > sonneberger1) erg = 1;
 				else
 				{
-					erg = 0;
+					if (dwz1 > dwz2) erg = -1;
+					else if (dwz2 > dwz1) erg = 1;
+					else
+					{
+						erg = 0;
+					}
 				}
 			}
 		}

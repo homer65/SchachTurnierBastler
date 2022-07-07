@@ -37,15 +37,16 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 		JPanel cpan = new JPanel();
 		cpan.setLayout(new BorderLayout());
 		
-		String[] columnNames = new String[7];
+		String[] columnNames = new String[8];
 		columnNames[0] = "Platzierung";
 		columnNames[1] = "Spieler";
 		columnNames[2] = "Punkte";
 		columnNames[3] = "Buchholz";
-		columnNames[4] = "DWZ";
-		columnNames[5] = "Anzahl Weiss";
-		columnNames[6] = "Anzahl Schwarz";
-		String[][] rowData = new String[1][7];
+		columnNames[4] = "Sonneberger";
+		columnNames[5] = "DWZ";
+		columnNames[6] = "Anzahl Weiss";
+		columnNames[7] = "Anzahl Schwarz";
+		String[][] rowData = new String[1][8];
 		for (int i=0;i<ausw.size();i++)
 		{
 			Auswertung auswertung = ausw.get(i);
@@ -56,9 +57,10 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 				rowData[0][1] = spieler.getVorname() + " " + spieler.getName();
 				rowData[0][2] = auswertung.getPunkte() + "";
 				rowData[0][3] = auswertung.getBuchholz() + "";
-				rowData[0][4] = spieler.getDWZ() + "";
-				rowData[0][5] = auswertung.getAnzahlWeiss() + "";
-				rowData[0][6] = auswertung.getAnzahlSchwarz() + "";
+				rowData[0][4] = auswertung.getSonneberger() + "";
+				rowData[0][5] = spieler.getDWZ() + "";
+				rowData[0][6] = auswertung.getAnzahlWeiss() + "";
+				rowData[0][7] = auswertung.getAnzahlSchwarz() + "";
 			}
 		}
 		JTable table = new JTable(rowData,columnNames);
@@ -89,7 +91,7 @@ public class SimpleSpielerAuswertungDialog extends JDialog implements SpielerAus
 			for (int a=0;a<runde.getMaxPartien();a++)
 			{
 				Partie partie = runde.getPartie(a);
-				if (partie.getWeiss() == spieler || partie.getSchwarz() == spieler)
+				if (partie.getWeiss().istGleich(spieler) || partie.getSchwarz().istGleich(spieler))
 				{
 					partien.add(partie);
 				}

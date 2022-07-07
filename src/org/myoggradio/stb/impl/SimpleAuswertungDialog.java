@@ -48,15 +48,16 @@ public class SimpleAuswertungDialog extends JDialog implements ActionListener,Au
 		Protokol.write("SimpleAuswertungDialog:anzeigen:Runde:" + rundeNummer);
 		JPanel cpan = new JPanel();
 		cpan.setLayout(new FlowLayout());
-		String[] columnNames = new String[7];
+		String[] columnNames = new String[8];
 		columnNames[0] = "Platzierung";
 		columnNames[1] = "Spieler";
 		columnNames[2] = "Punkte";
 		columnNames[3] = "Buchholz";
-		columnNames[4] = "DWZ";
-		columnNames[5] = "Anzahl Weiss";
-		columnNames[6] = "Anzahl Schwarz";
-		String[][] rowData = new String[ausw.size()][7];
+		columnNames[4] = "Sonneberger";
+		columnNames[5] = "DWZ";
+		columnNames[6] = "Anzahl Weiss";
+		columnNames[7] = "Anzahl Schwarz";
+		String[][] rowData = new String[ausw.size()][8];
 		for (int i=0;i<ausw.size();i++)
 		{
 			Auswertung auswertung = ausw.get(i);
@@ -65,9 +66,10 @@ public class SimpleAuswertungDialog extends JDialog implements ActionListener,Au
 			rowData[i][1] = spieler.getVorname() + " " + spieler.getName();
 			rowData[i][2] = auswertung.getPunkte() + "";
 			rowData[i][3] = auswertung.getBuchholz() + "";
-			rowData[i][4] = spieler.getDWZ() + "";
-			rowData[i][5] = auswertung.getAnzahlWeiss() + "";
-			rowData[i][6] = auswertung.getAnzahlSchwarz() + "";
+			rowData[i][4] = auswertung.getSonneberger() + "";
+			rowData[i][5] = spieler.getDWZ() + "";
+			rowData[i][6] = auswertung.getAnzahlWeiss() + "";
+			rowData[i][7] = auswertung.getAnzahlSchwarz() + "";
 		}
 		table = new JTable(rowData,columnNames);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
