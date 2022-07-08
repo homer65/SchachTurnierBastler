@@ -75,18 +75,27 @@ public class SimpleRunde implements Runde,Serializable
 	@Override
 	public void storniereSpieler(Spieler spieler) 
 	{
-		freilos.remove(spieler);
+		ArrayList<Spieler> neuFreilos = new ArrayList<Spieler>();
+		for (int i=0;i<freilos.size();i++)
+		{
+			Spieler test = freilos.get(i);
+			if (!test.istGleich(spieler))
+			{
+				neuFreilos.add(test);
+			}
+		}
+		freilos = neuFreilos;
 		for (int i=0;i<partien.length;i++)
 		{
 			Partie partie = partien[i];
 			Spieler weiss = partie.getWeiss();
 			Spieler schwarz = partie.getSchwarz();
-			if (spieler == weiss)
+			if (spieler.istGleich(weiss))
 			{
 				addFreilos(schwarz);
 				remove(partie);
 			}
-			else if (spieler == schwarz)
+			else if (spieler.istGleich(schwarz))
 			{
 				addFreilos(weiss);
 				remove(partie);

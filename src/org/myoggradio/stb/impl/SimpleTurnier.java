@@ -168,10 +168,13 @@ public class SimpleTurnier implements Turnier,Serializable
 	@Override
 	public void storniereSpieler(Spieler einspieler) 
 	{
-		for (int i=0;i<aktiveRunde;i++)
+		for (int i=0;i<this.getMaxrunden();i++)
 		{
 			Runde runde = runden[i];
-			runde.storniereSpieler(einspieler);
+			if (runde != null)
+			{
+				runde.storniereSpieler(einspieler);
+			}
 		}
 		spieler.remove(einspieler);
 	}
