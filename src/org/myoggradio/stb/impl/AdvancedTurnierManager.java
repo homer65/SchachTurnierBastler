@@ -424,7 +424,7 @@ public class AdvancedTurnierManager implements TurnierManager
 		{
 			Partie partie = runde.getPartie(i);
 			Spieler weiss = partie.getWeiss();
-			if (weiss == spieler) erg++;
+			if (weiss.istGleich(spieler)) erg++;
 		}
 		return erg;
 	}
@@ -435,7 +435,7 @@ public class AdvancedTurnierManager implements TurnierManager
 		{
 			Partie partie = runde.getPartie(i);
 			Spieler schwarz = partie.getSchwarz();
-			if (schwarz == spieler) erg++;
+			if (schwarz.istGleich(spieler)) erg++;
 		}
 		return erg;
 	}
@@ -472,12 +472,12 @@ public class AdvancedTurnierManager implements TurnierManager
 				Spieler weiss = partie.getWeiss();
 				Spieler schwarz = partie.getSchwarz();
 				int ergebnis = partie.getErgebnis();
-				if (spieler == weiss)
+				if (spieler.istGleich(weiss))
 				{
 					if (ergebnis == 1) erg += 1;
 					if (ergebnis == 2) erg += 2;
 				}
-				if (spieler == schwarz)
+				if (spieler.istGleich(schwarz))
 				{
 					if (ergebnis == 1) erg += 1;
 					if (ergebnis == 3) erg += 2;
