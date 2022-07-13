@@ -45,6 +45,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	private JMenuItem m42 = new JMenuItem("Maximale Anzahl Iterationen");
 	private JMenuItem m43 = new JMenuItem("Anzahl Iterationen bis zur Meldung");
 	private JMenuItem m44 = new JMenuItem("Auto Save Directory");
+	private JMenuItem m45 = new JMenuItem("Malus Farbdifferenz2");
+	private JMenuItem m46 = new JMenuItem("Malus gleich gut");
 	public SimpleMainMenu()
 	{
 		this.setName("SchachTurnierBastler");
@@ -70,6 +72,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m4.add(m42);
 		m4.add(m43);
 		m4.add(m44);
+		m4.add(m45);
+		m4.add(m46);
 		menu.add(m1);
 		menu.add(m2);
 		menu.add(m3);
@@ -96,6 +100,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		m42.addActionListener(this);
 		m43.addActionListener(this);
 		m44.addActionListener(this);
+		m45.addActionListener(this);
+		m46.addActionListener(this);
 		Locator locator = new Locator();
 		URL url = locator.getURL("tux.png");
 		Image tux = Toolkit.getDefaultToolkit().getImage(url);
@@ -385,6 +391,62 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 					Protokol.write("SimpleMainMenu:actionPerformed:m44:Null Directory:");
 				}
 			}
+		}
+		if (source == m45)
+		{
+			Preferences prefs = Preferences.userRoot();
+			String malusfarbdifferenz2 = prefs.get("SchachTurnierBastler_malusfarbdifferenz2","" + Parameter.malusFarbdifferenz2);
+			malusfarbdifferenz2 = JOptionPane.showInputDialog("Malus Farbdifferenz2",malusfarbdifferenz2);
+			if (malusfarbdifferenz2 != null)
+			{
+				try
+				{
+					int temp = Integer.parseInt(malusfarbdifferenz2);
+					if (temp > 0 && temp < 51)
+					{
+						Parameter.malusFarbdifferenz2 = Integer.parseInt(malusfarbdifferenz2);
+						prefs.put("SchachTurnierBastler_malusfarbdifferenz2",malusfarbdifferenz2);
+					}
+					else
+					{
+						Protokol.write("SimpleMainMenu:actionPerformed:m45:");
+						Protokol.write("Einstellung ausserhalb des Normalen");	
+					}
+				}
+				catch (Exception e)
+				{
+					Protokol.write("SimpleMainMenu:actionPerformed:m45:Exception:");
+					Protokol.write(e.toString());
+				}
+			}
+		}
+		if (source == m46)
+		{
+			Preferences prefs = Preferences.userRoot();
+			String malusgleichgut = prefs.get("SchachTurnierBastler_malusgleichgut","" + Parameter.malusGleichGut);
+			malusgleichgut = JOptionPane.showInputDialog("Malus gleich gut",malusgleichgut);
+			if (malusgleichgut != null)
+			{
+				try
+				{
+					int temp = Integer.parseInt(malusgleichgut);
+					if (temp > 0 && temp < 51)
+					{
+						Parameter.malusGleichGut = Integer.parseInt(malusgleichgut);
+						prefs.put("SchachTurnierBastler_malusgleichgut",malusgleichgut);
+					}
+					else
+					{
+						Protokol.write("SimpleMainMenu:actionPerformed:m46:");
+						Protokol.write("Einstellung ausserhalb des Normalen");	
+					}
+				}
+				catch (Exception e)
+				{
+					Protokol.write("SimpleMainMenu:actionPerformed:m46:Exception:");
+					Protokol.write(e.toString());
+				}
+			}	
 		}
 	}
 }
