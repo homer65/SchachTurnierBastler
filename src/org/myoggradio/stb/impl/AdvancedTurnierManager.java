@@ -315,8 +315,8 @@ public class AdvancedTurnierManager implements TurnierManager
 		Spieler s1 = p1.getSchwarz();
 		Spieler w2 = p2.getWeiss();
 		Spieler s2 = p2.getSchwarz();
-		if (s1 == s2 && w1 == w2) erg = true;
-		if (s1 == w2 && w1 == s2) erg = true;
+		if (s1.istGleich(s2) && w1.istGleich(w2)) erg = true;
+		if (s1.istGleich(w2) && w1.istGleich(s2)) erg = true;
 		return erg;
 	}
 	private int bewerteKeinSpielerMehrAlsEinmalFreilos(Runde runde)
@@ -333,7 +333,7 @@ public class AdvancedTurnierManager implements TurnierManager
 					ArrayList<Spieler> testfreilos = test.getFreilos();
 					for (int b=0;b<testfreilos.size();b++)
 					{
-						if (freilos.get(a) == testfreilos.get(b)) erg += Parameter.malusMehrAlsEinmalFreilos;
+						if (freilos.get(a).istGleich(testfreilos.get(b))) erg += Parameter.malusMehrAlsEinmalFreilos;
 					}
 				}
 			}
