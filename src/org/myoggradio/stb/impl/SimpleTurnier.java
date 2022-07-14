@@ -134,6 +134,7 @@ public class SimpleTurnier implements Turnier,Serializable
 			}
 			if (ok)
 			{
+				runden[aktiveRunde-1] = null;
 				aktiveRunde--;
 				erg = true;
 			}
