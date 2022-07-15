@@ -219,6 +219,9 @@ public class SimplePrintToHtml implements PrintToHtml
 			wrt.write("<b>Buchholz</b>");
 			wrt.write("</th>" + "\n");
 			wrt.write("<th>" + "\n");
+			wrt.write("<b>Sonneberger</b>");
+			wrt.write("</th>" + "\n");
+			wrt.write("<th>" + "\n");
 			wrt.write("<b>Anzahl Weiss</b>");
 			wrt.write("</th>" + "\n");
 			wrt.write("<th>" + "\n");
@@ -231,6 +234,7 @@ public class SimplePrintToHtml implements PrintToHtml
 				Spieler spieler = auswertung.getSpieler();
 				double punkte = auswertung.getPunkte();
 				double buchholz = auswertung.getBuchholz();
+				double sonneberger = auswertung.getSonneberger();
 				int anzahlWeiss = auswertung.getAnzahlWeiss();
 				int anzahlSchwarz = auswertung.getAnzahlSchwarz();
 				wrt.write("<tr>" + "\n");
@@ -242,6 +246,9 @@ public class SimplePrintToHtml implements PrintToHtml
 				wrt.write("</td>" + "\n");
 				wrt.write("<td>" + "\n");
 				wrt.write("" + buchholz);
+				wrt.write("</td>" + "\n");
+				wrt.write("<td>" + "\n");
+				wrt.write("" + sonneberger);
 				wrt.write("</td>" + "\n");
 				wrt.write("<td>" + "\n");
 				wrt.write("" + anzahlWeiss);
