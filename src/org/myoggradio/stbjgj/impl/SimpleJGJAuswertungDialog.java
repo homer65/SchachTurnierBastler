@@ -16,10 +16,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.myoggradio.stb.*;
-import org.myoggradio.stbjgj.JGJAuswertungsDialog;
+import org.myoggradio.stbjgj.JGJAuswertungDialog;
 import org.myoggradio.stbjgj.JGJFactory;
+import org.myoggradio.stbjgj.JGJSpielerAuswertungDialog;
 import org.myoggradio.stbjgj.JGJTurnierManager;
-public class SimpleJGJAuswertungsDialog extends JDialog implements ActionListener,JGJAuswertungsDialog, ListSelectionListener
+public class SimpleJGJAuswertungDialog extends JDialog implements ActionListener,JGJAuswertungDialog, ListSelectionListener
 {
 	private static final long serialVersionUID = 1L;
 	private int rundeNummer = 0;
@@ -28,7 +29,7 @@ public class SimpleJGJAuswertungsDialog extends JDialog implements ActionListene
 	private JMenuBar menu = new JMenuBar();
 	private JMenu m1 = new JMenu("File");
 	private JMenuItem m11 = new JMenuItem("Print");
-	public SimpleJGJAuswertungsDialog()
+	public SimpleJGJAuswertungDialog()
 	{
 		setModal(true);
 		m1.add(m11);
@@ -93,7 +94,7 @@ public class SimpleJGJAuswertungsDialog extends JDialog implements ActionListene
 		{
 			int x = table.getSelectedRow();
 			Spieler s = ausw.get(x).getSpieler();
-			SpielerAuswertungDialog nsm = Factory.getSpielerAuswertungDialog();
+			JGJSpielerAuswertungDialog nsm = JGJFactory.getJGJSpielerAuswertungDialog();
 			nsm.setRunde(rundeNummer);
 			nsm.setSpieler(s);
 			nsm.anzeigen();

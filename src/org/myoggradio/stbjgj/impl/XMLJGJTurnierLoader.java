@@ -9,7 +9,6 @@ import org.myoggradio.stb.Factory;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Spieler;
-import org.myoggradio.stb.SpielerManager;
 import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJRunde;
 import org.myoggradio.stbjgj.JGJTurnier;
@@ -20,7 +19,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 public class XMLJGJTurnierLoader 
 {
-	private int maxid = 0;
 	private ArrayList<Spieler> spielerlist = new ArrayList<Spieler>();
 	public JGJTurnier load(File file)
 	{
@@ -45,29 +43,16 @@ public class XMLJGJTurnierLoader
 	public Spieler getSpieler(Element element)
 	{
 		Spieler erg = Factory.getSpieler();
-		int id = maxid++;
+		String sid = element.getAttribute("id");
 		String vorname = element.getAttribute("vorname");
 		String name = element.getAttribute("name");
 		String sdwz = element.getAttribute("dwz");
 		int dwz = Integer.parseInt(sdwz);
+		int id = Integer.parseInt(sid);
 		erg.setId(id);
 		erg.setVorname(vorname);
 		erg.setName(name);
 		erg.setDWZ(dwz);
-		return erg;
-	}
-	public Spieler getSpielerInRunde(Element element)
-	{
-		SpielerManager spielerManager = Factory.getSpielerManager();
-		Spieler erg = Factory.getSpieler();
-		String vorname = element.getAttribute("vorname");
-		String name = element.getAttribute("name");
-		String sdwz = element.getAttribute("dwz");
-		int dwz = Integer.parseInt(sdwz);
-		erg.setVorname(vorname);
-		erg.setName(name);
-		erg.setDWZ(dwz);
-		erg.setId(spielerManager.getId(erg,spielerlist));
 		return erg;
 	}
 	public JGJRunde getJGJRunde(Element element)
@@ -85,7 +70,7 @@ public class XMLJGJTurnierLoader
 				String name = rundeelement.getTagName();
 				if (name.equals("spieler"))
 				{
-					Spieler s = getSpielerInRunde(rundeelement);
+					Spieler s = getSpieler(rundeelement);
 					spieler.add(s);
 				}
 				if (name.equals("partie"))

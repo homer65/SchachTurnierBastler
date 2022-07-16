@@ -5,7 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 import org.myoggradio.stb.*;
-import org.myoggradio.stbjgj.JGJAuswertungsDialog;
+import org.myoggradio.stbjgj.JGJAuswertungDialog;
 import org.myoggradio.stbjgj.JGJErgebnisDialog;
 import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJParameter;
@@ -159,7 +159,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		Object source = ae.getSource();
 		if (source == m12) // Auswertung
 		{
-			JGJAuswertungsDialog ad = JGJFactory.getJGJAuswertungsDialog();
+			JGJAuswertungDialog ad = JGJFactory.getJGJAuswertungsDialog();
 			ad.setRunde(dargestellteRunde);
 			ad.anzeigen();
 		}

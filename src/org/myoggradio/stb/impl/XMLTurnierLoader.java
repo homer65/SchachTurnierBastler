@@ -12,7 +12,6 @@ import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Runde;
 import org.myoggradio.stb.Spieler;
-import org.myoggradio.stb.SpielerManager;
 import org.myoggradio.stb.Turnier;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,7 +21,6 @@ import org.xml.sax.InputSource;
 
 public class XMLTurnierLoader 
 {
-	private int maxid = 0;
 	private ArrayList<Spieler> spielerlist = new ArrayList<Spieler>();
 	public Turnier load(File file)
 	{
@@ -47,30 +45,16 @@ public class XMLTurnierLoader
 	public Spieler getSpieler(Element element)
 	{
 		Spieler erg = Factory.getSpieler();
-		int id = maxid++;
+		String sid = element.getAttribute("id");
 		String vorname = element.getAttribute("vorname");
 		String name = element.getAttribute("name");
 		String sdwz = element.getAttribute("dwz");
 		int dwz = Integer.parseInt(sdwz);
+		int id = Integer.parseInt(sid);
 		erg.setId(id);
 		erg.setVorname(vorname);
 		erg.setName(name);
 		erg.setDWZ(dwz);
-		return erg;
-	}
-	public Spieler getSpielerInRunde(Element element)
-	{
-		Spieler erg = Factory.getSpieler();
-		SpielerManager spielerManager = Factory.getSpielerManager();
-		String vorname = element.getAttribute("vorname");
-		String name = element.getAttribute("name");
-		String sdwz = element.getAttribute("dwz");
-		int dwz = Integer.parseInt(sdwz);
-		erg.setVorname(vorname);
-		erg.setName(name);
-		erg.setDWZ(dwz);
-		int id = spielerManager.getId(erg,spielerlist);
-		erg.setId(id);
 		return erg;
 	}
 	public Runde getRunde(Element element)
@@ -126,11 +110,11 @@ public class XMLTurnierLoader
 				String name = partieelement.getTagName();
 				if (name.equals("weiss"))
 				{
-					weiss = getSpielerInRunde(partieelement);
+					weiss = getSpieler(partieelement);
 				}
 				if (name.equals("schwarz"))
 				{
-					schwarz = getSpielerInRunde(partieelement);
+					schwarz = getSpieler(partieelement);
 				}
 			}
 		}

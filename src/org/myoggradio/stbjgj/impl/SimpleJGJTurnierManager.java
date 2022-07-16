@@ -12,6 +12,7 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 	public void starteFolgeRunden(JGJTurnier turnier)
 	{
 		Spieler freilos = Factory.getSpieler();
+		freilos.setId(-1);
 		freilos.setName("freilos");
 		freilos.setVorname("");
 		freilos.setDWZ(-1);
@@ -78,6 +79,7 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 	{
 		JGJRunde erg = JGJFactory.getJGJRunde();
 		Spieler freilos = Factory.getSpieler();
+		freilos.setId(-1);
 		freilos.setName("freilos");
 		freilos.setVorname("");
 		freilos.setDWZ(-1);

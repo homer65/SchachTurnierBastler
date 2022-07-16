@@ -25,6 +25,7 @@ public class XMLSpielerSaver
 			{
 				Spieler s = spieler.get(i);
 				out.writeStartElement("spieler");
+				out.writeAttribute("id",s.getId() + "");
 				out.writeAttribute("vorname",s.getVorname());
 				out.writeAttribute("name",s.getName());
 				out.writeAttribute("dwz","" + s.getDWZ());

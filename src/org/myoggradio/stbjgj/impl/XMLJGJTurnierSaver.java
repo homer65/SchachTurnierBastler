@@ -31,6 +31,7 @@ public class XMLJGJTurnierSaver
 			{
 				Spieler s = spieler.get(i);
 				out.writeStartElement("spieler");
+				out.writeAttribute("id",s.getId() + "");
 				out.writeAttribute("vorname",s.getVorname());
 				out.writeAttribute("name",s.getName());
 				out.writeAttribute("dwz","" + s.getDWZ());
@@ -49,6 +50,7 @@ public class XMLJGJTurnierSaver
 					{
 						Spieler rs = rspieler[j];
 						out.writeStartElement("spieler");
+						out.writeAttribute("id",rs.getId() + "");
 						out.writeAttribute("vorname",rs.getVorname());
 						out.writeAttribute("name",rs.getName());
 						out.writeAttribute("dwz","" + rs.getDWZ());
@@ -62,12 +64,14 @@ public class XMLJGJTurnierSaver
 						out.writeAttribute("ergebnis","" + partie.getErgebnis());
 						Spieler weiss = partie.getWeiss();
 						out.writeStartElement("weiss");
+						out.writeAttribute("id",weiss.getId() + "");
 						out.writeAttribute("vorname",weiss.getVorname());
 						out.writeAttribute("name",weiss.getName());
 						out.writeAttribute("dwz","" + weiss.getDWZ());
 						out.writeEndElement();
 						Spieler schwarz = partie.getSchwarz();
 						out.writeStartElement("schwarz");
+						out.writeAttribute("id",schwarz.getId() + "");
 						out.writeAttribute("vorname",schwarz.getVorname());
 						out.writeAttribute("name",schwarz.getName());
 						out.writeAttribute("dwz","" + schwarz.getDWZ());
