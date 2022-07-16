@@ -29,8 +29,8 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 				if (k == spieler.length) k = 0;
 				rspieler[k] = spieler[j];
 			}
-			rspieler[nh] = spieler[nh];
-			rspieler[nh+1] = spieler[nh-1];
+			rspieler[nh-1] = spieler[nh-1];
+			rspieler[nh] = spieler[nh-2];
 			nextRunde.setMaxPartien(nh);
 			nextRunde.setSpieler(rspieler);
 			boolean zuerstWeiss = true;
@@ -84,7 +84,7 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 		freilos.setVorname("");
 		freilos.setDWZ(-1);
 		ArrayList<Spieler> spieler = turnier.getSpieler();
-		boolean ungerade = true;;
+		boolean ungerade = true;
 		int n = spieler.size();
 		int nh = n / 2;
 		int m = nh * 2;
@@ -109,14 +109,14 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 			if (zuerstWeiss)
 			{
 				zuerstWeiss = false;
-				partie.setWeiss(spieler.get(i));
-				partie.setSchwarz(spieler.get(n-i-1));
+				partie.setWeiss(rspieler[i]);
+				partie.setSchwarz(rspieler[n-i-1]);
 			}
 			else
 			{
 				zuerstWeiss = true;
-				partie.setSchwarz(spieler.get(i));
-				partie.setWeiss(spieler.get(n-i-1));
+				partie.setSchwarz(rspieler[i]);
+				partie.setWeiss(rspieler[n-i-1]);
 			}
 			partie.setErgebnis(0);
 			if (partie.getWeiss().istGleich(freilos)) partie.setErgebnis(3);
