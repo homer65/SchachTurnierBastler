@@ -4,9 +4,15 @@ import org.myoggradio.stb.*;
 public class SimpleSpieler implements Spieler,Serializable
 {
 	private static final long serialVersionUID = 1L;
+	private int id = 0;
 	private String vorname = "";
 	private String name = "";
 	private int dwz = 0;
+	@Override
+	public void setId(int i)
+	{
+		id = i;
+	}
 	@Override
 	public void setVorname(String s) 
 	{
@@ -21,6 +27,11 @@ public class SimpleSpieler implements Spieler,Serializable
 	public void setDWZ(int i) 
 	{
 		dwz = i;		
+	}
+	@Override
+	public int getId()
+	{
+		return id;
 	}
 	@Override
 	public String getVorname() 
@@ -63,6 +74,13 @@ public class SimpleSpieler implements Spieler,Serializable
 		return erg;
 	}
 	@Override
+	public boolean istGleich(Spieler test)
+	{
+		boolean erg = false;
+		if (id == test.getId()) erg = true;
+		return erg;
+	}
+/*
 	public boolean istGleich(Spieler test) 
 	{
 		boolean erg = true;
@@ -71,5 +89,5 @@ public class SimpleSpieler implements Spieler,Serializable
 		if (!vorname.equals(test.getVorname())) erg = false;
 		return erg;
 	}
-	
+*/
 }

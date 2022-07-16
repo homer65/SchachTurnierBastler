@@ -33,7 +33,7 @@ public class SimpleSpielerAnzeigenDialog extends JDialog implements SpielerAnzei
 		for (int i=0;i<spieler.size();i++)
 		{
 			Spieler einSpieler = spieler.get(i);
-			rowData[i][0] = (i+1) + "";
+			rowData[i][0] = einSpieler.getId() + "";
 			rowData[i][1] = einSpieler.getVorname();
 			rowData[i][2] = einSpieler.getName();
 			rowData[i][3] = einSpieler.getDWZ() + "";

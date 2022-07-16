@@ -17,6 +17,7 @@ import org.xml.sax.InputSource;
 
 public class XMLSpielerLoader 
 {
+	private int maxid = 0;
 	public ArrayList<Spieler> load(File file)
 	{
 		ArrayList<Spieler> erg = new ArrayList<Spieler>();
@@ -40,10 +41,12 @@ public class XMLSpielerLoader
 	public Spieler getSpieler(Element element)
 	{
 		Spieler erg = Factory.getSpieler();
+		int id = maxid++;
 		String vorname = element.getAttribute("vorname");
 		String name = element.getAttribute("name");
 		String sdwz = element.getAttribute("dwz");
 		int dwz = Integer.parseInt(sdwz);
+		erg.setId(id);
 		erg.setVorname(vorname);
 		erg.setName(name);
 		erg.setDWZ(dwz);

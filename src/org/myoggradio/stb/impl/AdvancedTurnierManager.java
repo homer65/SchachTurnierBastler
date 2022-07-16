@@ -45,6 +45,7 @@ public class AdvancedTurnierManager implements TurnierManager
 				Spieler freilos = Factory.getSpieler();
 				if (ungerade)
 				{
+					freilos.setId(-1);
 					freilos.setDWZ(-1);
 					geordneteAuswertung.add(freilos); // Freilos kommt auf den letzten Platz; Anzahl Spieler wird gerade
 				}
@@ -655,6 +656,7 @@ public class AdvancedTurnierManager implements TurnierManager
 				Spieler test = spieler.get(i);
 				if (test.istGleich(alt))
 				{
+					test.setId(neu.getId());
 					test.setVorname(neu.getVorname());
 					test.setName(neu.getName());
 					test.setDWZ(neu.getDWZ());
@@ -679,6 +681,7 @@ public class AdvancedTurnierManager implements TurnierManager
 					Spieler test = spieler.get(i);
 					if (test.istGleich(alt))
 					{
+						test.setId(neu.getId());
 						test.setVorname(neu.getVorname());
 						test.setName(neu.getName());
 						test.setDWZ(neu.getDWZ());

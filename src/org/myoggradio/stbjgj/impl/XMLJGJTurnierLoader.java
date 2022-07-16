@@ -9,6 +9,7 @@ import org.myoggradio.stb.Factory;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Spieler;
+import org.myoggradio.stb.SpielerManager;
 import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJRunde;
 import org.myoggradio.stbjgj.JGJTurnier;
@@ -19,6 +20,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 public class XMLJGJTurnierLoader 
 {
+	private int maxid = 0;
+	private ArrayList<Spieler> spielerlist = new ArrayList<Spieler>();
 	public JGJTurnier load(File file)
 	{
 		JGJTurnier erg = JGJFactory.getJGJTurnier();
@@ -42,6 +45,21 @@ public class XMLJGJTurnierLoader
 	public Spieler getSpieler(Element element)
 	{
 		Spieler erg = Factory.getSpieler();
+		int id = maxid++;
+		String vorname = element.getAttribute("vorname");
+		String name = element.getAttribute("name");
+		String sdwz = element.getAttribute("dwz");
+		int dwz = Integer.parseInt(sdwz);
+		erg.setId(id);
+		erg.setVorname(vorname);
+		erg.setName(name);
+		erg.setDWZ(dwz);
+		return erg;
+	}
+	public Spieler getSpielerInRunde(Element element)
+	{
+		SpielerManager spielerManager = Factory.getSpielerManager();
+		Spieler erg = Factory.getSpieler();
 		String vorname = element.getAttribute("vorname");
 		String name = element.getAttribute("name");
 		String sdwz = element.getAttribute("dwz");
@@ -49,6 +67,7 @@ public class XMLJGJTurnierLoader
 		erg.setVorname(vorname);
 		erg.setName(name);
 		erg.setDWZ(dwz);
+		erg.setId(spielerManager.getId(erg,spielerlist));
 		return erg;
 	}
 	public JGJRunde getJGJRunde(Element element)
@@ -66,7 +85,7 @@ public class XMLJGJTurnierLoader
 				String name = rundeelement.getTagName();
 				if (name.equals("spieler"))
 				{
-					Spieler s = getSpieler(rundeelement);
+					Spieler s = getSpielerInRunde(rundeelement);
 					spieler.add(s);
 				}
 				if (name.equals("partie"))
@@ -122,7 +141,6 @@ public class XMLJGJTurnierLoader
 	public JGJTurnier getJGJTurnier(Element element)
 	{
 		JGJTurnier erg = JGJFactory.getJGJTurnier();
-		ArrayList<Spieler> spielerlist = new ArrayList<Spieler>();
 		ArrayList<JGJRunde> runden = new ArrayList<JGJRunde>();
 		NodeList list = element.getChildNodes();
 		for (int i=0;i<list.getLength();i++)

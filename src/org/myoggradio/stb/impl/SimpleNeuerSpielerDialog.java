@@ -60,6 +60,9 @@ public class SimpleNeuerSpielerDialog extends JDialog implements NeuerSpielerDia
 		Object source = ae.getSource();
 		if (source == butt1)
 		{
+			SpielerManager spielerManager = Factory.getSpielerManager();
+			int id = spielerManager.getMaxId(Parameter.spieler);
+			spieler.setId(id + 1);
 			spieler.setVorname(tf1.getText());
 			spieler.setName(tf2.getText());
 			spieler.setDWZ(Integer.parseInt(tf3.getText()));

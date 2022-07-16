@@ -145,6 +145,7 @@ public class SimpleRunde implements Runde,Serializable
 				{
 					if (weiss.istGleich(alt))
 					{
+						weiss.setId(neu.getId());
 						weiss.setVorname(neu.getVorname());
 						weiss.setName(neu.getName());
 						weiss.setDWZ(neu.getDWZ());
@@ -154,6 +155,7 @@ public class SimpleRunde implements Runde,Serializable
 				{
 					if (schwarz.istGleich(alt))
 					{
+						schwarz.setId(neu.getId());
 						schwarz.setVorname(neu.getVorname());
 						schwarz.setName(neu.getName());
 						schwarz.setDWZ(neu.getDWZ());

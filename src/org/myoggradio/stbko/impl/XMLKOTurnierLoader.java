@@ -9,6 +9,7 @@ import org.myoggradio.stb.Factory;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Spieler;
+import org.myoggradio.stb.SpielerManager;
 import org.myoggradio.stbko.KOFactory;
 import org.myoggradio.stbko.KORunde;
 import org.myoggradio.stbko.KOTurnier;
@@ -19,6 +20,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 public class XMLKOTurnierLoader 
 {
+	private int maxid = 0;
+	private ArrayList<Spieler> spielerlist = new ArrayList<Spieler>();
 	public KOTurnier load(File file)
 	{
 		KOTurnier erg = KOFactory.getKOTurnier();
@@ -42,6 +45,7 @@ public class XMLKOTurnierLoader
 	public Spieler getSpieler(Element element)
 	{
 		Spieler erg = Factory.getSpieler();
+		int id = maxid++;
 		String vorname = element.getAttribute("vorname");
 		String name = element.getAttribute("name");
 		String sdwz = element.getAttribute("dwz");
@@ -49,6 +53,21 @@ public class XMLKOTurnierLoader
 		erg.setVorname(vorname);
 		erg.setName(name);
 		erg.setDWZ(dwz);
+		erg.setId(id);
+		return erg;
+	}
+	public Spieler getSpielerInRunde(Element element)
+	{
+		SpielerManager spielerManager = Factory.getSpielerManager();
+		Spieler erg = Factory.getSpieler();
+		String vorname = element.getAttribute("vorname");
+		String name = element.getAttribute("name");
+		String sdwz = element.getAttribute("dwz");
+		int dwz = Integer.parseInt(sdwz);
+		erg.setVorname(vorname);
+		erg.setName(name);
+		erg.setDWZ(dwz);
+		erg.setId(spielerManager.getId(erg,spielerlist));
 		return erg;
 	}
 	public KORunde getKORunde(Element element)
@@ -110,7 +129,6 @@ public class XMLKOTurnierLoader
 	public KOTurnier getKOTurnier(Element element)
 	{
 		KOTurnier erg = KOFactory.getKOTurnier();
-		ArrayList<Spieler> spielerlist = new ArrayList<Spieler>();
 		ArrayList<KORunde> runden = new ArrayList<KORunde>();
 		NodeList list = element.getChildNodes();
 		for (int i=0;i<list.getLength();i++)

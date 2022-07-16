@@ -59,6 +59,7 @@ public class SimpleEinenSpielerChangeDialog extends JDialog implements ActionLis
 		if (source == butt1)
 		{
 			Spieler neuerSpieler = Factory.getSpieler();
+			neuerSpieler.setId(spieler.getId());
 			neuerSpieler.setVorname(tf1.getText());
 			neuerSpieler.setName(tf2.getText());
 			neuerSpieler.setDWZ(Integer.parseInt(tf3.getText()));
@@ -69,6 +70,7 @@ public class SimpleEinenSpielerChangeDialog extends JDialog implements ActionLis
 					Spieler test = Parameter.spieler.get(i);
 					if (test.istGleich(spieler))
 					{
+						test.setId(neuerSpieler.getId());
 						test.setVorname(neuerSpieler.getVorname());
 						test.setName(neuerSpieler.getName());
 						test.setDWZ(neuerSpieler.getDWZ());
