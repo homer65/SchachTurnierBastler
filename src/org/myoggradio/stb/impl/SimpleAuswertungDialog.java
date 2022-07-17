@@ -57,8 +57,8 @@ public class SimpleAuswertungDialog extends JDialog implements ActionListener,Au
 		columnNames[5] = "DWZ";
 		columnNames[6] = "Anzahl Weiss";
 		columnNames[7] = "Anzahl Schwarz";
-		columnNames[8] = "Anzahl Weiss Hintereinander";
-		columnNames[9] = "Anzahl Schwarz Hintereinander";
+		columnNames[8] = "Weiss Hintereinander";
+		columnNames[9] = "Schwarz Hintereinander";
 		String[][] rowData = new String[ausw.size()][10];
 		for (int i=0;i<ausw.size();i++)
 		{

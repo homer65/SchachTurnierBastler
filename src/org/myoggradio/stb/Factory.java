@@ -88,7 +88,7 @@ public class Factory
 	}
 	public static TurnierManager getTurnierManager()
 	{
-		return new AdvancedTurnierManager();
+		return new MoreAdvancedTurnierManager();
 	}
 	public static AuswertungDialog getAuswertungDialog()
 	{
