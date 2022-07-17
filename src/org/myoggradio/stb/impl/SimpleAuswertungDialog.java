@@ -48,7 +48,7 @@ public class SimpleAuswertungDialog extends JDialog implements ActionListener,Au
 		Protokol.write("SimpleAuswertungDialog:anzeigen:Runde:" + rundeNummer);
 		JPanel cpan = new JPanel();
 		cpan.setLayout(new FlowLayout());
-		String[] columnNames = new String[8];
+		String[] columnNames = new String[10];
 		columnNames[0] = "Platzierung";
 		columnNames[1] = "Spieler";
 		columnNames[2] = "Punkte";
@@ -57,7 +57,9 @@ public class SimpleAuswertungDialog extends JDialog implements ActionListener,Au
 		columnNames[5] = "DWZ";
 		columnNames[6] = "Anzahl Weiss";
 		columnNames[7] = "Anzahl Schwarz";
-		String[][] rowData = new String[ausw.size()][8];
+		columnNames[8] = "Anzahl Weiss Hintereinander";
+		columnNames[9] = "Anzahl Schwarz Hintereinander";
+		String[][] rowData = new String[ausw.size()][10];
 		for (int i=0;i<ausw.size();i++)
 		{
 			Auswertung auswertung = ausw.get(i);
@@ -70,6 +72,8 @@ public class SimpleAuswertungDialog extends JDialog implements ActionListener,Au
 			rowData[i][5] = spieler.getDWZ() + "";
 			rowData[i][6] = auswertung.getAnzahlWeiss() + "";
 			rowData[i][7] = auswertung.getAnzahlSchwarz() + "";
+			rowData[i][8] = auswertung.getAnzahlWeissHintereinander() + "";
+			rowData[i][9] = auswertung.getAnzahlSchwarzHintereinander() + "";
 		}
 		table = new JTable(rowData,columnNames);
 		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

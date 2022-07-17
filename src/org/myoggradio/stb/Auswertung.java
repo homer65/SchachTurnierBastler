@@ -7,13 +7,23 @@ public class Auswertung
 	private double sonneberger = 0.0;
 	private int anzahlWeiss = 0;
 	private int anzahlSchwarz = 0;
+	private int anzahlWeissHintereinander = 0;
+	private int anzahlSchwarzHintereinander = 0;
 	public void setAnzahlWeiss(int i)
 	{
 		anzahlWeiss = i;
 	}
+	public void setAnzahlWeissHintereinander(int i)
+	{
+		anzahlWeissHintereinander = i;
+	}
 	public void setAnzahlSchwarz(int i)
 	{
 		anzahlSchwarz = i;
+	}
+	public void setAnzahlSchwarzHintereinander(int i)
+	{
+		anzahlSchwarzHintereinander = i;
 	}
 	public void setSpieler(Spieler spieler)
 	{
@@ -35,9 +45,17 @@ public class Auswertung
 	{
 		return anzahlWeiss;
 	}
+	public int getAnzahlWeissHintereinander()
+	{
+		return anzahlWeissHintereinander;
+	}
 	public int getAnzahlSchwarz()
 	{
 		return anzahlSchwarz;
+	}
+	public int getAnzahlSchwarzHintereinander()
+	{
+		return anzahlSchwarzHintereinander;
 	}
 	public Spieler getSpieler()
 	{

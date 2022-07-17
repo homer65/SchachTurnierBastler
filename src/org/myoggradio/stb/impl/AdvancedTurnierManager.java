@@ -497,6 +497,8 @@ public class AdvancedTurnierManager implements TurnierManager
 			double punkte = 0.0;
 			int anzahlWeiss = 0;
 			int anzahlSchwarz = 0;
+			int anzahlWeissHintereinander = 0;
+			int anzahlSchwarzHintereinander = 0;
 			for (int x=0;x<=rundenNummer;x++)
 			{
 				Runde runde = Parameter.turnier.getRunde(x);
@@ -527,12 +529,30 @@ public class AdvancedTurnierManager implements TurnierManager
 						if (ergebnis == 3) punkte += 1.0;
 					}
 				}
+				for (int a=0;a<runde.getMaxPartien();a++)
+				{
+					Partie partie = runde.getPartie(a);
+					Spieler weiss = partie.getWeiss();
+					Spieler schwarz = partie.getSchwarz();
+					if (spieler.istGleich(weiss))
+					{
+						anzahlWeissHintereinander++;
+						anzahlSchwarzHintereinander = 0;
+					}
+					if (spieler.istGleich(schwarz))
+					{
+						anzahlSchwarzHintereinander++;
+						anzahlWeissHintereinander = 0;
+					}
+				}
 			}
 			Auswertung auswertung = new Auswertung();
 			auswertung.setSpieler(spieler);
 			auswertung.setPunkte(punkte);
 			auswertung.setAnzahlWeiss(anzahlWeiss);
 			auswertung.setAnzahlSchwarz(anzahlSchwarz);
+			auswertung.setAnzahlWeissHintereinander(anzahlWeissHintereinander);
+			auswertung.setAnzahlSchwarzHintereinander(anzahlSchwarzHintereinander);
 			erg.add(auswertung);
 		}
 		for (int i=0;i<Parameter.turnier.getSpieler().size();i++)
