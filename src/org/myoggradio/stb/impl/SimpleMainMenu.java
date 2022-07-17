@@ -402,7 +402,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 				try
 				{
 					int temp = Integer.parseInt(malusfarbdifferenz2);
-					if (temp > 0 && temp < 51)
+					if (temp >= 0 && temp < 51)
 					{
 						Parameter.malusFarbdifferenz2 = Integer.parseInt(malusfarbdifferenz2);
 						prefs.put("SchachTurnierBastler_malusfarbdifferenz2",malusfarbdifferenz2);
@@ -430,7 +430,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 				try
 				{
 					int temp = Integer.parseInt(malusgleichgut);
-					if (temp > 0 && temp < 51)
+					if (temp >= 0 && temp < 51)
 					{
 						Parameter.malusGleichGut = Integer.parseInt(malusgleichgut);
 						prefs.put("SchachTurnierBastler_malusgleichgut",malusgleichgut);
