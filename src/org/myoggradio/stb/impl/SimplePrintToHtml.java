@@ -57,6 +57,9 @@ public class SimplePrintToHtml implements PrintToHtml
 	{
 		try
 		{
+			wrt.write("<p>");
+			wrt.write("<b>Runde: " + rundenummer + "</b>");
+			wrt.write("</p>");
 			wrt.write("<table>" + "\n");
 			wrt.write("<tr>" + "\n");
 			wrt.write("<th>" + "\n");
