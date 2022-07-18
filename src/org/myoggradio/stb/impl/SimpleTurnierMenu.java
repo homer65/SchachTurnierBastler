@@ -129,8 +129,8 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			partien.add(partie);
 			Spieler weiss = partie.getWeiss();
 			Spieler schwarz = partie.getSchwarz();
-			String sweiss = weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ(); 
-			String sschwarz = schwarz.getVorname() + " " + schwarz.getName() + " " + schwarz.getDWZ(); 
+			String sweiss = weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ() + " (" + getPunkte(weiss,dargestellteRunde) + ")"; 
+			String sschwarz = schwarz.getVorname() + " " + schwarz.getName() + " " + schwarz.getDWZ() + " (" + getPunkte(schwarz,dargestellteRunde) + ")"; 
 			int ergebnis = partie.getErgebnis();
 			rowData[i][0] = (i+1) + "";
 			rowData[i][1] = sweiss;
@@ -357,5 +357,23 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 			ed.anzeigen();
 			init();
 		}
+	}
+	private double getPunkte(Spieler spieler,int runde)
+	{
+		double erg = 0.0;
+		if (runde > 0)
+		{
+			TurnierManager manager = Factory.getTurnierManager();
+			ArrayList<Auswertung> auswertungen = manager.getAuswertung(runde - 1);
+			for (int i=0;i<auswertungen.size();i++)
+			{
+				Spieler test = auswertungen.get(i).getSpieler();
+				if (test.istGleich(spieler))
+				{
+					erg += auswertungen.get(i).getPunkte();
+				}
+			}
+		}
+		return erg;
 	}
 }
