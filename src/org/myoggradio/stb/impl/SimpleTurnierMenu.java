@@ -261,7 +261,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		{
 			Runde runde = Parameter.turnier.getRunde(dargestellteRunde);
 			PrintToHtml print = Factory.getPrintToHtml();
-			print.print(runde);
+			print.print(runde,dargestellteRunde);
 		}
 		if (source == m18) // Runde manuell vorgeben
 		{

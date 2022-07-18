@@ -8,11 +8,13 @@ import java.io.Writer;
 import java.util.ArrayList;
 import org.myoggradio.stb.Auswertung;
 import org.myoggradio.stb.ErgebnisDarsteller;
+import org.myoggradio.stb.Factory;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.PrintToHtml;
 import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Runde;
 import org.myoggradio.stb.Spieler;
+import org.myoggradio.stb.TurnierManager;
 import org.myoggradio.stbjgj.JGJRunde;
 import org.myoggradio.stbko.KORunde;
 public class SimplePrintToHtml implements PrintToHtml
@@ -50,7 +52,7 @@ public class SimplePrintToHtml implements PrintToHtml
 		desktop.browse(file.toURI());
 	}
 	@Override
-	public void print(Runde runde) 
+	public void print(Runde runde,int rundenummer) 
 	{
 		try
 		{
@@ -81,10 +83,10 @@ public class SimplePrintToHtml implements PrintToHtml
 				wrt.write(" " + (i + 1));
 				wrt.write("</td>" + "\n");
 				wrt.write("<td>" + "\n");
-				wrt.write(weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ());
+				wrt.write(weiss.getVorname() + " " + weiss.getName() + " " + weiss.getDWZ() + " (" + getPunkte(weiss,rundenummer) + ")");
 				wrt.write("</td>" + "\n");
 				wrt.write("<td>" + "\n");
-				wrt.write(schwarz.getVorname() + " " + schwarz.getName() + " " + schwarz.getDWZ());
+				wrt.write(schwarz.getVorname() + " " + schwarz.getName() + " " + schwarz.getDWZ() + " (" + getPunkte(schwarz,rundenummer) + ")");
 				wrt.write("</td>" + "\n");
 				wrt.write("<td>" + "\n");
 				wrt.write(serg);
@@ -267,5 +269,23 @@ public class SimplePrintToHtml implements PrintToHtml
 			Protokol.write(e.toString());
 		}
 		
+	}
+	private double getPunkte(Spieler spieler,int runde)
+	{
+		double erg = 0.0;
+		if (runde > 0)
+		{
+			TurnierManager manager = Factory.getTurnierManager();
+			ArrayList<Auswertung> auswertungen = manager.getAuswertung(runde - 1);
+			for (int i=0;i<auswertungen.size();i++)
+			{
+				Spieler test = auswertungen.get(i).getSpieler();
+				if (test.istGleich(spieler))
+				{
+					erg += auswertungen.get(i).getPunkte();
+				}
+			}
+		}
+		return erg;
 	}
 }
