@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.myoggradio.stb.Auswertung;
 import org.myoggradio.stb.ErgebnisDarsteller;
 import org.myoggradio.stb.Factory;
+import org.myoggradio.stb.Parameter;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.PrintToHtml;
 import org.myoggradio.stb.Protokol;
@@ -19,7 +20,7 @@ import org.myoggradio.stbjgj.JGJRunde;
 import org.myoggradio.stbko.KORunde;
 public class SimplePrintToHtml implements PrintToHtml
 {
-	private File file = new File("SchachTurnierBastler.html");
+	private File file = new File(Parameter.autoSaveDirectory + File.separator + "SchachTurnierBastler.html");
 	private Writer wrt = null;
 	public SimplePrintToHtml()
 	{
