@@ -135,14 +135,12 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			Parameter.turnier.start();
 			TurnierMenu tm = Factory.getTurnierMenu();
 			tm.anzeigen();
-			dispose();
 		}
 		if (source == m14) // Start Turnier KO System
 		{
 			KOParameter.spieler = Parameter.spieler;
 			KOTurnierMenu tm = KOFactory.getKOTurnierMenu();
 			tm.anzeigen();
-			dispose();
 		}
 		//if (source == m12) // Anzahl Runden festlegen
 		//{
@@ -220,7 +218,6 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			JGJParameter.turnier = turnier;
 			JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
 			tm.anzeigen();
-			dispose();
 		}
 		if (source == m21) // laden Spieler
 		{
