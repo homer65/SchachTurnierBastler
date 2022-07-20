@@ -1,5 +1,7 @@
 package org.myoggradio.stb.impl;
 import java.util.ArrayList;
+
+import org.myoggradio.stb.Parameter;
 import org.myoggradio.stb.Spieler;
 import org.myoggradio.stb.SpielerManager;
 public class SimpleSpielerManager implements SpielerManager
@@ -13,6 +15,12 @@ public class SimpleSpielerManager implements SpielerManager
 			int test = spieler.get(i).getId();
 			if (test > id) id = test;
 		}
+		ArrayList<Spieler> tspieler = Parameter.turnier.getSpieler();
+		for (int i=0;i<tspieler.size();i++)
+		{
+			int test = tspieler.get(i).getId();
+			if (test > id) id = test;
+		}	
 		return id;
 	}
 

@@ -51,6 +51,7 @@ public class SimpleSpielerErgaenzenDialog extends JDialog implements SpielerErga
 		{
 			SpielerManager spielerManager = Factory.getSpielerManager();
 			int maxid = spielerManager.getMaxId(Parameter.spieler);
+			//System.out.println("SimpleSpielerErgaenzenDialog:maxid:" + maxid);
 			spieler = Factory.getSpieler();
 			spieler.setId(maxid + 1);
 			spieler.setVorname(tf1.getText());
