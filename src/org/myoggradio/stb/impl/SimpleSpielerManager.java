@@ -10,17 +10,26 @@ public class SimpleSpielerManager implements SpielerManager
 	public int getMaxId(ArrayList<Spieler> spieler) 
 	{
 		int id = 0;
-		for (int i=0;i<spieler.size();i++)
+		if (spieler != null)
 		{
-			int test = spieler.get(i).getId();
-			if (test > id) id = test;
+			for (int i=0;i<spieler.size();i++)
+			{
+				int test = spieler.get(i).getId();
+				if (test > id) id = test;
+			}
 		}
-		ArrayList<Spieler> tspieler = Parameter.turnier.getSpieler();
-		for (int i=0;i<tspieler.size();i++)
+		if (Parameter.turnier != null)
 		{
-			int test = tspieler.get(i).getId();
-			if (test > id) id = test;
-		}	
+			ArrayList<Spieler> tspieler = Parameter.turnier.getSpieler();
+			if (tspieler != null)
+			{
+				for (int i=0;i<tspieler.size();i++)
+				{
+					int test = tspieler.get(i).getId();
+					if (test > id) id = test;
+				}
+			}
+		}
 		return id;
 	}
 

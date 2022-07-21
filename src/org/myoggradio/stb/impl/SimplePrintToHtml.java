@@ -60,6 +60,14 @@ public class SimplePrintToHtml implements PrintToHtml
 			wrt.write("<p>");
 			wrt.write("<b>Runde: " + (rundenummer + 1) + "</b>");
 			wrt.write("</p>");
+			ArrayList<Spieler> freilos = runde.getFreilos();
+			for (int i=0;i<freilos.size();i++)
+			{
+				Spieler spieler = freilos.get(i);
+				wrt.write("<p>");
+				wrt.write(spieler.getVorname() + " " + spieler.getName() + " " + spieler.getDWZ() + " (" + getPunkte(spieler,rundenummer) + ")");
+				wrt.write("</p>");
+			}
 			wrt.write("<table>" + "\n");
 			wrt.write("<tr>" + "\n");
 			wrt.write("<th>" + "\n");
