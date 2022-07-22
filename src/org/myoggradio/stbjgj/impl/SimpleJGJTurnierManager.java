@@ -38,7 +38,7 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 			{
 				if (j == nh-1)
 				{
-					if (!istUngerade(i))
+					if (!istUngerade(i+j))
 					{
 						if (zuerstWeiss)
 						{
@@ -130,6 +130,7 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 	{
 		Protokol.write("SimpleJGJTurnierManager:getAuswertung:Runde:" + rundenNummer);
 		Spieler freilos = Factory.getSpieler();
+		freilos.setId(-1);
 		freilos.setName("freilos");
 		freilos.setVorname("");
 		freilos.setDWZ(-1);
