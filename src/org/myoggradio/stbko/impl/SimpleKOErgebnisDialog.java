@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -129,6 +130,7 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 			if (spieler.getName() != null)
 			{
 				partie.setWeiss(spieler);
+				changeSpieler(weiss,spieler);
 			}
 		}
 		if (source == buttcs)
@@ -145,6 +147,7 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 			if (spieler.getName() != null)
 			{
 				partie.setSchwarz(spieler);
+				changeSpieler(schwarz,spieler);
 			}
 		}
 		if (source == buttausw)
@@ -154,5 +157,32 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 			ad.anzeigen();
 		}
 		anzeigen();
+	}
+	public void changeSpieler(Spieler alt,Spieler neu)
+	{
+		ArrayList<Spieler> spieler = KOParameter.spieler;
+		for (int i=0;i<spieler.size();i++)
+		{
+			Spieler test = spieler.get(i);
+			if (test.istGleich(alt))
+			{
+				test = neu;
+			}
+		}
+		KOTurnier turnier = KOParameter.turnier;
+		int maxrunden = turnier.getMaxrunden();
+		for (int i=0;i<maxrunden;i++)
+		{
+			KORunde runde = turnier.getRunde(i);
+			int maxpartien = runde.getMaxPartien();
+			for (int j=0;j<maxpartien;j++)
+			{
+				Partie partie = runde.getPartie(j);
+				Spieler weiss = partie.getWeiss();
+				Spieler schwarz = partie.getSchwarz();
+				if (weiss.istGleich(alt)) partie.setWeiss(neu);
+				if (schwarz.istGleich(alt)) partie.setSchwarz(neu);
+			}
+		}
 	}
 }
