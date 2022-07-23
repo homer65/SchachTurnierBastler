@@ -134,6 +134,7 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 		{
 			Spieler spieler = Factory.getSpieler();
 			Spieler weiss = partie.getWeiss();
+			spieler.setId(weiss.getId());
 			spieler.setVorname(weiss.getVorname());
 			spieler.setName(weiss.getName());
 			spieler.setDWZ(weiss.getDWZ());
@@ -149,6 +150,7 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 		{
 			Spieler spieler = Factory.getSpieler();
 			Spieler schwarz = partie.getSchwarz();
+			spieler.setId(schwarz.getId());
 			spieler.setVorname(schwarz.getVorname());
 			spieler.setName(schwarz.getName());
 			spieler.setDWZ(schwarz.getDWZ());
