@@ -166,7 +166,9 @@ public class SimpleKOErgebnisDialog extends JDialog implements KOErgebnisDialog,
 			Spieler test = spieler.get(i);
 			if (test.istGleich(alt))
 			{
-				test = neu;
+				test.setName(neu.getName());
+				test.setVorname(neu.getVorname());
+				test.setDWZ(neu.getDWZ());
 			}
 		}
 		KOTurnier turnier = KOParameter.turnier;
