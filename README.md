@@ -21,3 +21,13 @@ Auch beim Verlassen des Programms wird ein Backup gemacht.
 
 Sollten Sie Kommentare, Anregungen oder Verbesserungsvorschläge haben, 
 benachrichtigen Sie mich doch einfach unter christian@myoggradio.org.
+
+Hinweise zur Installation
+Es wird Java in mindestens der Version 11 benötigt.
+SchachTurnierBastler wird nicht installiert, sondern nur entpackt.
+Es gibt danach mehrere Möglichkeiten ihn zu starten.
+(1) Durch doppelklicken auf SchachTurnierBastler.jar im lib Unterverzeichnis
+(2) Durch ausführen des PowerShell Skriptes SchachTurnierBastler.ps1 (Windows) bzw SchachTurnierBastler.sh (Linux)
+(3) Mit dem Befehl "java -jar SchachTurnierBastler.jar" im lib Unterverzeichnis
+Nach dem ersten Start des Programms sollte man zuerst im Menu "Einstellungen" Das "AutoSave-Directory" festlegen. 
+Dort werden automatische Sicherungen abgespeichert.
