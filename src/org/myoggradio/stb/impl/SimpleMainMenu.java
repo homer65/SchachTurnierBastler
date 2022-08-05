@@ -39,6 +39,7 @@ public class SimpleMainMenu extends Menu implements ActionListener, MainMenu
 	private JMenuItem m24 = new JMenuItem("Spieler loeschen");
 	private JMenuItem m25 = new JMenuItem("Spieler anzeigen");
 	private JMenuItem m26 = new JMenuItem("Spieler aendern");
+	private JMenuItem m27 = new JMenuItem("Alle Spieler loeschen");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JMenuItem m41 = new JMenuItem("Anzahl Runden schweizer System");
@@ -66,6 +67,7 @@ public class SimpleMainMenu extends Menu implements ActionListener, MainMenu
 		m2.add(m24);
 		m2.add(m25);
 		m2.add(m26);
+		m2.add(m27);
 		m3.add(m31);
 		m3.add(m32);
 		m4.add(m41);
@@ -94,6 +96,7 @@ public class SimpleMainMenu extends Menu implements ActionListener, MainMenu
 		m24.addActionListener(this);
 		m25.addActionListener(this);
 		m26.addActionListener(this);
+		m27.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		m41.addActionListener(this);
@@ -133,23 +136,37 @@ public class SimpleMainMenu extends Menu implements ActionListener, MainMenu
 		Object source = ae.getSource();
 		if (source == m11) // Start Turnier schweizer System
 		{
-			Parameter.turnier.setMaxRunden(Parameter.anzahlRunden);
-			Parameter.turnier.setSpieler(Parameter.spieler);
-			Parameter.turnier.start();
-			XMLSpielerSaver fss = new XMLSpielerSaver();
-			fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
-			TurnierMenu tm = Factory.getTurnierMenu();
-			tm.anzeigen();
-			dispose();
+			if (Parameter.spieler.size() > 1)
+			{
+				Parameter.turnier.setMaxRunden(Parameter.anzahlRunden);
+				Parameter.turnier.setSpieler(Parameter.spieler);
+				Parameter.turnier.start();
+				XMLSpielerSaver fss = new XMLSpielerSaver();
+				fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
+				TurnierMenu tm = Factory.getTurnierMenu();
+				tm.anzeigen();
+				dispose();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null,"Bitte erst Spieler eingeben","Fehler",JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		if (source == m14) // Start Turnier KO System
 		{
-			KOParameter.spieler = Parameter.spieler;
-			XMLSpielerSaver fss = new XMLSpielerSaver();
-			fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
-			KOTurnierMenu tm = KOFactory.getKOTurnierMenu();
-			tm.anzeigen();
-			dispose();
+			if (Parameter.spieler.size() > 1)
+			{
+				KOParameter.spieler = Parameter.spieler;
+				XMLSpielerSaver fss = new XMLSpielerSaver();
+				fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
+				KOTurnierMenu tm = KOFactory.getKOTurnierMenu();
+				tm.anzeigen();
+				dispose();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null,"Bitte erst Spieler eingeben","Fehler",JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		//if (source == m12) // Anzahl Runden festlegen
 		//{
@@ -231,16 +248,23 @@ public class SimpleMainMenu extends Menu implements ActionListener, MainMenu
 		*/
 		if (source == m16) // Start Turnier JGJ System
 		{
-			JGJParameter.spieler = Parameter.spieler;
-			XMLSpielerSaver fss = new XMLSpielerSaver();
-			fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
-			JGJTurnier turnier = JGJFactory.getJGJTurnier();
-			turnier.setSpieler(Parameter.spieler);
-			turnier.start();
-			JGJParameter.turnier = turnier;
-			JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
-			tm.anzeigen();
-			dispose();
+			if (Parameter.spieler.size() > 0)
+			{
+				JGJParameter.spieler = Parameter.spieler;
+				XMLSpielerSaver fss = new XMLSpielerSaver();
+				fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
+				JGJTurnier turnier = JGJFactory.getJGJTurnier();
+				turnier.setSpieler(Parameter.spieler);
+				turnier.start();
+				JGJParameter.turnier = turnier;
+				JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
+				tm.anzeigen();
+				dispose();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null,"Bitte erst Spieler eingeben","Fehler",JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		if (source == m21) // laden Spieler
 		{
@@ -281,6 +305,11 @@ public class SimpleMainMenu extends Menu implements ActionListener, MainMenu
 			SpielerAendernDialog sad = Factory.getSpielerAendernDialog();
 			sad.setSpieler(Parameter.spieler);
 			sad.anzeigen();
+		}
+		if (source == m27) // Alle Spieler loeschen
+		{
+			Parameter.spieler = new ArrayList<Spieler>();
+			JOptionPane.showMessageDialog(null,"Alle Spieler wurden geloescht","Info",JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (source == m31) // Version anzeigen
 		{
