@@ -16,7 +16,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
-public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
+public class SimpleMainMenu extends Menu implements ActionListener, MainMenu
 {
 	private static final long serialVersionUID = 1;
 	private JMenuBar menu = new JMenuBar();
@@ -50,7 +50,7 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 	public SimpleMainMenu()
 	{
 		this.setName("SchachTurnierBastler");
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		m1.add(m11);
 		m1.add(m14);
 		//m1.add(m12);
@@ -108,7 +108,9 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		TuxPanel tp = new TuxPanel(tux);
 		setLayout(new FlowLayout());
 		add(tp);
-		
+		XMLSpielerLoader fss = new XMLSpielerLoader();
+		Parameter.spieler = fss.load(new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
+		if (Parameter.spieler == null) Parameter.spieler = new ArrayList<Spieler>();
 	}
 	public void anzeigen()
 	{
@@ -117,7 +119,8 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		{
 			public void windowClosing(WindowEvent we)
 			{
-				//
+				XMLSpielerSaver fss = new XMLSpielerSaver();
+				fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
 				dispose();
 			}
 		};
@@ -133,14 +136,20 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			Parameter.turnier.setMaxRunden(Parameter.anzahlRunden);
 			Parameter.turnier.setSpieler(Parameter.spieler);
 			Parameter.turnier.start();
+			XMLSpielerSaver fss = new XMLSpielerSaver();
+			fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
 			TurnierMenu tm = Factory.getTurnierMenu();
 			tm.anzeigen();
+			dispose();
 		}
 		if (source == m14) // Start Turnier KO System
 		{
 			KOParameter.spieler = Parameter.spieler;
+			XMLSpielerSaver fss = new XMLSpielerSaver();
+			fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
 			KOTurnierMenu tm = KOFactory.getKOTurnierMenu();
 			tm.anzeigen();
+			dispose();
 		}
 		//if (source == m12) // Anzahl Runden festlegen
 		//{
@@ -151,7 +160,12 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		{
 			AutoLoader loader = new AutoLoader();
 			boolean ok = loader.load();
-			if (ok) dispose();
+			if (ok) 
+			{
+				XMLSpielerSaver fss = new XMLSpielerSaver();
+				fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
+				dispose();
+			}
 		}
 		if (source == m19)
 		{
@@ -169,7 +183,13 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 			}
 			File file = new File(Parameter.autoSaveDirectory + File.separator + "SchachTurnierBastler-Shutdown-AutoSave.stb");
 			AutoLoader loader = new AutoLoader();
-			loader.load(file);
+			boolean ok = loader.load(file);
+			if (ok) 
+			{
+				XMLSpielerSaver fss = new XMLSpielerSaver();
+				fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
+				dispose();
+			}
 		}
 		/*
 		if (source == m13) // Turnier laden schweizer System
@@ -212,12 +232,15 @@ public class SimpleMainMenu extends JFrame implements ActionListener, MainMenu
 		if (source == m16) // Start Turnier JGJ System
 		{
 			JGJParameter.spieler = Parameter.spieler;
+			XMLSpielerSaver fss = new XMLSpielerSaver();
+			fss.save(Parameter.spieler,new File(Parameter.autoSaveDirectory + File.separator + "spieler-autosave"));
 			JGJTurnier turnier = JGJFactory.getJGJTurnier();
 			turnier.setSpieler(Parameter.spieler);
 			turnier.start();
 			JGJParameter.turnier = turnier;
 			JGJTurnierMenu tm = JGJFactory.getJGJTurnierMenu();
 			tm.anzeigen();
+			dispose();
 		}
 		if (source == m21) // laden Spieler
 		{

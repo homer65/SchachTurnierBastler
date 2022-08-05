@@ -9,7 +9,7 @@ public class FileSpielerSaver implements SpielerSaver
 	public void save(ArrayList<Spieler> spieler) 
 	{
 		JFileChooser fc = new JFileChooser();
-		fc.setCurrentDirectory(new File("."));
+		fc.setCurrentDirectory(new File(Parameter.autoSaveDirectory));
 		int rc = fc.showSaveDialog(null);
 		if (rc == JFileChooser.APPROVE_OPTION)
 		{
