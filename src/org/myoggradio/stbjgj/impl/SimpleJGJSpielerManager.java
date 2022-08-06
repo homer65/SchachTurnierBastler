@@ -1,10 +1,13 @@
 package org.myoggradio.stbjgj.impl;
 import java.util.ArrayList;
 import org.myoggradio.stb.Factory;
+import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Spieler;
 import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJParameter;
+import org.myoggradio.stbjgj.JGJRunde;
 import org.myoggradio.stbjgj.JGJSpielerManager;
+import org.myoggradio.stbjgj.JGJTurnier;
 import org.myoggradio.stbjgj.JGJTurnierManager;
 public class SimpleJGJSpielerManager implements JGJSpielerManager
 {
@@ -58,10 +61,19 @@ public class SimpleJGJSpielerManager implements JGJSpielerManager
 			JGJParameter.spieler.add(nh,freilos);
 			JGJParameter.spieler.add(nh+1,spieler);
 		}
+		JGJTurnier turnier = JGJParameter.turnier;
+		JGJRunde runde0save = turnier.getRunde(0);
 		JGJTurnierManager manager = JGJFactory.getJGJTurnierManager();
 		JGJParameter.turnier = JGJFactory.getJGJTurnier();
 		JGJParameter.turnier.setSpieler(JGJParameter.spieler);
 		manager.starteErsteRunde(JGJParameter.turnier);
 		manager.starteFolgeRunden(JGJParameter.turnier);
+		JGJRunde runde0 = JGJParameter.turnier.getRunde(0);
+		for (int i=0;i<runde0save.getMaxPartien();i++)
+		{
+			Partie partie0save = runde0save.getPartie(i);
+			Partie partie0 = runde0.getPartie(i);
+			partie0.setErgebnis(partie0save.getErgebnis());
+		}
 	}
 }
