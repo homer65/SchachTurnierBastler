@@ -4,6 +4,8 @@ import org.myoggradio.stbjgj.impl.SimpleJGJErgebnisDialog;
 import org.myoggradio.stbjgj.impl.SimpleJGJPartieAuswertungsDialog;
 import org.myoggradio.stbjgj.impl.SimpleJGJRunde;
 import org.myoggradio.stbjgj.impl.SimpleJGJSpielerAuswertungDialog;
+import org.myoggradio.stbjgj.impl.SimpleJGJSpielerErgaenzenDialog;
+import org.myoggradio.stbjgj.impl.SimpleJGJSpielerManager;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnier;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnierLoader;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnierManager;
@@ -11,6 +13,14 @@ import org.myoggradio.stbjgj.impl.SimpleJGJTurnierMenu;
 import org.myoggradio.stbjgj.impl.SimpleJGJTurnierSaver;
 public class JGJFactory 
 {
+	public static JGJSpielerManager getJGJSpielerManager()
+	{
+		return new SimpleJGJSpielerManager();
+	}
+	public static JGJSpielerErgaenzenDialog getJGJSpielerErgaenzenDialog()
+	{
+		return new SimpleJGJSpielerErgaenzenDialog();
+	}
 	public static JGJSpielerAuswertungDialog getJGJSpielerAuswertungDialog()
 	{
 		return new SimpleJGJSpielerAuswertungDialog();

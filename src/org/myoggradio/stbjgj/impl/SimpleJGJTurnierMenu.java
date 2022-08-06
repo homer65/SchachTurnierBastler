@@ -10,6 +10,8 @@ import org.myoggradio.stbjgj.JGJErgebnisDialog;
 import org.myoggradio.stbjgj.JGJFactory;
 import org.myoggradio.stbjgj.JGJParameter;
 import org.myoggradio.stbjgj.JGJRunde;
+import org.myoggradio.stbjgj.JGJSpielerErgaenzenDialog;
+import org.myoggradio.stbjgj.JGJTurnier;
 import org.myoggradio.stbjgj.JGJTurnierMenu;
 import org.myoggradio.stbjgj.JGJTurnierSaver;
 
@@ -26,11 +28,13 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 	private int dargestellteRunde = 0;
 	private JMenuBar menu = new JMenuBar();
 	private JMenu m1 = new JMenu("Turnier");
+	private JMenu m2 = new JMenu("Spieler");
 	private JMenu m3 = new JMenu("Info");
 	private JMenuItem m12 = new JMenuItem("auswerten");
 	private JMenuItem m13 = new JMenuItem("speichern");
 	private JMenuItem m14 = new JMenuItem("laden autodetect");
 	private JMenuItem m15 = new JMenuItem("print");
+	private JMenuItem m21 = new JMenuItem("ergaenzen");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JPanel cpan = new JPanel();
@@ -53,15 +57,18 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		m1.add(m13);
 		m1.add(m14);
 		m1.add(m15);
+		m2.add(m21);
 		m3.add(m31);
 		m3.add(m32);
 		menu.add(m1);
+		menu.add(m2);
 		menu.add(m3);
 		this.setJMenuBar(menu);
 		m12.addActionListener(this);
 		m13.addActionListener(this);
 		m14.addActionListener(this);
 		m15.addActionListener(this);
+		m21.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		butt1.addActionListener(this);
@@ -180,6 +187,22 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 			PrintToHtml print = Factory.getPrintToHtml();
 			print.print(runde);
 		}
+		if (source == m21) // Spieler ergaenzen
+		{
+			boolean ok = pruefeAufErsteRunde();
+			if (ok)
+			{
+				JGJSpielerErgaenzenDialog jgjsem = JGJFactory.getJGJSpielerErgaenzenDialog();
+				jgjsem.anzeigen();
+				JGJTurnierMenu menu = JGJFactory.getJGJTurnierMenu();
+				menu.anzeigen();
+				dispose();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null,"Spieler ergaenzen geht nur in erster Runde","Fehler",JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
 		if (source == m31) // Version anzeigen
 		{
 			JOptionPane.showMessageDialog(null,Parameter.version,"Version",JOptionPane.INFORMATION_MESSAGE);
@@ -229,5 +252,32 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 			ed.anzeigen();
 			init();
 		}
+	}
+	private boolean pruefeAufErsteRunde()
+	{
+		boolean erg = true;
+		JGJTurnier turnier = JGJParameter.turnier;
+		for (int i = 1;i < turnier.getMaxrunden();i++)
+		{
+			JGJRunde runde = turnier.getRunde(i);
+			for (int j=0;j<runde.getMaxPartien();j++)
+			{
+				Partie partie = runde.getPartie(j);
+				int ergebnis = partie.getErgebnis();
+				if (ergebnis !=  0) 
+				{
+					Spieler weiss = partie.getWeiss();
+					Spieler schwarz = partie.getSchwarz();
+					boolean istFreilosPartie = false;
+					if (weiss.getId() < 0) istFreilosPartie = true;
+					if (schwarz.getId() < 0) istFreilosPartie = true;
+					if (!istFreilosPartie)
+					{
+						erg = false;
+					}
+				}
+			}
+		}
+		return erg;
 	}
 }
