@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 import org.myoggradio.stb.*;
+import org.myoggradio.stb.impl.FileSpielerSaver;
 import org.myoggradio.stbjgj.JGJAuswertungDialog;
 import org.myoggradio.stbjgj.JGJErgebnisDialog;
 import org.myoggradio.stbjgj.JGJFactory;
@@ -35,6 +36,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 	private JMenuItem m14 = new JMenuItem("laden autodetect");
 	private JMenuItem m15 = new JMenuItem("print");
 	private JMenuItem m21 = new JMenuItem("ergaenzen");
+	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m31 = new JMenuItem("Version");
 	private JMenuItem m32 = new JMenuItem("Autosave Directory");
 	private JPanel cpan = new JPanel();
@@ -58,6 +60,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		m1.add(m14);
 		m1.add(m15);
 		m2.add(m21);
+		m2.add(m22);
 		m3.add(m31);
 		m3.add(m32);
 		menu.add(m1);
@@ -69,6 +72,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		m14.addActionListener(this);
 		m15.addActionListener(this);
 		m21.addActionListener(this);
+		m22.addActionListener(this);
 		m31.addActionListener(this);
 		m32.addActionListener(this);
 		butt1.addActionListener(this);
@@ -202,6 +206,11 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 			{
 				JOptionPane.showMessageDialog(null,"Spieler ergaenzen geht nur in erster Runde","Fehler",JOptionPane.INFORMATION_MESSAGE);
 			}
+		}
+		if (source == m22) // Spieler speichern
+		{
+			FileSpielerSaver fss = new FileSpielerSaver();
+			fss.save(JGJParameter.turnier.getSpieler());
 		}
 		if (source == m31) // Version anzeigen
 		{

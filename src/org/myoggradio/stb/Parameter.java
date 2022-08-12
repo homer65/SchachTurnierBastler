@@ -2,7 +2,7 @@ package org.myoggradio.stb;
 import java.util.ArrayList;
 public class Parameter 
 {
-	public static String version = "1.52 - 06.08.2022";
+	public static String version = "1.53 - 12.08.2022";
 	public static int anzahlRunden = 7;
 	public static ArrayList<Spieler> spieler = new ArrayList<Spieler>();
 	public static Turnier turnier = Factory.getTurnier();
