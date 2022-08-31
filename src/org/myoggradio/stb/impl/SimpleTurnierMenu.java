@@ -201,7 +201,7 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 		if (source == m11) // Nächste Runde starten
 		{
 			Runde aktiveRunde = Parameter.turnier.getAktiveRunde();
-			if (aktiveRunde.alleErgebnisEingetragen())
+			//if (aktiveRunde.alleErgebnisEingetragen())
 			{
 				TurnierManager manager = Factory.getTurnierManager();
 				Runde neueRunde = manager.starteNaechsteRunde(Parameter.turnier);
@@ -211,10 +211,10 @@ public class SimpleTurnierMenu extends JFrame implements ActionListener, Turnier
 					dargestellteRunde = Parameter.turnier.getNummerAktiveRunde();
 				}
 			}
-			else
-			{
-				JOptionPane.showMessageDialog(null,"Es sind noch nicht alle Ergebnisse eingetragen","Fehler",JOptionPane.INFORMATION_MESSAGE);
-			}
+			//else
+			//{
+			//	JOptionPane.showMessageDialog(null,"Es sind noch nicht alle Ergebnisse eingetragen","Fehler",JOptionPane.INFORMATION_MESSAGE);
+			//}
 			init();
 		}
 		if (source == m12) // Auswertung
