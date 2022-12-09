@@ -172,13 +172,29 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 	}
 	public void changeSpieler(Spieler alt,Spieler neu)
 	{
+		alt.setVorname(neu.getVorname());
+		alt.setName(neu.getName());
+		alt.setDWZ(neu.getDWZ());
 		ArrayList<Spieler> spieler = JGJParameter.spieler;
 		for (int i=0;i<spieler.size();i++)
 		{
 			Spieler test = spieler.get(i);
 			if (test.istGleich(alt))
 			{
-				test = neu;
+				test.setVorname(neu.getVorname());;
+				test.setName(neu.getName());
+				test.setDWZ(neu.getDWZ());
+			}
+		}
+		spieler = JGJParameter.turnier.getSpieler();
+		for (int i=0;i<spieler.size();i++)
+		{
+			Spieler test = spieler.get(i);
+			if (test.istGleich(alt))
+			{
+				test.setVorname(neu.getVorname());;
+				test.setName(neu.getName());
+				test.setDWZ(neu.getDWZ());
 			}
 		}
 		JGJTurnier turnier = JGJParameter.turnier;
@@ -192,7 +208,9 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 				Spieler test = rspieler[j];
 				if (test.istGleich(alt))
 				{
-					rspieler[j] = neu;
+					rspieler[j].setVorname(neu.getVorname());;
+					rspieler[j].setName(neu.getName());
+					rspieler[j].setDWZ(neu.getDWZ());
 				}
 			}
 			int maxpartien = runde.getMaxPartien();
@@ -201,8 +219,8 @@ public class SimpleJGJErgebnisDialog extends JDialog implements JGJErgebnisDialo
 				Partie partie = runde.getPartie(j);
 				Spieler weiss = partie.getWeiss();
 				Spieler schwarz = partie.getSchwarz();
-				if (weiss.istGleich(alt)) partie.setWeiss(neu);
-				if (schwarz.istGleich(alt)) partie.setSchwarz(neu);
+				if (weiss.istGleich(alt)) partie.setWeiss(alt);
+				if (schwarz.istGleich(alt)) partie.setSchwarz(alt);
 			}
 		}
 	}
