@@ -35,6 +35,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 	private JMenuItem m13 = new JMenuItem("speichern");
 	private JMenuItem m14 = new JMenuItem("laden autodetect");
 	private JMenuItem m15 = new JMenuItem("print");
+	private JMenuItem m16 = new JMenuItem("print Tabelle");
 	private JMenuItem m21 = new JMenuItem("ergaenzen");
 	private JMenuItem m22 = new JMenuItem("speichern");
 	private JMenuItem m31 = new JMenuItem("Version");
@@ -59,6 +60,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		m1.add(m13);
 		m1.add(m14);
 		m1.add(m15);
+		m1.add(m16);
 		m2.add(m21);
 		m2.add(m22);
 		m3.add(m31);
@@ -71,6 +73,7 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		m13.addActionListener(this);
 		m14.addActionListener(this);
 		m15.addActionListener(this);
+		m16.addActionListener(this);
 		m21.addActionListener(this);
 		m22.addActionListener(this);
 		m31.addActionListener(this);
@@ -189,7 +192,12 @@ public class SimpleJGJTurnierMenu extends JFrame implements ActionListener, JGJT
 		{
 			JGJRunde runde = JGJParameter.turnier.getRunde(dargestellteRunde);
 			PrintToHtml print = Factory.getPrintToHtml();
-			print.print(runde);
+			print.print(runde,dargestellteRunde);
+		}
+		if (source == m16) // Print Tabelle
+		{
+			PrintToHtml print = Factory.getPrintToHtml();
+			print.print(JGJParameter.turnier,dargestellteRunde);
 		}
 		if (source == m21) // Spieler ergaenzen
 		{

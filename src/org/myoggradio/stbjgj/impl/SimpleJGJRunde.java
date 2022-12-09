@@ -1,5 +1,7 @@
 package org.myoggradio.stbjgj.impl;
 import java.io.Serializable;
+
+import org.myoggradio.stb.ErgebnisDarsteller;
 import org.myoggradio.stb.Partie;
 import org.myoggradio.stb.Spieler;
 import org.myoggradio.stbjgj.JGJRunde;
@@ -48,5 +50,27 @@ public class SimpleJGJRunde implements JGJRunde,Serializable
 	public void setSpieler(Spieler[] spieler) 
 	{
 		this.spieler = spieler;		
+	}
+	@Override
+	public String getErgebnis(Spieler spieler1, Spieler spieler2) 
+	{
+		String erg = null;
+		for (int i=0;i<getMaxPartien();i++)
+		{
+			Partie partie = getPartie(i);
+			Spieler t1 = partie.getWeiss();
+			Spieler t2 = partie.getSchwarz();
+			if (t1.getId() == spieler1.getId() && t2.getId() == spieler2.getId())
+			{
+				int x = partie.getErgebnis();
+				erg = ErgebnisDarsteller.get(x);
+			}
+			if (t2.getId() == spieler1.getId() && t1.getId() == spieler2.getId())
+			{
+				int x = partie.getErgebnis();
+				erg = ErgebnisDarsteller.getUmgedreht(x);
+			}
+		}
+		return erg;
 	}
 }

@@ -9,4 +9,5 @@ public interface JGJRunde
 	public boolean alleErgebnisEingetragen();
 	public Spieler[] getSpieler();
 	public void setSpieler(Spieler[] spieler);
+	public String getErgebnis(Spieler spieler1,Spieler spieler2);
 }

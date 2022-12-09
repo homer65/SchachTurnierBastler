@@ -6,7 +6,10 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import org.myoggradio.stb.Auswertung;
+import org.myoggradio.stb.AuswertungComparator;
 import org.myoggradio.stb.ErgebnisDarsteller;
 import org.myoggradio.stb.Factory;
 import org.myoggradio.stb.Parameter;
@@ -16,7 +19,11 @@ import org.myoggradio.stb.Protokol;
 import org.myoggradio.stb.Runde;
 import org.myoggradio.stb.Spieler;
 import org.myoggradio.stb.TurnierManager;
+import org.myoggradio.stbjgj.JGJFactory;
+import org.myoggradio.stbjgj.JGJParameter;
 import org.myoggradio.stbjgj.JGJRunde;
+import org.myoggradio.stbjgj.JGJTurnier;
+import org.myoggradio.stbjgj.JGJTurnierManager;
 import org.myoggradio.stbko.KORunde;
 public class SimplePrintToHtml implements PrintToHtml
 {
@@ -166,10 +173,13 @@ public class SimplePrintToHtml implements PrintToHtml
 		}
 	}
 	@Override
-	public void print(JGJRunde runde) 
+	public void print(JGJRunde runde,int rundenummer) 
 	{
 		try
 		{
+			wrt.write("<p>");
+			wrt.write("<b>Runde: " + (rundenummer + 1) + "</b>");
+			wrt.write("</p>");
 			wrt.write("<table>" + "\n");
 			wrt.write("<tr>" + "\n");
 			wrt.write("<th>" + "\n");
@@ -222,7 +232,10 @@ public class SimplePrintToHtml implements PrintToHtml
 		try
 		{
 			wrt.write("<table>" + "\n");
-			wrt.write("<tr>" + "\n");
+			wrt.write("<tr>" + "\n");			
+			wrt.write("<th>" + "\n");
+			wrt.write("<b>Platz</b>");
+			wrt.write("</th>" + "\n");		
 			wrt.write("<th>" + "\n");
 			wrt.write("<b>Spieler</b>");
 			wrt.write("</th>" + "\n");
@@ -251,7 +264,10 @@ public class SimplePrintToHtml implements PrintToHtml
 				double sonneberger = auswertung.getSonneberger();
 				int anzahlWeiss = auswertung.getAnzahlWeiss();
 				int anzahlSchwarz = auswertung.getAnzahlSchwarz();
-				wrt.write("<tr>" + "\n");
+				wrt.write("<tr>" + "\n");				
+				wrt.write("<td>" + "\n");
+				wrt.write((i+1) + "");
+				wrt.write("</td>" + "\n");				
 				wrt.write("<td>" + "\n");
 				wrt.write(spieler.getVorname() + " " + spieler.getName() + " " + spieler.getDWZ());
 				wrt.write("</td>" + "\n");
@@ -271,6 +287,56 @@ public class SimplePrintToHtml implements PrintToHtml
 				wrt.write("" + anzahlSchwarz);
 				wrt.write("</td>" + "\n");
 				wrt.write("</tr>" + "\n");
+			}
+			wrt.write("</table>" + "\n");
+			finish();
+		}
+		catch (Exception e)
+		{
+			Protokol.write("SimplePrintToHtml:print:Exception:");
+			Protokol.write(e.toString());
+		}
+		
+	}
+	@Override
+	public void print(JGJTurnier turnier,int rundeNummer)
+	{
+		JGJTurnierManager manager = JGJFactory.getJGJTurnierManager();
+		ArrayList<Auswertung> ausw = manager.getAuswertung(rundeNummer);
+		Collections.sort(ausw,new AuswertungComparator());
+		try
+		{
+			wrt.write("<table>" + "\n");
+			wrt.write("<tr>" + "\n");			
+			wrt.write("<th>" + "\n");
+			wrt.write("</th>" + "\n");		
+			wrt.write("<th>" + "\n");
+			wrt.write("</th>" + "\n");		
+			for (int i=0;i<ausw.size();i++)
+			{
+				wrt.write("<th>" + "\n");
+				wrt.write("" + (i+1));
+				wrt.write("</th>" + "\n");
+			}
+			wrt.write("</tr>" + "\n");
+			for (int i=0;i<ausw.size();i++)
+			{
+				wrt.write("<tr>");
+				wrt.write("<td>" + "\n");
+				wrt.write("" + (i+1));
+				wrt.write("</td>" + "\n");
+				wrt.write("<td>" + "\n");
+				Spieler spieler1 = ausw.get(i).getSpieler();
+				wrt.write(spieler1.getVorname() + " " + spieler1.getName());
+				wrt.write("</td>" + "\n");
+				for (int j=0;j<ausw.size();j++)
+				{
+					Spieler spieler2 = ausw.get(j).getSpieler();
+					wrt.write("<td>" + "\n");
+					wrt.write(manager.getErgebnis(JGJParameter.turnier,spieler1,spieler2,rundeNummer+1));
+					wrt.write("</td>" + "\n");
+				}
+				wrt.write("</tr>");
 			}
 			wrt.write("</table>" + "\n");
 			finish();

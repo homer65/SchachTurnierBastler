@@ -301,4 +301,16 @@ public class SimpleJGJTurnierManager implements JGJTurnierManager
 		if (2*ih == i) erg = false;
 		return erg;
 	}
+	@Override
+	public String getErgebnis(JGJTurnier turnier, Spieler spieler1, Spieler spieler2, int rundenummer) 
+	{
+		String erg = "0:0";
+		for (int i=0;i<rundenummer;i++)
+		{
+			JGJRunde runde = turnier.getRunde(i);
+			String ergebnis = runde.getErgebnis(spieler1,spieler2);
+			if (ergebnis != null) erg = ergebnis;
+		}
+		return erg;
+	}
 }
